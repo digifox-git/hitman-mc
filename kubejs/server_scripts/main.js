@@ -5,13 +5,13 @@ priority: 1
 
 
 // Start Game
-function startGame(s) {
+// function startGame(s) {
     
-}
+// }
 
 
 ItemEvents.entityInteracted("minecraft:interaction", e => {
-    e.server.tell(e.entity.tags)
+    //e.server.tell(e.entity.tags)
     e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
     // startGame(e.server);
     // global.player_c = e.server.playerCount;
@@ -26,7 +26,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
     // global.g_respawn = selectE(e, "g_respawn")[0].pos;
     // global.h_respawn = selectE(e, "h_respawn")[0].pos; // Hitman doesn't respawn, but this is where they're put while target is hiding
     //Teleport players to proper places
-    guards.forEach(g => g.teleportTo(g_spawn));
-    //e.server.tell(guards);
-    //e.server.tell(g_spawn);
+    //guards.forEach(g => g.teleportTo(g_spawn));
+    e.server.tell(guards);
+    e.server.tell(g_spawn);
 })
