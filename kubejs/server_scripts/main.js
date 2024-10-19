@@ -21,12 +21,12 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
     global.hitman = selectE(e, "hitman");
     global.target = selectE(e, "target");
     // Get spawns
-    global.g_spawn = selectE(e, "g_spawn")[0].pos;
+    let g_spawn = selectE(e, "g_spawn")[0].pos;
     global.h_spawn = selectE(e, "h_spawn")[0].pos;
     global.g_respawn = selectE(e, "g_respawn")[0].pos;
     global.h_respawn = selectE(e, "h_respawn")[0].pos; // Hitman doesn't respawn, but this is where they're put while target is hiding
     //Teleport players to proper places
-    global.guards.forEach(g => g.teleportTo(global.g_spawn));
-    e.server.tell(guards[0].name);
-    e.server.tell(global.g_spawn);
+    guards.forEach(g => g.teleportTo(g_spawn));
+    e.server.tell(guards);
+    e.server.tell(g_spawn);
 })
