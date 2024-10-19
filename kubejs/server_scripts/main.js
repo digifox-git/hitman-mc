@@ -13,6 +13,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
     e.server.tell(e.entity.tags)
     e.level.spawnParticles("minecraft:wax_on", false, e.entity.x, e.entity.y, e.entity.z, .1, .1, .1, 40, 10);
     startGame(e.server);
-    let gaurds = e.server.players.filter({tags:["guard"]});
-    e.server.tell(gaurds);
+    let player_c = e.server.playerCount;
+    let guards = e.server.players.filter(p => p.tags.contains("guard"));
+    e.server.tell(guards);
 })
