@@ -21,8 +21,8 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
     // global.hitman = selectE(e, "hitman");
     // global.target = selectE(e, "target");
     // Get spawns
-    let g_spawn = e.server.entities.filter(i => i.tags.contains("g_spawn"));
-    //let g_spawn = selectE(e, "g_spawn")[0].pos;
+    //let g_spawn = e.server.entities.filter(i => p.tags.contains("g_spawn"));
+    let g_spawn = selectE(e, "g_spawn")[0];
     // global.h_spawn = selectE(e, "h_spawn")[0].pos;
     // global.g_respawn = selectE(e, "g_respawn")[0].pos;
     // global.h_respawn = selectE(e, "h_respawn")[0].pos; // Hitman doesn't respawn, but this is where they're put while target is hiding
