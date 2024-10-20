@@ -12,4 +12,5 @@ StartupEvents.registry("block", (event) => {
     .tagBlock("mineable/pickaxe")
     .tagBlock("minecraft:needs_iron_tool")
     .lightLevel(6)
+    .textureAll("kubejs/assets/textures/computer_sides.png")
 })
