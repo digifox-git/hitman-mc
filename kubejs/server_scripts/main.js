@@ -31,3 +31,8 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
     e.server.tell(guards);
     e.server.tell(g_spawn);
 })
+
+ServerEvents.recipes(event => {
+    event.smelting('1x minecraft:dead_fire_coral', '1x minecraft:fire_coral')
+
+})
