@@ -2,7 +2,7 @@ StartupEvents.registry("block", (event) => {
     event.create("computer")
     .model("kubejs/assets/models/Computer.json")
     .renderType("solid")
-    .displayname("Computer")
+    .displayName("Computer")
     .mapColor("metal")
     .soundType("metal")
     .hardness(5.0)
