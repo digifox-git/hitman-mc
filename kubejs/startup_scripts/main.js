@@ -11,7 +11,7 @@ StartupEvents.registry("block", (event) => {
     .tagBlock("mineable/pickaxe")
     .tagBlock("minecraft:needs_iron_tool")
     .lightLevel(4)
-    box(x0, y0, z0, x16, y16, z16, true)
+    .box(x0, y0, z0, x16, y16, z16, true)
 })
 
 StartupEvents.registry("block", (event) => {
@@ -32,5 +32,5 @@ StartupEvents.registry("block", (event) => {
     .texture('west', 'kubejs:block/computer_sides.png')
     .texture('up', 'kubejs:block/computer_sides.png')
     .texture('down', 'kubejs:block/computer_sides.png')
-    box(x0, y0, z0, x16, y16, z16, true)
+    .box(x0, y0, z0, x16, y16, z16, true)
 })
