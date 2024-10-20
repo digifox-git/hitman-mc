@@ -33,6 +33,5 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
 })
 
 ServerEvents.recipes(event => {
-    event.smelting('1x minecraft:dead_fire_coral', '1x minecraft:fire_coral')
-
+    event.smelting('minecraft:dead_fire_coral', 'minecraft:fire_coral')
 })
