@@ -1,9 +1,9 @@
 {
 	"credit": "digifox, Made with Blockbench",
 	"textures": {
-		"2": "models:computer_keyboard",
-		"5": "models:computer_sides",
-		"6": "models:computer_front"
+		"2": "assets:computer_keyboard",
+		"5": "assets:computer_sides",
+		"6": "assets:computer_front"
 	},
 	"elements": [
 		{
