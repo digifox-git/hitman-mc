@@ -32,6 +32,13 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
     e.server.tell(g_spawn);
 })
 
+// wheehee hoohoo blop glop eevents
+
 ServerEvents.recipes(event => {
     event.smelting('minecraft:dead_fire_coral', 'minecraft:fire_coral')
+})
+
+ItemEvents.rightClicked('minecraft:dead_fire_coral', e => {
+    e.level.tell(Component.red(`KILL ${e.player.username} NOW!!!`));
+    e.level.createEntity("minecraft:lightning_bolt", e.player.x, e.player.y, e.player.z)
 })
