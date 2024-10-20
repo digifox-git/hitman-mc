@@ -39,6 +39,11 @@ ServerEvents.recipes(event => {
 })
 
 ItemEvents.rightClicked('minecraft:dead_fire_coral', e => {
+    let pos = player.position;
+    let x = pos.x;
+    let y = pos.y;
+    let z = pos.z;
     e.level.tell(Component.red(`KILL ${e.player.username} NOW!!!`));
-    e.level.createEntity("minecraft:lightning_bolt", e.player.x, e.player.y, e.player.z).spawn()
+    e.level.getBlock(x,y,z).createEntity("minecraft:lightning_bolt")
+    
 })
