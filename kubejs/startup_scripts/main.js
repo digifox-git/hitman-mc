@@ -12,9 +12,7 @@ StartupEvents.registry("block", (event) => {
     .tagBlock("minecraft:needs_iron_tool")
     .lightLevel(4)
     .box(0, 0, 0, 16, 16, 16, true)
-})
 
-StartupEvents.registry("block", (event) => {
     event.create("monitor")
     .renderType("solid")
     .displayName("Monitor")
