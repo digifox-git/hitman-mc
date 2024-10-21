@@ -1,6 +1,6 @@
 StartupEvents.registry("block", (event) => {
     event.create("computer")
-    .model("kubejs/assets/models/computer.json")
+    .model("kubejs:block/computer")
     .renderType("solid")
     .displayName("Computer")
     .mapColor("metal")
@@ -32,5 +32,6 @@ StartupEvents.registry("block", (event) => {
     .texture('west', 'kubejs:block/computer_sides')
     .texture('up', 'kubejs:block/computer_sides')
     .texture('down', 'kubejs:block/computer_sides')
+    .property("BlockProperties.FACING")
     .box(0, 0, 0, 16, 16, 16, true)
 })
