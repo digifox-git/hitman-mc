@@ -2,39 +2,39 @@
     "guard": {
         "inv": [
             {
-                "item": "minecraft:stick",
+                "id": "minecraft:stick",
                 "count": 1,
                 "nbt": "{}"
             },
             {
-                "item": "minecraft:apple",
+                "id": "minecraft:apple",
                 "count": 2,
                 "nbt": "{Enchantments:[{s:1b}]}"
             }
         ],
         "offhand": {
-            "item": "minecraft:arrow",
+            "id": "minecraft:arrow",
             "count": 1,
             "nbt": "{}"
         },
         "armor": [
             {
-                "item": "",
+                "id": "",
                 "count": 1,
                 "nbt": "{}"
             },
             {
-                "item": "",
+                "id": "",
                 "count": 1,
                 "nbt": "{}"
             },
             {
-                "item": "minecraft:diamond_chestplate",
+                "id": "minecraft:diamond_chestplate",
                 "count": 1,
                 "nbt": "{}"
             },
             {
-                "item": "minecraft:stick",
+                "id": "minecraft:stick",
                 "count": 1,
                 "nbt": "{}"
             }
