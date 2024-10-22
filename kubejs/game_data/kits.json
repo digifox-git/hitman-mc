@@ -31,7 +31,7 @@
             {
                 "id": "minecraft:diamond_chestplate",
                 "count": 1,
-                "nbt": "{Enchantments:[{id:\\\"sharpness\\\",lvl:10}]}"
+                "nbt": "{Enchantments:[{id:'sharpness',lvl:10}]}"
             },
             {
                 "id": "minecraft:stick",
