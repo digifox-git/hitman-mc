@@ -23,7 +23,7 @@ function startGame(s) {
     global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
 
     //Kits
-    global.guards.forEach(g => loadKit(g, "guard"));
+    global.guards.forEach(g => loadKit(g, "guard", true));
 
     s.tell(global.guards);
     s.tell(global.g_spawn);
