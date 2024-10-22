@@ -9,14 +9,14 @@ function startGame(s) {
     // global.player_c = s.playerCount;
     // Get all players with right tags tag
     //let guards = s.players.filter(p => p.tags.contains("guard"));
-    global.guards = selectE(e, "guard");
+    global.guards = selectE(s, "guard");
     //global.hitman = selectE(e, "hitman");
     // global.target = selectE(e, "target");
     // Get spawns
     //let g_spawn = s.entities.filter(i => p.tags.contains("g_spawn"));
-    global.g_spawn = selectE(e, "g_spawn")[0];
+    global.g_spawn = selectE(s, "g_spawn")[0];
     // global.h_spawn = selectE(e, "h_spawn")[0].pos;
-    global.g_respawn = selectE(e, "g_respawn")[0];
+    global.g_respawn = selectE(s, "g_respawn")[0];
     // global.h_respawn = selectE(e, "h_respawn")[0].pos; // Hitman doesn't respawn, but this is where they're put while target is hiding
     
     //Teleport players to proper places
