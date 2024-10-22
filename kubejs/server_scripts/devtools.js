@@ -13,15 +13,18 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
     }
     // Load Kits
     else {
-        e.server.tell(kits);
+        e.player.tell(kits.guard);
 
         // Items
         if (!Array.isArray(kits.guard.inv)) return;
         kits.guard.inv.forEach(item => {
             e.player.giveInHand(Item.of(item.id, item.count, item.nbt));
         });
+        
         // Offhand
         let oh = kits.guard.offhand;
+        e.player.tell("Inv loaded");
+        
         // Armor
         if (!Array.isArray(kits.guard.armor)) return;
         let armor = kits.guard.armor;
@@ -29,5 +32,6 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
         e.player.setLegsArmorItem(Item.of(armor[1].id, armor[1].count, armor[1].nbt));
         e.player.setChestArmorItem(Item.of(armor[2].id, armor[2].count, armor[2].nbt));
         e.player.setHeadArmorItem(Item.of(armor[3].id, armor[3].count, armor[3].nbt));
+        e.player.tell("Armor loaded");
     }
 })
