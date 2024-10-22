@@ -6,6 +6,22 @@ function startGame(s) {
     global.isGaming = true;
     s.runCommandSilent(`spawnpoint @a[tag=guard] ${global.g_respawn.x} ${global.g_respawn.y} ${global.g_respawn.z}`);
     s.tell("starting game");
+    // global.player_c = e.server.playerCount;
+    // Get all players with right tags tag
+    //let guards = e.server.players.filter(p => p.tags.contains("guard"));
+    global.guards = selectE(e, "guard");
+    //global.hitman = selectE(e, "hitman");
+    // global.target = selectE(e, "target");
+    // Get spawns
+    //let g_spawn = e.server.entities.filter(i => p.tags.contains("g_spawn"));
+    global.g_spawn = selectE(e, "g_spawn")[0];
+    // global.h_spawn = selectE(e, "h_spawn")[0].pos;
+    global.g_respawn = selectE(e, "g_respawn")[0];
+    // global.h_respawn = selectE(e, "h_respawn")[0].pos; // Hitman doesn't respawn, but this is where they're put while target is hiding
+    //Teleport players to proper places
+    global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
+    e.server.tell(global.guards);
+    e.server.tell(global.g_spawn);
     global.guards.forEach(g => g.paint({      
                                     respawn_time: {
                                         type: 'text',
@@ -28,24 +44,9 @@ function endGame(s) {
 ItemEvents.entityInteracted("minecraft:interaction", e => {
     //e.server.tell(e.entity.tags)
     e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
-    // startGame(e.server);
-    // global.player_c = e.server.playerCount;
-    // Get all players with right tags tag
-    //let guards = e.server.players.filter(p => p.tags.contains("guard"));
-    global.guards = selectE(e, "guard");
-    //global.hitman = selectE(e, "hitman");
-    // global.target = selectE(e, "target");
-    // Get spawns
-    //let g_spawn = e.server.entities.filter(i => p.tags.contains("g_spawn"));
-    global.g_spawn = selectE(e, "g_spawn")[0];
-    // global.h_spawn = selectE(e, "h_spawn")[0].pos;
-    global.g_respawn = selectE(e, "g_respawn")[0];
-    // global.h_respawn = selectE(e, "h_respawn")[0].pos; // Hitman doesn't respawn, but this is where they're put while target is hiding
-    //Teleport players to proper places
-    global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
-    e.server.tell(global.guards);
-    e.server.tell(global.g_spawn);
-    startGame(e.server);
+    e.server.tell(Component.red("Starting game in 5 seconds!"));
+    e.server.scheduleInTicks(120, startGame(e.server));
+
 });
 EntityEvents.death("minecraft:player", e => {
     if (e.player.tags.contains("hitman")) {
