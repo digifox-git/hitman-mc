@@ -15,7 +15,7 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
     else {
         e.player.tell(kits.guard.inv[0].id);
         e.player.giveInHand(kits.guard.inv[1].id);
-        e.player.giveInHand(Item.of(kits.guard.armor[2].id, kits.guard.armor[2].count, str(kits.guard.armor[2].nbt)));
+        e.player.giveInHand(kits.guard.armor[2].id);
         // Items
         if (!Array.isArray(kits.guard.inv)) return;
         kits.guard.inv.forEach(item => {
