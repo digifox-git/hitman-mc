@@ -7,34 +7,39 @@ priority: 10
 
 ItemEvents.rightClicked("minecraft:nether_star", e => {
     let kits = JsonIO.read("kubejs/game_data/kits.json");
+    let working_kit = e.item;
+    if (working_kit.getNbtString() == "null"
+        || !working_kit.nbt.getAllKeys().toString().includes("kit")
+        || !kits.containsKey(working_kit.nbt.kit)) {
+        e.player.tell(Component.lightPurple("Missing data to edit kits"));
+        return;
+    }
+    working_kit = e.item.nbt.kit;
+    //e.player.tell(kits.containsKey(working_kit))
+    //e.item.nbt.get("kit")
     // Save Kits
     if (e.player.isCrouching()) {
+        kits[working_kit] = {inv:[],offhand:{},armor:[]}
 
+        let inventory = e.player.inventory.items.filter(i => (i.id != 'minecraft:air' && i.id != 'minecraft:nether_star')); // Gets inventory not air items (no offhand or armor yet)
+        inventory.forEach(item => {
+            kits[working_kit].inv.push( { id: item.id, count: item.count, nbt: item.hasNBT() ? item.nbtString : "{}" } );
+        })
+        let offhand = e.player.offHandItem;
+        kits[working_kit].offhand = { id: offhand.id, count: offhand.count, nbt: offhand.hasNBT() ? offhand.nbtString : "{}" }
+        let armor = e.player.armorSlots;
+        armor.forEach(item => {
+            kits[working_kit].armor.push( { id: item.id, count: item.count, nbt: item.hasNBT() ? item.nbtString : "{}" } );
+        })
+
+        e.player.tell(Component.lightPurple(`Saved kit [${working_kit}]`));
+
+        JsonIO.write("kubejs/game_data/kits.json", kits);
     }
     // Load Kits
     else {
-        e.player.tell(kits.guard.inv[0].id);
-        e.player.giveInHand(kits.guard.inv[1].id);
-        e.player.giveInHand(kits.guard.armor[2].id);
-        // Items
-        if (!Array.isArray(kits.guard.inv)) return;
-        kits.guard.inv.forEach(item => {
-            e.player.tell(item)
-            e.player.giveInHand(item.id);
-        });
-        
-        // Offhand
-        let oh = kits.guard.offhand;
-        //e.player.setOffHandItem(Item.of(oh.id, oh.count));
-        e.player.tell("Inv loaded");
-        
-        // // Armor
-        if (!Array.isArray(kits.guard.armor)) return;
-        let armor = kits.guard.armor;
-        e.player.setFeetArmorItem(Item.of(armor[0].id, armor[0].count, armor[0].nbt));
-        e.player.setLegsArmorItem(Item.of(armor[1].id, armor[1].count, armor[1].nbt));
-        e.player.setChestArmorItem(Item.of(armor[2].id, armor[2].count, armor[2].nbt));
-        e.player.setHeadArmorItem(Item.of(armor[3].id, armor[3].count, armor[3].nbt));
-        e.player.tell("Armor loaded");
+        loadKit(e.player, working_kit, false);
+
+        e.player.tell(Component.lightPurple(`Loaded kit [${working_kit}]`));
     }
 })
