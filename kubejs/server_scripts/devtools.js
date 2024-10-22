@@ -23,10 +23,10 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
         //     e.player.giveInHand(item.id);
         // });
         
-        // // Offhand
-        // let oh = kits.guard.offhand;
-        // //e.player.setOffHandItem(Item.of(oh.id, oh.count));
-        // e.player.tell("Inv loaded");
+        // Offhand
+        let oh = kits.guard.offhand;
+        //e.player.setOffHandItem(Item.of(oh.id, oh.count));
+        e.player.tell("Inv loaded");
         
         // // Armor
         if (!Array.isArray(kits.guard.armor)) return;
