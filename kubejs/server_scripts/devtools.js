@@ -15,7 +15,7 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
     else {
         // e.player.tell(kits.guard.inv[0].id);
         // e.player.giveInHand(kits.guard.inv[1].id);
-        e.player.giveInHand(Item.of(kits.guard.armor[2].id, kits.guard.armor[2].count, kits.guard.armor[2].nbt));
+        //e.player.giveInHand(Item.of(kits.guard.armor[2].id, kits.guard.armor[2].count, kits.guard.armor[2].nbt));
         // // Items
         // //if (!Array.isArray(kits.guard.inv)) return;
         // kits.guard.inv.forEach(item => {
@@ -30,11 +30,11 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
         
         // // Armor
         // if (!Array.isArray(kits.guard.armor)) return;
-        // let armor = kits.guard.armor;
-        // e.player.setFeetArmorItem(Item.of(armor[0].id, armor[0].count, armor[0].nbt));
-        // e.player.setLegsArmorItem(Item.of(armor[1].id, armor[1].count, armor[1].nbt));
-        // e.player.setChestArmorItem(Item.of(armor[2].id, armor[2].count, armor[2].nbt));
-        // e.player.setHeadArmorItem(Item.of(armor[3].id, armor[3].count, armor[3].nbt));
-        // e.player.tell("Armor loaded");
+        let armor = kits.guard.armor;
+        e.player.setFeetArmorItem(Item.of(armor[0].id, armor[0].count, armor[0].nbt));
+        e.player.setLegsArmorItem(Item.of(armor[1].id, armor[1].count, armor[1].nbt));
+        e.player.setChestArmorItem(Item.of(armor[2].id, armor[2].count, armor[2].nbt));
+        e.player.setHeadArmorItem(Item.of(armor[3].id, armor[3].count, armor[3].nbt));
+        e.player.tell("Armor loaded");
     }
 })
