@@ -13,7 +13,7 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
     }
     // Load Kits
     else {
-        e.player.tell(kits.guard);
+        e.player.tell(kits.guard.inv[0]);
 
         // Items
         if (!Array.isArray(kits.guard.inv)) return;
