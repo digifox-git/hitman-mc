@@ -6,3 +6,9 @@ function selectE(e, tag) {
 function loadKit(player, kit) {
     //JsonIO.readJson()
 }
+/**
+ * Converts a thing to a string :>
+ */
+function str(ele) {
+    return String.toString(ele);
+}
