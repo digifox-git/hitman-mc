@@ -29,7 +29,7 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
         // e.player.tell("Inv loaded");
         
         // // Armor
-        // if (!Array.isArray(kits.guard.armor)) return;
+        if (!Array.isArray(kits.guard.armor)) return;
         let armor = kits.guard.armor;
         e.player.setFeetArmorItem(Item.of(armor[0].id, armor[0].count, armor[0].nbt));
         e.player.setLegsArmorItem(Item.of(armor[1].id, armor[1].count, armor[1].nbt));
