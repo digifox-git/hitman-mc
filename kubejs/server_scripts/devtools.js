@@ -13,10 +13,10 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
     }
     // Load Kits
     else {
-        e.player.tell(kits.guard.inv[0]);
+        e.player.tell(kits.guard.inv[0].id);
 
         // Items
-        if (!Array.isArray(kits.guard.inv)) return;
+        //if (!Array.isArray(kits.guard.inv)) return;
         kits.guard.inv.forEach(item => {
             e.player.giveInHand(Item.of(item.id, item.count, item.nbt));
         });
