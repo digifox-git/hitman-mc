@@ -1,10 +1,18 @@
 {
 	"credit": "digifox, Made with Blockbench",
+	"parent": "minecraft:block/block",
 	"textures": {
 		"2": "kubejs:block/computer_keyboard",
 		"5": "kubejs:block/computer_sides",
 		"6": "kubejs:block/computer_front",
 		"particle": "kubejs:block/computer_front"
+	},
+	"display": {
+        "gui": {
+            "rotation": [ 30, 135, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 0.625, 0.625, 0.625 ]
+        }
 	},
 	"elements": [
 		{
