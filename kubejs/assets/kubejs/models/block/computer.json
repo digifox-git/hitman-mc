@@ -1,9 +1,9 @@
 {
 	"credit": "digifox, Made with Blockbench",
 	"textures": {
-		"2": "kubejs:block/computer_keyboard",
-		"5": "kubejs:block/computer_sides",
-		"6": "kubejs:block/computer_front"
+		"2": "kubejs/assets/kubejs/textures/block/computer_keyboard.png",
+		"5": "kubejs/assets/kubejs/textures/block/computer_sides.png",
+		"6": "kubejs/assets/kubejs/textures/block/computer_front.png"
 	},
 	"elements": [
 		{
