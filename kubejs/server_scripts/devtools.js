@@ -15,7 +15,7 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
     else {
         e.player.tell(kits.guard.inv[0].id);
         e.player.giveInHand(kits.guard.inv[1].id);
-        e.player.giveInHand(Item.of(kits.guard.inv[1].id, kits.guard.inv[1].count))
+        e.player.giveInHand(Item.of(kits.guard.inv[1].id, kits.guard.inv[1].count, "{Enchantments:[{s:1b}]}"))
         // Items
         //if (!Array.isArray(kits.guard.inv)) return;
         kits.guard.inv.forEach(item => {
@@ -25,6 +25,7 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
         
         // Offhand
         let oh = kits.guard.offhand;
+        e.player.setOffHandItem(Item.of(oh.id, oh.count));
         e.player.tell("Inv loaded");
         
         // Armor
