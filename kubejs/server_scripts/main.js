@@ -108,3 +108,27 @@ EntityEvents.spawned('villager', e => {
     e.cancel();
 })
 
+ItemEvents.rightClicked((event) => {
+    if (event.item.id == "minecraft:ghast_tear") {
+        createui(event, event.player, 0)
+    }
+})
+
+let createui = (event, player, page) => {
+    player.openChestGui(Test.of(Text.red('Mode Selector')), 3, gui => {
+        gui.playerSlots = false
+        gui.slot(1, 1, slot => {
+            slot.item = 'minecraft:villager_spawn_egg'
+            slot.leftClicked = e => {
+                event.player.sendSystemMessage('§4Mode NOT Selected!! (NPC Target; This doesnt work yet!)')
+            }
+        })        
+        gui.slot(7, 1, slot => {
+            slot.item = 'minecraft:player_head'
+            slot.leftClicked = e => {
+                event.player.sendSystemMessage('§4Mode NOT Selected!! (Player Target; This doesnt work yet!)')
+            }
+        })
+    })
+}
+
