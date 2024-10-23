@@ -108,8 +108,8 @@ EntityEvents.death(e => {
         e.player.persistentData.respawnTime = 120;
         e.player.paint({respawn_time: {visible: true}})
     }
-    if (e.entity.tags.contains("")) {
-
+    if (e.entity.tags.contains("target")) {
+        endRound(e.server);
     }
 });
 PlayerEvents.tick(e => {
