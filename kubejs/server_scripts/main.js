@@ -129,7 +129,7 @@ PlayerEvents.tick(e => {
 
 EntityEvents.spawned("minecraft:villager", e => {
     if (!e.entity.tags.contains("target")) return;
-
+    startGameFR(e.server);
 })
 
 // ????
