@@ -46,21 +46,33 @@ function endGame(s) {
     global.isGaming = false;
     s.tell("Gaurds won");
 }
+
+// End Round
+function endRound(s) {
+    s.tell("New round go! ");
+}
+
 ItemEvents.entityInteracted("minecraft:interaction", e => {
     //e.player.setFeetArmorItem(Item.of())
     
     //e.server.tell(e.entity.tags)
     e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
-    let st = 5;
-    for (let i = st; i > 1; i--) {
-        e.server.scheduleInTicks((st-i)*20, e.server.tell(Component.red(`Starting game in ${i} seconds!`)));
-    }
-    e.server.scheduleInTicks(st*20, startGame(e.server));
+    // let st = 5;
+    // for (let i = st; i > 1; i--) {
+    //     e.server.scheduleInTicks((st-i)*20, e.server.tell(Component.red(`Starting game in ${i} seconds!`)));
+    // }
+    //e.server.scheduleInTicks(st*20, startGame(e.server));
+    startGame(e.server)
 
 });
+
+/**
+ * A majority of game logic happens on deaths,
+ * and thus in this event:
+ */
 EntityEvents.death("minecraft:player", e => {
     if (e.player.tags.contains("hitman")) {
-        endGame(e.server);
+        endRound(e.server);
     }
     if (e.player.tags.contains("guard")) {
         //e.player.teleportTo(global.g_respawn.x, global.g_respawn.y, global.g_respawn.z);
@@ -69,16 +81,17 @@ EntityEvents.death("minecraft:player", e => {
     }
 });
 PlayerEvents.tick(e => {
-    if (!global.isGaming)
-        return;
+    if (!global.isGaming) return;
+
+    // Respawn Guard
     if (e.player.persistentData.respawnTime > 0) {
         e.player.persistentData.respawnTime--;
         e.player.paint({respawn_time: {text: `${e.player.persistentData.respawnTime}`}})
     }
     if (e.player.persistentData.respawnTime == 1) {
-        // Respawn Guard
         e.player.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z);
         e.player.paint({respawn_time: {visible: false}})
+        e.player.displayClientMessage(Component.blue("RARRRRR"), true);
     }
 });
 
