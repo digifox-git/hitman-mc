@@ -1,32 +1,36 @@
 priority: 1;
-// Global Variables
-//let 
-// Start Game
+
+
+
+
+/**
+ * Starts the game, whodda thunk
+ * @param {Internal.MinecraftServer} s 
+ */
 function startGame(s) {
     global.isGaming = true;
     s.runCommandSilent(`spawnpoint @a[tag=guard] ${global.g_respawn.x} ${global.g_respawn.y} ${global.g_respawn.z}`);
     s.tell("starting game");
-    // global.player_c = s.playerCount;
+
     // Get all players with right tags tag
-    //let guards = s.players.filter(p => p.tags.contains("guard"));
     global.guards = selectE(s, "guard");
-    //global.hitman = selectE(e, "hitman");
-    // global.target = selectE(e, "target");
+    global.hitman = selectE(s, "hitman");
+    //global.target = selectE(s, "target");
     // Get spawns
-    //let g_spawn = s.entities.filter(i => p.tags.contains("g_spawn"));
     global.g_spawn = selectE(s, "g_spawn")[0];
-    // global.h_spawn = selectE(e, "h_spawn")[0].pos;
+    global.h_spawn = selectE(s, "h_spawn")[0];
     global.g_respawn = selectE(s, "g_respawn")[0];
-    // global.h_respawn = selectE(e, "h_respawn")[0].pos; // Hitman doesn't respawn, but this is where they're put while target is hiding
+    global.h_respawn = selectE(s, "h_respawn")[0]; // Hitman doesn't respawn, but this is where they're put while target is hiding
     
     //Teleport players to proper places
     global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
+    global.hitman.forEach(g => g.teleportTo(global.h_spawn.x, global.h_spawn.y, global.h_spawn.z));
 
     //Kits
     global.guards.forEach(g => loadKit(g, "guard", true));
 
-    s.tell(global.guards);
-    s.tell(global.g_spawn);
+    //s.tell(global.guards);
+    //s.tell(global.g_spawn);
     global.guards.forEach(g => g.paint({      
                                     respawn_time: {
                                         type: 'text',
@@ -41,13 +45,19 @@ function startGame(s) {
                                     }
                                 }))
 }
-// End Game
+/**
+ * Ends the game, whodda thunk
+ * @param {Internal.MinecraftServer} s 
+ */
 function endGame(s) {
     global.isGaming = false;
     s.tell("Gaurds won");
 }
 
-// End Round
+/**
+ * Starts a new round
+ * @param {Internal.MinecraftServer} s 
+ */
 function endRound(s) {
     s.tell("New round go! ");
 }
@@ -94,4 +104,7 @@ PlayerEvents.tick(e => {
         e.player.displayClientMessage(Component.blue("RARRRRR"), true);
     }
 });
+EntityEvents.spawned('villager', e => {
+    e.cancel();
+})
 

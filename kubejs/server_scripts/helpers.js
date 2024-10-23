@@ -1,9 +1,21 @@
 priority: 0;
-
+/**
+ * Selects all entities with a tag
+ * @param {Internal.MinecraftServer} s 
+ * @param {String} tag 
+ * @returns Array of entities that have the tag
+ */
 function selectE(s, tag) {
     return s.entities.filter(i => i.tags.contains(tag));
 }
 
+/**
+ * Loads a kit to a player.
+ * @param {Internal.Player} player 
+ * @param {String} kit Kit name, "guard", "hitman", etc.
+ * @param {boolean} clear_inv Clear inventory before loading kit
+ * @returns true if could load whole kit, false if failed to load any part
+ */
 function loadKit(player, kit, clear_inv) {
     let kits = JsonIO.read("kubejs/game_data/kits.json");
     if (!kits.containsKey(kit)) return false;
