@@ -4,7 +4,7 @@ priority: 1;
 
 
 /**
- * Starts the game, whodda thunk
+ * Starts the PRE game
  * @param {Internal.MinecraftServer} s 
  */
 function startGame(s) {
@@ -24,10 +24,14 @@ function startGame(s) {
     
     //Teleport players to proper places
     global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
-    global.hitman.forEach(g => g.teleportTo(global.h_spawn.x, global.h_spawn.y, global.h_spawn.z));
+    global.hitman.forEach(g => g.teleportTo(global.h_respawn.x, global.h_respawn.y, global.h_respawn.z));
 
     //Kits
-    global.guards.forEach(g => loadKit(g, "guard", true));
+    global.guards.forEach(g => {
+        loadKit(g, "guard", true);
+        g.giveInHand(Item.of("minecraft:villager_spawn_egg", 1, '{EntityTag:{Tags:["target"], NoAI:1b}}'));
+    });
+    global.hitman.forEach(g => loadKit(g, "hitman", true));
 
     //s.tell(global.guards);
     //s.tell(global.g_spawn);
@@ -44,6 +48,19 @@ function startGame(s) {
                                         visible: false
                                     }
                                 }))
+}
+/**
+ * Starts the game, for real this time
+ * @param {Internal.MinecraftServer} s 
+ */
+function startGameFR(s) {
+    global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
+    global.hitman.forEach(g => g.teleportTo(global.h_spawn.x, global.h_spawn.y, global.h_spawn.z));
+
+
+    // Load kits again because why not
+    global.guards.forEach(g => loadKit(g, "guard", true));
+    global.hitman.forEach(g => loadKit(g, "hitman", true));
 }
 /**
  * Ends the game, whodda thunk
@@ -80,7 +97,9 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  * A majority of game logic happens on deaths,
  * and thus in this event:
  */
-EntityEvents.death("minecraft:player", e => {
+EntityEvents.death(e => {
+    if (e.entity.type != "minecraft:player" && e.entity.type != "minecraft:villager") return;
+
     if (e.player.tags.contains("hitman")) {
         endRound(e.server);
     }
@@ -88,6 +107,9 @@ EntityEvents.death("minecraft:player", e => {
         //e.player.teleportTo(global.g_respawn.x, global.g_respawn.y, global.g_respawn.z);
         e.player.persistentData.respawnTime = 120;
         e.player.paint({respawn_time: {visible: true}})
+    }
+    if (e.entity.tags.contains("")) {
+
     }
 });
 PlayerEvents.tick(e => {
@@ -104,10 +126,13 @@ PlayerEvents.tick(e => {
         e.player.displayClientMessage(Component.blue("RARRRRR"), true);
     }
 });
-EntityEvents.spawned('villager', e => {
-    e.cancel();
+
+EntityEvents.spawned("minecraft:villager", e => {
+    if (!e.entity.tags.contains("target")) return;
+
 })
 
+// ????
 ItemEvents.rightClicked((event) => {
     if (event.item.id == "minecraft:ghast_tear") {
         createui(event, event.player, 0)
