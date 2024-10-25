@@ -84,18 +84,14 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
     
     //e.server.tell(e.entity.tags)
     e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
-    // let st = 5;
-    // for (let i = st; i > 1; i--) {
-    //     e.server.scheduleInTicks((st-i)*20, e.server.tell(Component.red(`Starting game in ${i} seconds!`)));
-    // }
-    //e.server.scheduleInTicks(st*20, startGame(e.server));
+    let st = 5
+    for (let i = st; i > 1; i--) {
+        e.server.scheduleInTicks((st-i)*20, e.server.tell(Component.red(`Starting game in ${i} seconds!`)));
+    }
+    e.server.scheduleInTicks(st*20, startGame(e.server));
     startGame(e.server)
-
 });
 
-ItemEvents.entityInteracted("minecraft:bucket", event => {
-    event.server.tell(target)
-})
 /**
  * A majority of game logic happens on deaths,
  * and thus in this event:
