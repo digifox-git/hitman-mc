@@ -132,4 +132,8 @@ EntityEvents.spawned("minecraft:villager", e => {
     startGameFR(e.server);
 })
 
-BlockEvents.rightClicked('kubejs:monitor', event => Utils.server.runCommandSilent('effect give @p slowness 15 3 true'))
+BlockEvents.rightClicked('kubejs:monitor', event => {
+    let inventory = event.block.inventory
+    inventory.get(0)
+    inventory.set(1, Item.of('minecraft:stone'))
+})
