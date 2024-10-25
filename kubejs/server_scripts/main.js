@@ -90,6 +90,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
     }
     e.server.scheduleInTicks(st*20, startGame(e.server));
     startGame(e.server)
+    e.server.tell('did i crash?')
 });
 
 /**
