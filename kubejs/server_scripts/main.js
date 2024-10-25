@@ -94,10 +94,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
 });
 
 ItemEvents.entityInteracted("minecraft:bucket", event => {
-    if(event.target.type == 'minecraft:goat') {
-      event.server.tell('cancel')
-      event.cancel()
-    }
+    event.server.tell(target)
 })
 /**
  * A majority of game logic happens on deaths,
