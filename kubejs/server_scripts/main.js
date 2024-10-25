@@ -132,8 +132,4 @@ EntityEvents.spawned("minecraft:villager", e => {
     startGameFR(e.server);
 })
 
-BlockEvents.rightClicked('kubejs:monitor', event => {
-    let inventory = event.block.inventory
-    inventory.get(0)
-    inventory.set(1, Item.of('minecraft:stone'))
-})
+BlockEvents.rightClicked('kubejs:monitor', event => Utils.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a[distance=0..16] ~ ~ ~ 1 1 0'))
