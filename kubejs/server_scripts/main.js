@@ -113,7 +113,7 @@ EntityEvents.death(e => {
         e.player.paint({respawn_time: {visible: true}})
     }
     if (e.entity.tags.contains("target")) {
-        e.server.tell('test')
+        e.server.tell(global.hitman)
         global.hitman.tell('Target down; good work agent. Make your way to an exit.')
     }
 });
