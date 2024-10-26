@@ -105,11 +105,14 @@ EntityEvents.death(e => {
 
     if (e.player.tags.contains("hitman")) {
         endRound(e.server);
-    } else if (e.player.tags.contains("guard")) {
+    }
+    if (e.player.tags.contains("guard")) {
         e.player.teleportTo(global.g_respawn.x, global.g_respawn.y, global.g_respawn.z);
         e.player.persistentData.respawnTime = 120;
         e.player.paint({respawn_time: {visible: true}})
-    } else if (e.entity.tags.contains("target")) {
+    }
+    if (e.entity.tags.contains("target")) {
+        e.server.tell('test')
         global.hitman.tell('Target down; good work agent. Make your way to an exit.')
     }
 });
