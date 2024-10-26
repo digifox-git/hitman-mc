@@ -107,9 +107,11 @@ EntityEvents.death(e => {
         global.hitman.tell('Target down; good work agent. Make your way to an exit.')
     }
     if (e.player.tags.contains("hitman")) {
+        e.server.tell('Danger Neutralized')
         endRound(e.server);
     }
     if (e.player.tags.contains("guard")) {
+        e.server.tell('gbugibi')
         e.player.teleportTo(global.g_respawn.x, global.g_respawn.y, global.g_respawn.z);
         e.player.persistentData.respawnTime = 120;
         e.player.paint({respawn_time: {visible: true}})
