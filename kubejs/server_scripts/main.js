@@ -13,7 +13,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
         e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
         hpoints++;
         endRound(e.server);
-    } else if (e.target.type === 'minecraft:block_display') {
+    } else if (e.target.type == 'minecraft:interaction') {
         e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
         startGame(e.server);
     }
