@@ -25,7 +25,7 @@ function startGame(s) {
     s.tell(selectE(s, "g_spawn"))
     s.tell(`${global.g_respawn.x},${global.g_respawn.y},${global.g_respawn.z}`)
 
-    s.runCommand(`spawnpoint @a[tag=guard] ${global.g_respawn.x} ${global.g_respawn.y} ${global.g_respawn.z}`);
+    e.level.runCommand(`spawnpoint @a[tag=guard] ${global.g_respawn.x} ${global.g_respawn.y} ${global.g_respawn.z}`);
     //Teleport players to proper places
     global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
     global.hitman.forEach(g => g.teleportTo(global.h_respawn.x, global.h_respawn.y, global.h_respawn.z));
@@ -107,7 +107,7 @@ EntityEvents.death(e => {
         endRound(e.server);
     }
     if (e.player.tags.contains("guard")) {
-        //e.player.teleportTo(global.g_respawn.x, global.g_respawn.y, global.g_respawn.z);
+        e.player.teleportTo(global.g_respawn.x, global.g_respawn.y, global.g_respawn.z);
         e.player.persistentData.respawnTime = 120;
         e.player.paint({respawn_time: {visible: true}})
     }
