@@ -103,7 +103,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
 EntityEvents.death(e => {
     e.server.tell(e.entity)
     if (e.entity.tags.contains("target")) {
-        e.server.tell('test')
+        e.server.tell('glibby golb')
         global.hitman.tell('Target down; good work agent. Make your way to an exit.')
     }
     if (e.entity.type != "minecraft:player" && e.entity.type != "minecraft:villager") return;
