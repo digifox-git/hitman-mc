@@ -82,7 +82,12 @@ function startRound(server) {
  */
 function endGame(server) {
     global.isGaming = false;
-    server.tell("Guards won");
+    if (hpoints > gpoints) {
+        server.tell("hitman won");
+    } else {
+        server.tell("guards won");
+    }
+    
 }
 
 /**
@@ -91,7 +96,12 @@ function endGame(server) {
  */
 function endRound(server) {
     server.tell(`${hpoints}-${gpoints}`);
-    startRound(server);
+    if (hpoints == 5 || gpoints == 5) {
+        endGame(server)
+    } else {
+        startRound(server);
+    }
+    
 }
 
 /**
