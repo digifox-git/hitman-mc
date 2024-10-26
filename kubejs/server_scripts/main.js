@@ -101,6 +101,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  * and thus in this event:
  */
 EntityEvents.death(e => {
+    e.server.tell('test')
     if (e.entity.type != "minecraft:player" && e.entity.type != "minecraft:villager") return;
 
     if (e.player.tags.contains("hitman")) {
