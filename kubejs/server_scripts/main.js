@@ -1,5 +1,5 @@
 let hpoints = 0, gpoints = 0;
-
+let targetAlive
 // Utility function to select entities by tag
 function selectE(server, tag) {
     return server.level.getEntities(e => e.tags.contains(tag));
@@ -9,7 +9,8 @@ function selectE(server, tag) {
  * Event when interacting with entities
  */
 ItemEvents.entityInteracted("minecraft:interaction", e => {
-    if (e.target.type === 'minecraft:slime') {
+    if (e.target.type === 'minecraft:slime' && targetAlive == false) {
+        e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
         hpoints++;
         endRound(e.server);
     } else {
@@ -66,6 +67,7 @@ EntityEvents.spawned("minecraft:villager", e => {
 });
 
 function startRound(server) {
+    targetAlive = true
     global.guards.forEach(guard => guard.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.h_spawn.x, global.h_spawn.y, global.h_spawn.z));
 
@@ -98,6 +100,7 @@ function endRound(server) {
 EntityEvents.death(e => {
     if (e.entity.tags.contains("target")) {
         e.level.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
+        targetAlive = false
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Danger Neutralized");
         endRound(e.server);
