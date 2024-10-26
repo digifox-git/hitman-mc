@@ -85,7 +85,10 @@ function endRound(s) {
 
 ItemEvents.entityInteracted("minecraft:interaction", e => {
     // e.player.setFeetArmorItem(Item.of())
-    e.server.tell(e.target)
+    if (e.target.tags.contains("target")) {
+        e.server.tell(e.target)
+    }
+    
     // e.server.tell(e.entity.tags)
     e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
     let st = 5
@@ -113,7 +116,7 @@ EntityEvents.death(e => {
         e.player.paint({respawn_time: {visible: true}})
     }
     if (e.entity.tags.contains("target")) {
-        e.server.tell(global.hitman)
+        e.server.tell('test')
         global.hitman.tell('Target down; good work agent. Make your way to an exit.')
     }
 });
