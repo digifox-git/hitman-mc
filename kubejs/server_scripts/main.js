@@ -22,10 +22,10 @@ function startGame(s) {
     global.g_respawn = selectE(s, "g_respawn")[0];
     global.h_respawn = selectE(s, "h_respawn")[0]; // Hitman doesn't respawn, but this is where they're put while target is hiding
 
-    s.tell(selectE(s, "g_spawn"))
-    s.tell(`${global.g_respawn.x},${global.g_respawn.y},${global.g_respawn.z}`)
+    // s.tell(selectE(s, "g_spawn"))
+    // s.tell(`${global.g_respawn.x},${global.g_respawn.y},${global.g_respawn.z}`)
 
-    e.level.runCommand(`spawnpoint @a[tag=guard] ${global.g_respawn.x} ${global.g_respawn.y} ${global.g_respawn.z}`);
+    // e.level.runCommand(`spawnpoint @a[tag=guard] ${global.g_respawn.x} ${global.g_respawn.y} ${global.g_respawn.z}`);
     //Teleport players to proper places
     global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
     global.hitman.forEach(g => g.teleportTo(global.h_respawn.x, global.h_respawn.y, global.h_respawn.z));
@@ -72,7 +72,7 @@ function startGameFR(s) {
  */
 function endGame(s) {
     global.isGaming = false;
-    s.tell("Gaurds won");
+    s.tell("Guards won");
 }
 
 /**
@@ -105,14 +105,12 @@ EntityEvents.death(e => {
 
     if (e.player.tags.contains("hitman")) {
         endRound(e.server);
-    }
-    if (e.player.tags.contains("guard")) {
+    } else if (e.player.tags.contains("guard")) {
         e.player.teleportTo(global.g_respawn.x, global.g_respawn.y, global.g_respawn.z);
         e.player.persistentData.respawnTime = 120;
         e.player.paint({respawn_time: {visible: true}})
-    }
-    if (e.entity.tags.contains("target")) {
-        endRound(e.server);
+    } else if (e.entity.tags.contains("target")) {
+        global.hitman.tell('Target down; good work agent. Make your way to an exit.')
     }
 });
 PlayerEvents.tick(e => {
