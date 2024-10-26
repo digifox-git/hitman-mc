@@ -1,3 +1,5 @@
+// priority: 1;
+
 let hpoints, gpoints;
 let targetAlive
 // Utility function to select entities by tag
@@ -62,6 +64,7 @@ function startGame(server) {
  */
 EntityEvents.spawned("minecraft:villager", e => {
     if (e.entity.tags.contains("target")) {
+        global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
         startRound(e.server);
     }
 });
@@ -99,6 +102,7 @@ function endRound(server) {
     if (hpoints == 5 || gpoints == 5) {
         endGame(server)
     } else {
+        e.level.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         startRound(server);
     }
     
