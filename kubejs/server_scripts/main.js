@@ -1,6 +1,6 @@
 priority: 1;
 
-
+let hpoint, gpoints = 0
 
 
 /**
@@ -81,19 +81,27 @@ function endGame(s) {
  */
 function endRound(s) {
     s.tell("New round go! ");
+    s.scheduleInTicks(100, startGameFR(e.server))
 }
 
 ItemEvents.entityInteracted("minecraft:interaction", e => {
-    // e.player.setFeetArmorItem(Item.of())
+
+    if (e.target.type == 'minecraft:slime') {
+        hpoint++
+        endRound(e.server)
+    } else {
+        // e.player.setFeetArmorItem(Item.of())
     
-    // e.server.tell(e.entity.tags)
-    e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
-    let st = 5
-    //for (let i = st; i > 1; i--) {
-    //    e.server.scheduleInTicks((st-i)*20, e.server.tell(Component.red(`Starting game in ${i} seconds!`)));
-    //}
-    //e.server.scheduleInTicks(st*20, startGame(e.server));
-    startGame(e.server)
+        // e.server.tell(e.entity.tags)
+        e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
+        let st = 5
+        //for (let i = st; i > 1; i--) {
+        //    e.server.scheduleInTicks((st-i)*20, e.server.tell(Component.red(`Starting game in ${i} seconds!`)));
+        //}
+        //e.server.scheduleInTicks(st*20, startGame(e.server));
+        startGame(e.server)
+    }
+    
 });
 
 /**
@@ -104,7 +112,7 @@ EntityEvents.death(e => {
     if (e.entity.tags.contains("target")) {
         // e.server.tell(global.hitman)
         // (global.hitman).tell('Target down; good work agent. Make your way to an exit.')
-        e.level.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite`)
+        e.level.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`)
     }
     if (e.player.tags.contains("hitman")) {
         e.server.tell('Danger Neutralized')
