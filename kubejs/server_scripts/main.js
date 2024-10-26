@@ -102,6 +102,10 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  */
 EntityEvents.death(e => {
     e.server.tell(e.entity)
+    if (e.entity.tags.contains("target")) {
+        e.server.tell('test')
+        global.hitman.tell('Target down; good work agent. Make your way to an exit.')
+    }
     if (e.entity.type != "minecraft:player" && e.entity.type != "minecraft:villager") return;
 
     if (e.player.tags.contains("hitman")) {
@@ -112,10 +116,7 @@ EntityEvents.death(e => {
         e.player.persistentData.respawnTime = 120;
         e.player.paint({respawn_time: {visible: true}})
     }
-    if (e.entity.tags.contains("target")) {
-        e.server.tell('test')
-        global.hitman.tell('Target down; good work agent. Make your way to an exit.')
-    }
+    
 });
 PlayerEvents.tick(e => {
     if (!global.isGaming) return;
