@@ -104,7 +104,7 @@ EntityEvents.death(e => {
     if (e.entity.tags.contains("target")) {
         // e.server.tell(global.hitman)
         // (global.hitman).tell('Target down; good work agent. Make your way to an exit.')
-        e.level.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite`)
+        e.level.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite`)
     }
     if (e.player.tags.contains("hitman")) {
         e.server.tell('Danger Neutralized')
