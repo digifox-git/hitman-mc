@@ -1,152 +1,145 @@
-priority: 1;
+let hpoints = 0, gpoints = 0;
 
-let hpoints, gpoints = 0
-
+// Utility function to select entities by tag
+function selectE(server, tag) {
+    return server.level.getEntities(e => e.tags.contains(tag));
+}
 
 /**
- * Starts the PRE game
- * @param {Internal.MinecraftServer} s 
+ * Event when interacting with entities
  */
-
 ItemEvents.entityInteracted("minecraft:interaction", e => {
-    if (e.target.type == 'minecraft:slime') {
-        hpoints++
-        endRound(e.server)
+    if (e.target.type === 'minecraft:slime') {
+        hpoints++;
+        endRound(e.server);
     } else {
-        // e.player.setFeetArmorItem(Item.of())
-        // e.server.tell(e.entity.tags)
         e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
-        let st = 5
-        //for (let i = st; i > 1; i--) {
-        //    e.server.scheduleInTicks((st-i)*20, e.server.tell(Component.red(`Starting game in ${i} seconds!`)));
-        //}
-        //e.server.scheduleInTicks(st*20, startGame(e.server));
-        startGame(e.server)
+        startGame(e.server);
     }
 });
 
-function startGame(s) {
+/**
+ * Starts the game initialization
+ * @param {Internal.MinecraftServer} server 
+ */
+function startGame(server) {
     global.isGaming = true;
-    
-    s.tell("starting game");
+    server.tell("Starting game");
 
-    // Get all players with right tags tag
-    global.guards = selectE(s, "guard");
-    global.hitman = selectE(s, "hitman");
-    //global.target = selectE(s, "target");
-    // Get spawns
-    global.g_spawn = selectE(s, "g_spawn")[0];
-    global.h_spawn = selectE(s, "h_spawn")[0];
-    global.g_respawn = selectE(s, "g_respawn")[0];
-    global.h_respawn = selectE(s, "h_respawn")[0]; // Hitman doesn't respawn, but this is where they're put while target is hiding
+    // Assign and teleport players by role
+    global.guards = selectE(server, "guard");
+    global.hitman = selectE(server, "hitman");
+    global.g_spawn = selectE(server, "g_spawn")[0];
+    global.h_spawn = selectE(server, "h_spawn")[0];
+    global.g_respawn = selectE(server, "g_respawn")[0];
+    global.h_respawn = selectE(server, "h_respawn")[0];
 
-    // s.tell(selectE(s, "g_spawn"))
-    // s.tell(`${global.g_respawn.x},${global.g_respawn.y},${global.g_respawn.z}`)
-
-    // e.level.runCommand(`spawnpoint @a[tag=guard] ${global.g_respawn.x} ${global.g_respawn.y} ${global.g_respawn.z}`);
-    //Teleport players to proper places
-    global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
-    global.hitman.forEach(g => g.teleportTo(global.h_respawn.x, global.h_respawn.y, global.h_respawn.z));
-
-    //Kits
-    global.guards.forEach(g => {
-        loadKit(g, "guard", true);
-        g.giveInHand(Item.of("minecraft:villager_spawn_egg", 1, '{EntityTag:{Tags:["target"], NoAI:1b}}'));
+    global.guards.forEach(guard => {
+        guard.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z);
+        loadKit(guard, "guard", true);
+        guard.giveInHand(Item.of("minecraft:villager_spawn_egg", 1, '{EntityTag:{Tags:["target"], NoAI:1b}}'));
+        guard.paint({
+            respawn_time: {
+                type: 'text',
+                text: "alive!",
+                scale: 1.5,
+                x: -4,
+                y: -4,
+                alignX: 'right',
+                alignY: 'bottom',
+                draw: 'always',
+                visible: false
+            }
+        });
     });
-    global.hitman.forEach(g => loadKit(g, "hitman", true));
-
-    //s.tell(global.guards);
-    //s.tell(global.g_spawn);
-    global.guards.forEach(g => g.paint({      
-                                    respawn_time: {
-                                        type: 'text',
-                                        text: `alive!`,
-                                        scale: 1.5,
-                                        x: -4,
-                                        y: -4,
-                                        alignX: 'right',
-                                        alignY: 'bottom',
-                                        draw: 'always',
-                                        visible: false
-                                    }
-                                }))
+    global.hitman.forEach(hitman => hitman.teleportTo(global.h_respawn.x, global.h_respawn.y, global.h_respawn.z));
 }
-/**
- * Starts the game, for real this time
- * @param {Internal.MinecraftServer} s 
- */
 
+/**
+ * Starts the next round when the target spawns
+ * @param {Internal.MinecraftServer} server 
+ */
 EntityEvents.spawned("minecraft:villager", e => {
-    if (!e.entity.tags.contains("target")) return;
-    startRound(e.server);
-})
+    if (e.entity.tags.contains("target")) {
+        startRound(e.server);
+    }
+});
 
-function startRound(s) {
-    global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
-    global.hitman.forEach(g => g.teleportTo(global.h_spawn.x, global.h_spawn.y, global.h_spawn.z));
+function startRound(server) {
+    global.guards.forEach(guard => guard.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
+    global.hitman.forEach(hitman => hitman.teleportTo(global.h_spawn.x, global.h_spawn.y, global.h_spawn.z));
 
-
-    // Load kits again because why not
-    global.guards.forEach(g => loadKit(g, "guard", true));
-    global.hitman.forEach(g => loadKit(g, "hitman", true));
+    // Reload kits
+    global.guards.forEach(guard => loadKit(guard, "guard", true));
+    global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
 }
+
 /**
- * Ends the game, whodda thunk
- * @param {Internal.MinecraftServer} s 
+ * Ends the game and declares the winning team
+ * @param {Internal.MinecraftServer} server 
  */
-function endGame(s) {
+function endGame(server) {
     global.isGaming = false;
-    s.tell("Guards won");
+    server.tell("Guards won");
 }
 
 /**
- * Starts a new round
- * @param {Internal.MinecraftServer} s 
+ * Ends the round and displays the current score
+ * @param {Internal.MinecraftServer} server 
  */
-function endRound(s) {
-    s.tell(`${hpoints}-${gpoints}`);
-    startRound(e.server)
+function endRound(server) {
+    server.tell(`${hpoints}-${gpoints}`);
+    startRound(server);
 }
 
-
-
 /**
- * A majority of game logic happens on deaths,
- * and thus in this event:
+ * Handles death events
  */
 EntityEvents.death(e => {
     if (e.entity.tags.contains("target")) {
-        // e.server.tell(global.hitman)
-        // (global.hitman).tell('Target down; good work agent. Make your way to an exit.')
-        e.level.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`)
-    }
-    if (e.player.tags.contains("hitman")) {
-        e.server.tell('Danger Neutralized')
+        e.level.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
+    } else if (e.entity.tags.contains("hitman")) {
+        e.server.tell("Danger Neutralized");
         endRound(e.server);
+    } else if (e.entity.tags.contains("guard")) {
+        e.server.tell("Guard down!");
+        respawnGuard(e.entity);
     }
-    if (e.player.tags.contains("guard")) {
-        e.server.tell('gbugibi')
-        e.player.teleportTo(global.g_respawn.x, global.g_respawn.y, global.g_respawn.z);
-        e.player.persistentData.respawnTime = 120;
-        e.player.paint({respawn_time: {visible: true}})
-    }
-    if (e.entity.type != "minecraft:player" && e.entity.type != "minecraft:villager") return;
 });
+
+/**
+ * Respawns guards after a delay
+ * @param {Player} guard 
+ */
+function respawnGuard(guard) {
+    guard.teleportTo(global.g_respawn.x, global.g_respawn.y, global.g_respawn.z);
+    guard.persistentData.respawnTime = 120;
+    guard.paint({ respawn_time: { visible: true } });
+}
+
+/**
+ * Tick event for managing guard respawn times
+ */
 PlayerEvents.tick(e => {
     if (!global.isGaming) return;
 
-    // Respawn Guard
+    // Decrease respawn time for guards
     if (e.player.persistentData.respawnTime > 0) {
         e.player.persistentData.respawnTime--;
-        e.player.paint({respawn_time: {text: `${e.player.persistentData.respawnTime}`}})
+        e.player.paint({ respawn_time: { text: `${e.player.persistentData.respawnTime}` } });
     }
-    if (e.player.persistentData.respawnTime == 1) {
+
+    // Respawn guard when time reaches zero
+    if (e.player.persistentData.respawnTime === 1) {
         e.player.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z);
-        e.player.paint({respawn_time: {visible: false}})
-        e.player.displayClientMessage(Component.blue("RARRRRR"), true);
+        e.player.paint({ respawn_time: { visible: false } });
+        e.player.displayClientMessage(Component.blue("Back in action!"), true);
     }
 });
 
-
-
-BlockEvents.rightClicked('kubejs:monitor', event => Utils.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a[distance=0..16] ~ ~ ~ 1 1 0'))
+/**
+ * Plays a sound when right-clicking on a monitor block
+ */
+BlockEvents.rightClicked("kubejs:monitor", event => {
+    Utils.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a[distance=0..16] ~ ~ ~ 1 1 0');
+});
