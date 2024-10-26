@@ -1,12 +1,30 @@
 priority: 1;
 
-let hpoint, gpoints = 0
+let hpoints, gpoints = 0
 
 
 /**
  * Starts the PRE game
  * @param {Internal.MinecraftServer} s 
  */
+
+ItemEvents.entityInteracted("minecraft:interaction", e => {
+    if (e.target.type == 'minecraft:slime') {
+        hpoints++
+        endRound(e.server)
+    } else {
+        // e.player.setFeetArmorItem(Item.of())
+        // e.server.tell(e.entity.tags)
+        e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
+        let st = 5
+        //for (let i = st; i > 1; i--) {
+        //    e.server.scheduleInTicks((st-i)*20, e.server.tell(Component.red(`Starting game in ${i} seconds!`)));
+        //}
+        //e.server.scheduleInTicks(st*20, startGame(e.server));
+        startGame(e.server)
+    }
+});
+
 function startGame(s) {
     global.isGaming = true;
     
@@ -57,7 +75,13 @@ function startGame(s) {
  * Starts the game, for real this time
  * @param {Internal.MinecraftServer} s 
  */
-function startGameFR(s) {
+
+EntityEvents.spawned("minecraft:villager", e => {
+    if (!e.entity.tags.contains("target")) return;
+    startRound(e.server);
+})
+
+function startRound(s) {
     global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
     global.hitman.forEach(g => g.teleportTo(global.h_spawn.x, global.h_spawn.y, global.h_spawn.z));
 
@@ -80,29 +104,11 @@ function endGame(s) {
  * @param {Internal.MinecraftServer} s 
  */
 function endRound(s) {
-    s.tell("New round go! ");
-    s.scheduleInTicks(100, startGameFR(e.server))
+    s.tell(`${hpoints}-${gpoints}`);
+    startRound(e.server)
 }
 
-ItemEvents.entityInteracted("minecraft:interaction", e => {
 
-    if (e.target.type == 'minecraft:slime') {
-        hpoint++
-        endRound(e.server)
-    } else {
-        // e.player.setFeetArmorItem(Item.of())
-    
-        // e.server.tell(e.entity.tags)
-        e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
-        let st = 5
-        //for (let i = st; i > 1; i--) {
-        //    e.server.scheduleInTicks((st-i)*20, e.server.tell(Component.red(`Starting game in ${i} seconds!`)));
-        //}
-        //e.server.scheduleInTicks(st*20, startGame(e.server));
-        startGame(e.server)
-    }
-    
-});
 
 /**
  * A majority of game logic happens on deaths,
@@ -141,9 +147,6 @@ PlayerEvents.tick(e => {
     }
 });
 
-EntityEvents.spawned("minecraft:villager", e => {
-    if (!e.entity.tags.contains("target")) return;
-    startGameFR(e.server);
-})
+
 
 BlockEvents.rightClicked('kubejs:monitor', event => Utils.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a[distance=0..16] ~ ~ ~ 1 1 0'))
