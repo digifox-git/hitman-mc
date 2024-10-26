@@ -85,9 +85,6 @@ function endRound(s) {
 
 ItemEvents.entityInteracted("minecraft:interaction", e => {
     // e.player.setFeetArmorItem(Item.of())
-    if (e.target.tags.contains("target")) {
-        e.server.tell(e.target)
-    }
     
     // e.server.tell(e.entity.tags)
     e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
@@ -104,7 +101,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  * and thus in this event:
  */
 EntityEvents.death(e => {
-    e.server.tell('test')
+    e.server.tell(e.entity)
     if (e.entity.type != "minecraft:player" && e.entity.type != "minecraft:villager") return;
 
     if (e.player.tags.contains("hitman")) {
