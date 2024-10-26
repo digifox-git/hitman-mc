@@ -101,10 +101,9 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  * and thus in this event:
  */
 EntityEvents.death(e => {
-    e.server.tell(e.entity)
     if (e.entity.tags.contains("target")) {
         e.server.tell(global.hitman)
-        global.hitman.tell('Target down; good work agent. Make your way to an exit.')
+        (global.hitman).tell('Target down; good work agent. Make your way to an exit.')
     }
     if (e.player.tags.contains("hitman")) {
         e.server.tell('Danger Neutralized')
