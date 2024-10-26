@@ -106,8 +106,6 @@ EntityEvents.death(e => {
         e.server.tell('glibby golb')
         global.hitman.tell('Target down; good work agent. Make your way to an exit.')
     }
-    if (e.entity.type != "minecraft:player" && e.entity.type != "minecraft:villager") return;
-
     if (e.player.tags.contains("hitman")) {
         endRound(e.server);
     }
@@ -116,7 +114,7 @@ EntityEvents.death(e => {
         e.player.persistentData.respawnTime = 120;
         e.player.paint({respawn_time: {visible: true}})
     }
-    
+    if (e.entity.type != "minecraft:player" && e.entity.type != "minecraft:villager") return;
 });
 PlayerEvents.tick(e => {
     if (!global.isGaming) return;
