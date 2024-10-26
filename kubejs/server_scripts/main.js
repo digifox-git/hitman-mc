@@ -9,7 +9,7 @@ priority: 1;
  */
 function startGame(s) {
     global.isGaming = true;
-    s.runCommandSilent(`spawnpoint @a[tag=guard] ${global.g_respawn.x} ${global.g_respawn.y} ${global.g_respawn.z}`);
+    
     s.tell("starting game");
 
     // Get all players with right tags tag
@@ -21,7 +21,8 @@ function startGame(s) {
     global.h_spawn = selectE(s, "h_spawn")[0];
     global.g_respawn = selectE(s, "g_respawn")[0];
     global.h_respawn = selectE(s, "h_respawn")[0]; // Hitman doesn't respawn, but this is where they're put while target is hiding
-    
+
+    s.runCommandSilent(`spawnpoint @a[tag=guard] ${global.g_respawn.x} ${global.g_respawn.y} ${global.g_respawn.z}`);
     //Teleport players to proper places
     global.guards.forEach(g => g.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
     global.hitman.forEach(g => g.teleportTo(global.h_respawn.x, global.h_respawn.y, global.h_respawn.z));
@@ -81,7 +82,7 @@ function endRound(s) {
 
 ItemEvents.entityInteracted("minecraft:interaction", e => {
     // e.player.setFeetArmorItem(Item.of())
-    
+    e.server.tell(target)
     // e.server.tell(e.entity.tags)
     e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
     let st = 5
@@ -90,7 +91,6 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
     //}
     //e.server.scheduleInTicks(st*20, startGame(e.server));
     startGame(e.server)
-    e.server.tell('did i crash?')
 });
 
 /**
