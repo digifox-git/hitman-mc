@@ -23,7 +23,7 @@ function startGame(s) {
     global.h_respawn = selectE(s, "h_respawn")[0]; // Hitman doesn't respawn, but this is where they're put while target is hiding
 
     s.tell(selectE(s, "g_spawn"))
-    s.tell(`${global.g_spawn.x},${global.g_spawn.y},${global.g_spawn.z}`)
+    s.tell(`${global.g_respawn.x},${global.g_respawn.y},${global.g_respawn.z}`)
 
     s.runCommand(`spawnpoint @a[tag=guard] ${global.g_respawn.x} ${global.g_respawn.y} ${global.g_respawn.z}`);
     //Teleport players to proper places
