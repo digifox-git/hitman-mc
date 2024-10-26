@@ -1,4 +1,4 @@
-let hpoints = 0, gpoints = 0;
+let hpoints, gpoints;
 let targetAlive
 // Utility function to select entities by tag
 function selectE(server, tag) {
@@ -26,7 +26,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
 function startGame(server) {
     global.isGaming = true;
     server.tell("Starting game");
-
+    hpoints = 0, gpoints = 0;
     // Assign and teleport players by role
     global.guards = selectE(server, "guard");
     global.hitman = selectE(server, "hitman");
