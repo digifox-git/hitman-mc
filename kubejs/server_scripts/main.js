@@ -44,7 +44,7 @@ function startGame(server) {
     global.guards.forEach(guard => {
         guard.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z);
         loadKit(guard, "guard", true);
-        guard.giveInHand(Item.of("minecraft:villager_spawn_egg", 1, '{EntityTag:{Tags:["target"], NoAI:1b}}'));
+        guard.giveInHand(Item.of("minecraft:villager_spawn_egg", 1, '{EntityTag:{Tags:["target"], NoAI:1b},CanPlaceOn:["minecraft:green_concrete"}'));
         guard.paint({
             respawn_time: {
                 type: 'text',
