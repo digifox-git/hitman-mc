@@ -30,19 +30,20 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startGame(server) {
+    global.map = mapOptions[0]
     global.isGaming = true;
     server.tell("Starting game");
     hpoints = 0, gpoints = 0;
     // Assign and teleport players by role
     global.guards = selectE(server, "guard");
     global.hitman = selectE(server, "hitman");
-    global.g_spawn = selectE(server, "g_spawn")[0];
-    global.h_spawn = selectE(server, "h_spawn")[0];
-    global.g_respawn = selectE(server, "g_respawn")[0];
-    global.h_respawn = selectE(server, "h_respawn")[0];
+    // global.g_spawn = selectE(server, "g_spawn")[0];
+    // global.h_spawn = selectE(server, "h_spawn")[0];
+    // global.g_respawn = selectE(server, "g_respawn")[0];
+    // global.h_respawn = selectE(server, "h_respawn")[0];
 
     global.guards.forEach(guard => {
-        guard.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z);
+        guard.teleportTo(global.map.guardSpawns[0], global.map.guardSpawns[1], global.map.guardSpawns[2]);
         loadKit(guard, "guard", true);
         guard.giveInHand(Item.of("minecraft:villager_spawn_egg", 1, '{EntityTag:{Tags:["target"], NoAI:1b},CanPlaceOn:["minecraft:green_concrete"}'));
         guard.paint({
@@ -59,7 +60,7 @@ function startGame(server) {
             }
         });
     });
-    global.hitman.forEach(hitman => hitman.teleportTo(global.h_respawn.x, global.h_respawn.y, global.h_respawn.z));
+    global.hitman.forEach(hitman => hitman.teleportTo(global.map.hitmanSpawns[0], global.map.hitmanSpawns[1], global.map.hitmanSpawns[2]));
 }
 
 /**
@@ -75,8 +76,8 @@ EntityEvents.spawned("minecraft:villager", e => {
 
 function startRound(server) {
     targetAlive = true
-    global.guards.forEach(guard => guard.teleportTo(global.g_spawn.x, global.g_spawn.y, global.g_spawn.z));
-    global.hitman.forEach(hitman => hitman.teleportTo(global.h_spawn.x, global.h_spawn.y, global.h_spawn.z));
+    global.guards.forEach(guard => guard.teleportTo(global.map.guardSpawns[0], global.map.guardSpawns[1], global.map.guardSpawns[2]));
+    global.hitman.forEach(hitman => hitman.teleportTo(global.map.hitmanSpawns[0], global.map.hitmanSpawns[1], global.map.hitmanSpawns[2]));
 
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
@@ -133,7 +134,7 @@ EntityEvents.death(e => {
  * @param {Player} guard 
  */
 function respawnGuard(guard) {
-    guard.teleportTo(global.g_respawn.x, global.g_respawn.y, global.g_respawn.z);
+    guard.teleportTo(global.map.guardSpawns[0], global.map.guardSpawns[1], global.map.guardSpawns[2]);
     guard.persistentData.respawnTime = 120;
     guard.paint({ respawn_time: { visible: true } });
 }
