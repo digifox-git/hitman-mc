@@ -1,4 +1,4 @@
-// priority: 0
+priority: 0;
 
 class Location {
     constructor(spawnSelection, hitmanSpawns, guardSpawns) {
