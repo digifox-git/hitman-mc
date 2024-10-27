@@ -7,6 +7,11 @@ function selectE(server, tag) {
     return server.level.getEntities(e => e.tags.contains(tag));
 }
 
+BlockEvents.rightClicked('minecraft:lodestone', e => {
+    e.server.tell(e.block.x)
+    // e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
+    startGame(e.server);
+})
 /**
  * Event when interacting with entities
  */
@@ -17,8 +22,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
         hpoints++;
         endRound(e.server);
     } else if (e.target.type == 'minecraft:interaction') {
-        e.level.spawnParticles("minecraft:wax_on", false, e.target.x, e.target.y, e.target.z, .1, .1, .1, 40, 10);
-        startGame(e.server);
+        
     }
 });
 
