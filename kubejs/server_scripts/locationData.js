@@ -28,4 +28,4 @@ const freeformTraining = {
   }
 }
 
-const mapOptions = [theWoods, freeformTraining]
+const mapOptions = [freeformTraining, theWoods]

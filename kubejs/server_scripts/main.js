@@ -9,8 +9,12 @@ function selectE(server, tag) {
 
 BlockEvents.rightClicked('minecraft:lodestone', e => {
     e.level.spawnParticles("minecraft:wax_on", false, e.block.x, e.block.y, e.block.z, .1, .1, .1, 40, 10);
-    global.map = mapOptions[0]
-    startGame(e.server);
+    if (!global.map) {
+        e.server.tell('SELECT A MAP')
+    } else {
+        startGame(e.server);
+    }
+    
 })
 /**
  * Event when interacting with entities
@@ -90,6 +94,7 @@ function endGame(server) {
         server.tell("guards won");
     }
     server.runCommandSilent(`tp @a -10000 -47 -10000`)
+    server.runCommandSilent(`clear @a`)
 }
 
 /**
@@ -156,6 +161,13 @@ PlayerEvents.tick(e => {
 /**
  * Plays a sound when right-clicking on a monitor block
  */
-BlockEvents.rightClicked("kubejs:monitor", event => {
-    Utils.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a[distance=0..16] ~ ~ ~ 1 1 0');
+BlockEvents.rightClicked("kubejs:monitor", e => {
+    e.server.runCommandSilent(`playsound minecraft:block.note_block.bit master @a[distance=0..16] ~ ~ ~ 1 1 0`);
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:white_glazed_terracotta') {
+        e.server.tell('ICA SELECTED')
+        global.map = mapOptions[0]
+    } else if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:light_gray_glazed_terracotta') {
+        e.server.tell('MOOON SELECTED')
+        global.map = mapOptions[1]
+    }
 });
