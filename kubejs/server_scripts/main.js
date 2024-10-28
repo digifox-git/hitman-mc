@@ -1,18 +1,5 @@
 // priority: 1;
 
-class Location {
-    constructor(spawnSelection, hitmanSpawns, guardSpawns) {
-      this.spawnSelection = spawnSelection;
-      this.hitmanSpawns = hitmanSpawns;
-      this.guardSpawns = guardSpawns;
-    }
-}
-
-const theWoods = new Location(false, [176,-60,209], [-97.5,-57,134]);
-const freeformTraining = new Location(false,[101,-55,20],[58,-56,26]);
-
-const mapOptions = [theWoods, freeformTraining]
-
 let hpoints, gpoints;
 let targetAlive
 // Utility function to select entities by tag
@@ -22,6 +9,7 @@ function selectE(server, tag) {
 
 BlockEvents.rightClicked('minecraft:lodestone', e => {
     e.level.spawnParticles("minecraft:wax_on", false, e.block.x, e.block.y, e.block.z, .1, .1, .1, 40, 10);
+    e.server(mapOptions[0].spawnSelection)
     startGame(e.server);
 })
 /**
