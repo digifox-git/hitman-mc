@@ -1,6 +1,6 @@
 // priority: 1;
 
-/*class Location {
+class Location {
     constructor(spawnSelection, hitmanSpawns, guardSpawns) {
       this.spawnSelection = spawnSelection;
       this.hitmanSpawns = hitmanSpawns;
@@ -12,9 +12,17 @@ const theWoods = new Location(false, [176,-60,209], [-97.5,-57,134]);
 const freeformTraining = new Location(false,[101,-55,20],[58,-56,26]);
 
 const mapOptions = [theWoods, freeformTraining]
-*/
+
+let map = mapOptions[0]
+
+
 let hpoints, gpoints;
 let targetAlive
+
+BlockEvents.rightClicked('minecraft:stone', e => {
+    e.server.tell(map.hitmanSpawns[0])
+})
+
 // Utility function to select entities by tag
 function selectE(server, tag) {
     return server.level.getEntities(e => e.tags.contains(tag));
