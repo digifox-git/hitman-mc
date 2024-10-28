@@ -9,7 +9,7 @@ function selectE(server, tag) {
 
 BlockEvents.rightClicked('minecraft:lodestone', e => {
     e.level.spawnParticles("minecraft:wax_on", false, e.block.x, e.block.y, e.block.z, .1, .1, .1, 40, 10);
-    e.server(mapOptions[0].spawnSelection)
+    e.server.tell(mapOptions[0].spawnSelection)
     startGame(e.server);
 })
 /**
