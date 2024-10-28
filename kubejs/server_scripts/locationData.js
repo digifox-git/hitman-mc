@@ -3,7 +3,7 @@
 const theWoods = {
   spawnSelection: false,
   hSpawn: {
-    x: 176,
+    x: -176,
     y: -60,
     z: 209
   },
