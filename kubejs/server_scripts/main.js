@@ -20,7 +20,6 @@ BlockEvents.rightClicked('minecraft:lodestone', e => {
  * Event when interacting with entities
  */
 ItemEvents.entityInteracted("minecraft:interaction", e => {
-    e.level.tell(e.target.type)
     if (e.target.type === 'minecraft:slime' && targetAlive == false) {
         e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
         hpoints++;

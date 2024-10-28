@@ -2,9 +2,9 @@
 	"guard": {
 		"inv": [
 			{
-				"id": "minecraft:diamond_sword",
+				"id": "pointblank:glock17",
 				"count": 1,
-				"nbt": "{Damage:0}"
+				"nbt": "{}"
 			}
 		],
 		"offhand": {
