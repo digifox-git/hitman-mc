@@ -2,14 +2,30 @@
 
 const theWoods = {
   spawnSelection: false,
-  hitmanSpawns: [176,-60,209],
-  guardSpawns: [-97.5,-57,134]
+  hSpawn: {
+    x: 176,
+    y: -60,
+    z: 209
+  },
+  gSpawn: {
+    x: -97.5,
+    y: -57,
+    z: 134
+  },
 }
 
 const freeformTraining = {
   spawnSelection: false,
-  hitmanSpawns: [101,-55,20],
-  guardSpawns: [58,-56,26]
+  hSpawn: {
+    x: 101,
+    y: -55,
+    z: 20
+  },
+  gSpawn: {
+    x: 58,
+    y: -56,
+    z: 26
+  }
 }
 
 const mapOptions = [theWoods, freeformTraining]
