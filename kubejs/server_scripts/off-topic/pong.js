@@ -11,6 +11,7 @@ let ball_pos = {
  */
 function drawLoop(l) {
     l.setBlock([canvas_pos.x+ball_pos.x, canvas_pos.y-ball_pos.y, canvas_pos.z], "minecraft:orange_concrete");
+    x++;
 }
 
 ItemEvents.rightClicked("minecraft:iron_nugget", e => {
