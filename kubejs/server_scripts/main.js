@@ -42,7 +42,6 @@ function startGame(server) {
 
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
-        loadKit(guard, "guard", true);
         guard.paint({
             respawn_time: {
                 type: 'text',
@@ -80,7 +79,6 @@ function startRound(server) {
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
     global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
-    server.runCommandSilent(`clear @a`)
 }
 
 /**
