@@ -8,11 +8,11 @@ function selectE(server, tag) {
 }
 
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
-    selectE(server, "hitman").tags.add('guard')
-    selectE(server, "hitman").tags.remove('hitman')
-    e.player.tags.remove('guard')
-    e.player.tags.add('hitman')
-    e.server.tell(`${player} is now the Hitman!`)
+    // selectE(server, "hitman").tags.add('guard')
+   //  selectE(server, "hitman").tags.remove('hitman')
+    // e.player.tags.remove('guard')
+    // e.player.tags.add('hitman')
+    e.server.tell(`${e.player} is now the Hitman!`)
 });
 
 BlockEvents.rightClicked('minecraft:lodestone', e => {
