@@ -108,6 +108,7 @@ function endRound(server) {
     } else {
         server.runCommandSilent(`kill @e[tag=target]`)
         server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
+        server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
         startRound(server);
     }
     
