@@ -40,7 +40,7 @@ function startGame(server) {
     global.hitman = selectE(server, "hitman");
 
     global.guards.forEach(guard => {
-        server.tell("test")
+        server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         loadKit(guard, "guard", true);
         guard.paint({
@@ -57,8 +57,6 @@ function startGame(server) {
             }
         });
     });
-    
-    server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
 }
 
