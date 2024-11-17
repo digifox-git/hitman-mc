@@ -33,9 +33,8 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  */
 function startGame(server) {
     global.isGaming = true;
-    server.tell("Startinggame");
+    server.tell("Starting Game");
     hpoints = 0, gpoints = 0;
-    server.tell("test")
     // Assign and teleport players by role
     global.guards = selectE(server, "guard");
     global.hitman = selectE(server, "hitman");
@@ -57,6 +56,7 @@ function startGame(server) {
             }
         });
     });
+    server.tell("test")
     server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
 }
