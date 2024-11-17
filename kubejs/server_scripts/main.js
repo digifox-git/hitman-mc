@@ -8,8 +8,8 @@ function selectE(server, tag) {
 }
 
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
-    // selectE(server, "hitman").getTags().add('guard')
-    // selectE(server, "hitman").getTags().remove('hitman')
+    selectE(server, "hitman").forEach(hitman => hitman.getTags().add('guard'))
+    selectE(server, "hitman").forEach(hitman => hitman.getTags().remove('hitman'))
     e.player.getTags().remove('guard')
     e.player.getTags().add('hitman')
     e.server.tell(`${e.player.username} is now the Hitman!`)
