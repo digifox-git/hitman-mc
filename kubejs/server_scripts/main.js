@@ -33,7 +33,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  */
 function startGame(server) {
     global.isGaming = true;
-    // server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
+    
     server.tell("Starting Game");
     hpoints = 0, gpoints = 0;
     // Assign and teleport players by role
@@ -42,9 +42,7 @@ function startGame(server) {
 
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
-        server.tell("Teleport Good")
         loadKit(guard, "guard", true);
-        server.tell("Kit Load Good")
         guard.paint({
             respawn_time: {
                 type: 'text',
@@ -59,7 +57,7 @@ function startGame(server) {
             }
         });
     });
-    server.runCommandSilent(`give @r[tag=guard] minecraft:feather`)
+    server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
 }
 
