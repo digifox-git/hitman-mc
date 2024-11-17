@@ -42,7 +42,9 @@ function startGame(server) {
 
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
+        server.tell("Teleport Good")
         loadKit(guard, "guard", true);
+        server.tell("Kit Load Good")
         guard.paint({
             respawn_time: {
                 type: 'text',
