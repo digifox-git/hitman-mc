@@ -33,8 +33,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  */
 function startGame(server) {
     global.isGaming = true;
-    server.runCommandSilent(`time set day`)
-    server.runCommandSilent(`say hello`)
+    server.runCommandSilent(`give @r[tag=guard] minecraft:feather`)
     // server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
     server.tell("Starting Game");
     hpoints = 0, gpoints = 0;
