@@ -42,7 +42,7 @@ function startGame(server) {
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         loadKit(guard, "guard", true);
-        e.level.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
+        
         guard.paint({
             respawn_time: {
                 type: 'text',
@@ -57,6 +57,7 @@ function startGame(server) {
             }
         });
     });
+    e.level.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
 }
 
