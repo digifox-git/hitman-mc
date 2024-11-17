@@ -11,7 +11,7 @@ BlockEvents.rightClicked("black_glazed_terracotta", e => {
     // selectE(server, "hitman").getTags().add('guard')
     // selectE(server, "hitman").getTags().remove('hitman')
     e.player.getTags().remove('guard')
-    // e.player.getTags().add('hitman')
+    e.player.getTags().add('hitman')
     e.server.tell(`${e.player.username} is now the Hitman!`)
 });
 
