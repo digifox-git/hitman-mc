@@ -40,6 +40,7 @@ function startGame(server) {
     global.guards = selectE(server, "guard");
     global.hitman = selectE(server, "hitman");
     server.runCommandSilent(`clear @a`)
+    server.runCommandSilent(`effect give @a[tag=guard] minecraft:glowing infinite 0 true`)
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         guard.paint({
@@ -55,7 +56,6 @@ function startGame(server) {
                 visible: false
             }
         });
-        guard.potionEffects.add('minecraft:glowing', Infinity, 0, true, true)
     });
     server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
