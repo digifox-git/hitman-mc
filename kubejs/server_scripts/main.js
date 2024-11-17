@@ -35,6 +35,7 @@ function startGame(server) {
     global.isGaming = true;
     server.tell("Starting game");
     hpoints = 0, gpoints = 0;
+    server.tell("test")
     // Assign and teleport players by role
     global.guards = selectE(server, "guard");
     global.hitman = selectE(server, "hitman");
@@ -42,7 +43,6 @@ function startGame(server) {
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         loadKit(guard, "guard", true);
-        server.tell("test")
         guard.paint({
             respawn_time: {
                 type: 'text',
