@@ -33,7 +33,6 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  */
 function startGame(server) {
     global.isGaming = true;
-    server.runCommandSilent(`give @r[tag=guard] minecraft:feather`)
     // server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
     server.tell("Starting Game");
     hpoints = 0, gpoints = 0;
@@ -58,6 +57,7 @@ function startGame(server) {
             }
         });
     });
+    server.runCommandSilent(`give @r[tag=guard] minecraft:feather`)
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
 }
 
