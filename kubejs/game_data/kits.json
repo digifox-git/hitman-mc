@@ -5,38 +5,27 @@
 				"id": "pointblank:glock17",
 				"count": 1,
 				"nbt": "{}"
-			}
-		],
-		"offhand": {
-			"id": "minecraft:shield",
-			"count": 1,
-			"nbt": "{Damage:0}"
-		},
-		"armor": [
-			{
-				"id": "minecraft:air",
-				"count": 0,
-				"nbt": "{}"
 			},
 			{
-				"id": "minecraft:air",
-				"count": 0,
-				"nbt": "{}"
-			},
-			{
-				"id": "minecraft:diamond_chestplate",
-				"count": 1,
-				"nbt": "{Damage:0}"
-			},
-			{
-				"id": "minecraft:air",
-				"count": 0,
+				"id": "pointblank:ammo9mm",
+				"count": 64,
 				"nbt": "{}"
 			}
 		]
 	},
     "hitman": {
-
+		"inv": [
+			{
+				"id": "pointblank:m1911a1",
+				"count": 1,
+				"nbt": "{}"
+			},
+			{
+				"id": "pointblank:ammo45acp",
+				"count": 64,
+				"nbt": "{}"
+			}
+		]
     },
 	"testlol": {
 		"inv": [

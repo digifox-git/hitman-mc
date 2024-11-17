@@ -79,6 +79,7 @@ function startRound(server) {
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
     global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
+    server.runCommandSilent(`clear @a`)
 }
 
 /**
@@ -105,6 +106,7 @@ function endRound(server) {
     if (hpoints == 5 || gpoints == 5) {
         endGame(server)
     } else {
+        server.runCommandSilent(`kill @e[tag=target]`)
         server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         startRound(server);
     }
