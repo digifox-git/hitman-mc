@@ -33,7 +33,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  */
 function startGame(server) {
     global.isGaming = true;
-    server.tell("Starting game");
+    server.tell("Startinggame");
     hpoints = 0, gpoints = 0;
     server.tell("test")
     // Assign and teleport players by role
