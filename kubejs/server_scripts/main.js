@@ -68,6 +68,8 @@ function startGame(server) {
 EntityEvents.spawned("minecraft:villager", e => {
     if (e.entity.tags.contains("target")) {
         global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
+        server.runCommandSilent(`team join Target @e[tag=target]`)
+        server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
         startRound(e.server);
     }
 });
