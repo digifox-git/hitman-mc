@@ -45,7 +45,7 @@
 			{
 				"id": "pointblank:m1911a1",
 				"count": 1,
-				"nbt": "{GeckoLibID:272L,aim:0b,ammo:7,ammox:{},as:[{id:\"pointblank:smg_suppressor\",rmv:1b}],fmid:[I;-1636272185,45363964,-1509764009,649528026],lid:-6323100188516808066L,mid:-3365288700610920111L,sa:{scope:\"/\"},seed:1134751206906432372L}"
+				"nbt": ""
 			},
 			{
 				"id": "pointblank:ammo45acp",
