@@ -55,6 +55,7 @@ function startGame(server) {
                 visible: false
             }
         });
+        guard.potionEffects.add('minecraft:glowing', INFINITE, 0, true, true)
     });
     server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
@@ -136,6 +137,7 @@ function respawnGuard(guard) {
     guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
     guard.persistentData.respawnTime = 120;
     guard.paint({ respawn_time: { visible: true } });
+
 }
 
 /**
@@ -148,6 +150,7 @@ PlayerEvents.tick(e => {
     if (e.player.persistentData.respawnTime > 0) {
         e.player.persistentData.respawnTime--;
         e.player.paint({ respawn_time: { text: `${e.player.persistentData.respawnTime}` } });
+        e.player.potionEffects.add('minecraft:glowing', INFINITE, 0, true, true)
     }
 
     // Respawn guard when time reaches zero
