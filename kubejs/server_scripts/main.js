@@ -39,7 +39,7 @@ function startGame(server) {
     // Assign and teleport players by role
     global.guards = selectE(server, "guard");
     global.hitman = selectE(server, "hitman");
-
+    server.runCommandSilent(`clear @a`)
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         guard.paint({

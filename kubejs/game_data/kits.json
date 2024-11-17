@@ -52,6 +52,33 @@
 				"count": 64,
 				"nbt": "{}"
 			}
+		],
+		"offhand": {
+			"id": "minecraft:air",
+			"count": 0,
+			"nbt": "{}"
+		},
+		"armor": [
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			}
 		]
     },
 	"testlol": {
