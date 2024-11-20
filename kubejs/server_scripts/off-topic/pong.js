@@ -24,7 +24,7 @@ let left_paddle = {
     points: 0
 }
 let right_paddle = {
-    x: 1,
+    x: canvas.width-1,
     y: 0,
     height: 4,
     points: 0
@@ -83,9 +83,12 @@ function gameLoop(level) {
 function drawLoop(level) {
     //clear last drawn content
     background(level);
-    //draw paddle
+    //draw paddles
     for (let i=left_paddle.y; i<left_paddle.y+left_paddle.height; i++) {
         level.getBlock(canvas.x+left_paddle.x, canvas.y-i, canvas.z).set("minecraft:blue_concrete");
+    }
+    for (let i=right_paddle.y; i<right_paddle.y+right_paddle.height; i++) {
+        level.getBlock(canvas.x+right_paddle.x, canvas.y-i, canvas.z).set("minecraft:blue_concrete");
     }
     //draw ball
     level.getBlock(canvas.x+ball.x, canvas.y-ball.y, canvas.z).set("minecraft:orange_concrete");
@@ -107,6 +110,18 @@ function drawLoop(level) {
 
 
 ItemEvents.rightClicked("minecraft:gold_nugget", e => {
+    let dist = 1;
+    if (e.player.isCrouching()) dist = -1;
+    //move paddle
+    right_paddle.y+=dist;
+
+    if (right_paddle.y < 0 || right_paddle.y+right_paddle.height > canvas.height) {
+        right_paddle.y-=dist;
+    }
+
+    //gameLoop(e.level);
+})
+ItemEvents.rightClicked("minecraft:gold_ingot", e => {
     let dist = 1;
     if (e.player.isCrouching()) dist = -1;
     //move paddle
