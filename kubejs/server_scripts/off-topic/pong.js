@@ -1,5 +1,6 @@
 priority: 801
 
+
 const canvas = {
     x: -6,
     y: -41,
@@ -19,7 +20,8 @@ let ball = {
 let left_paddle = {
     x: 1,
     y: 0,
-    height: 4
+    height: 4,
+    points: 0
 }
 
 /**
@@ -41,6 +43,7 @@ function background(level) {
  * @param {Internal.Level} level 
  */
 function gameLoop(level) {
+    // ball
     ball.x+=ball.vel.x;
     ball.y+=ball.vel.y;
     if (ball.x > canvas.width-1 || ball.x < 0) {
@@ -50,6 +53,12 @@ function gameLoop(level) {
     if (ball.y > canvas.height-1 || ball.y < 0) {
         ball.vel.y*=-1; // flips velocity
         ball.y+=ball.vel.y;
+    }
+
+    // paddles
+    if (ball.x == left_paddle.x && ball.y > left_paddle.y && ball.y < left_paddle.y+left_paddle.height) {
+        ball.vel.x*=-1;
+        left_paddle.points++;
     }
 
     drawLoop(level);
@@ -68,6 +77,9 @@ function drawLoop(level) {
     }
     //draw ball
     level.getBlock(canvas.x+ball.x, canvas.y-ball.y, canvas.z).set("minecraft:orange_concrete");
+
+    //score
+    level.runCommandSilent(`execute positioned ${canvas.x} ${canvas.y} ${canvas.z} run title @a[distance=..50] actionbar {"text":"${left_paddle.points} : 0","bold":true}`)
 }
 
 
@@ -89,12 +101,13 @@ ItemEvents.rightClicked("minecraft:gold_nugget", e => {
     left_paddle.y+=dist;
 
     if (left_paddle.y < 0 || left_paddle.y+left_paddle.height > canvas.height) {
-        left_paddle-=dist;
+        left_paddle.y-=dist;
     }
 
     gameLoop(e.level);
 })
 ItemEvents.rightClicked("minecraft:iron_nugget", e => {
+    
     e.player.tell(ball)
     gameLoop(e.level);
 })
