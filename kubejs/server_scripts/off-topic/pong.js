@@ -122,7 +122,7 @@ ItemEvents.rightClicked("minecraft:amethyst_shard", e => {
         return;
     }
     gaming = true;
-    e.server.scheduleRepeatingInTicks(5, gameLoop(e.level));
+    e.server.scheduleRepeatingInTicks(5, () => gameLoop(e.level));
 })
 ItemEvents.rightClicked("minecraft:quartz", e => {
     gaming = false;
