@@ -109,7 +109,7 @@ ItemEvents.rightClicked("minecraft:gold_nugget", e => {
 
 let t = 0;
 ItemEvents.rightClicked("minecraft:iron_nugget", e => {
-    e.server.scheduleRepeatingInTicks(20, () => e.player.tell(t++) );
+    e.server.scheduleRepeatingInTicks(20, () => e.player.tell("w") );
 
     
     gameLoop(e.level);
