@@ -1,0 +1,123 @@
+{
+	"guard": {
+		"inv": [
+			{
+				"id": "pointblank:glock17",
+				"count": 1,
+				"nbt": "{}"
+			},
+			{
+				"id": "pointblank:ammo9mm",
+				"count": 64,
+				"nbt": "{}"
+			}
+		],
+		"offhand": {
+			"id": "minecraft:air",
+			"count": 0,
+			"nbt": "{}"
+		},
+		"armor": [
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			}
+		]
+	},
+    "hitman": {
+		"inv": [
+			{
+				"id": "pointblank:m1911a1",
+				"count": 1,
+				"nbt": ""
+			},
+			{
+				"id": "pointblank:ammo45acp",
+				"count": 64,
+				"nbt": "{}"
+			}
+		],
+		"offhand": {
+			"id": "minecraft:air",
+			"count": 0,
+			"nbt": "{}"
+		},
+		"armor": [
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			}
+		]
+    },
+	"testlol": {
+		"inv": [
+			{
+				"id": "minecraft:yellow_terracotta",
+				"count": 1,
+				"nbt": "{}"
+			}
+		],
+		"offhand": {
+			"id": "minecraft:air",
+			"count": 0,
+			"nbt": "{}"
+		},
+		"armor": [
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			},
+			{
+				"id": "minecraft:air",
+				"count": 0,
+				"nbt": "{}"
+			}
+		]
+	},
+	"pong": {
+		
+	}
+}
