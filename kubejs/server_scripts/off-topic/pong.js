@@ -19,13 +19,13 @@ let ball = {
 
 let left_paddle = {
     x: 1,
-    y: 0,
+    y: 6,
     height: 4,
     points: 0
 }
 let right_paddle = {
     x: 30,
-    y: 0,
+    y: 6,
     height: 4,
     points: 0
 }
@@ -118,8 +118,8 @@ function drawLoop(level) {
 
 
 ItemEvents.rightClicked("minecraft:gold_nugget", e => {
-    let dist = 1;
-    if (e.player.isCrouching()) dist = -1;
+    let dist = -1;
+    if (e.player.isCrouching()) dist = 1;
     //move paddle
     right_paddle.y+=dist;
 
@@ -130,8 +130,8 @@ ItemEvents.rightClicked("minecraft:gold_nugget", e => {
     drawLoop(e.level);
 })
 ItemEvents.rightClicked("minecraft:gold_ingot", e => {
-    let dist = 1;
-    if (e.player.isCrouching()) dist = -1;
+    let dist = -1;
+    if (e.player.isCrouching()) dist = 1;
     //move paddle
     left_paddle.y+=dist;
 
