@@ -73,17 +73,26 @@ function gameLoop(level) {
         
     }
 
-    // paddles
-    if (ball.x == left_paddle.x+1 && ball.y >= left_paddle.y && ball.y <= left_paddle.y+left_paddle.height) {
+    paddleCollisions();
+    
+    drawLoop(level);
+}
+
+/**
+ * Check seperately to call from multiple sources
+ * @param {Internal.level} level 
+ */
+function paddleCollisions() {
+    // Checks for a collision box +2 the height of paddles and +1 in front.
+
+    if (ball.x == left_paddle.x+1 && ball.y >= left_paddle.y-1 && ball.y <= left_paddle.y+left_paddle.height+1) {
         ball.vel.x*=-1;
         left_paddle.points++;
     }
-    if (ball.x == right_paddle.x-1 && ball.y >= right_paddle.y && ball.y <= right_paddle.y+right_paddle.height) {
+    if (ball.x == right_paddle.x-1 && ball.y >= right_paddle.y-1 && ball.y <= right_paddle.y+right_paddle.height+1) {
         ball.vel.x*=-1;
         right_paddle.points++;
     }
-
-    drawLoop(level);
 }
 
 /**
@@ -129,6 +138,7 @@ ItemEvents.rightClicked("minecraft:gold_nugget", e => {
         right_paddle.y-=dist;
     }
 
+    paddleCollisions();
     drawLoop(e.level);
 })
 ItemEvents.rightClicked("minecraft:gold_ingot", e => {
@@ -141,6 +151,7 @@ ItemEvents.rightClicked("minecraft:gold_ingot", e => {
         left_paddle.y-=dist;
     }
 
+    paddleCollisions();
     drawLoop(e.level);
 })
 
