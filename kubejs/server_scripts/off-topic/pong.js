@@ -81,13 +81,12 @@ function gameLoop(level) {
  * @param {Internal.level} level 
  */
 function paddleCollisions() {
-    // Checks for a collision box +2 the height of paddles and +1 in front.
 
-    if ((ball.x == right_paddle.x || ball.x == right_paddle.x-1) && ball.y >= left_paddle.y && ball.y <= left_paddle.y+left_paddle.height) {
+    if ((ball.x == left_paddle.x || ball.x == left_paddle.x+1) && ball.y >= left_paddle.y && ball.y <= left_paddle.y+left_paddle.height) {
         ball.vel.x*=-1;
         left_paddle.points++;
         //in paddle
-        if (ball.x == right_paddle.x) ball.x+=ball.vel.x;
+        if (ball.x == left_paddle.x) ball.x+=ball.vel.x;
 
     }
 
