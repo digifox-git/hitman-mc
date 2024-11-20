@@ -126,6 +126,6 @@ ItemEvents.rightClicked("minecraft:amethyst_shard", e => {
 })
 ItemEvents.rightClicked("minecraft:quartz", e => {
     gaming = false;
-    //e.server.scheduledEvents.clear()
+    e.server.scheduledEvents.clear(2)
     
 })
