@@ -17,7 +17,9 @@ let ball = {
 }
 
 let left_paddle = {
-    y: 0
+    x: 1,
+    y: 0,
+    height: 4
 }
 
 /**
@@ -34,29 +36,38 @@ function background(level) {
 
 
 
+/**
+ * Main game/logic loop
+ * @param {Internal.Level} level 
+ */
+function gameLoop(level) {
+    ball.x+=ball.vel.x;
+    ball.y+=ball.vel.y;
+    if (ball.x > canvas.width-1 || ball.x < 0) {
+        ball.vel.x*=-1; // flips velocity
+        ball.x+=ball.vel.x;
+    }
+    if (ball.y > canvas.height-1 || ball.y < 0) {
+        ball.vel.y*=-1; // flips velocity
+        ball.y+=ball.vel.y;
+    }
+
+    drawLoop(level);
+}
 
 /**
  * Main display loop
  * @param {Internal.Level} level 
  */
 function drawLoop(level) {
-    ball.x+=ball.vel.x;
-    ball.y+=ball.vel.y;
-    if (ball.x > canvas.width || ball.x < 0) {
-        ball.vel.x*=-1; // flips velocity
-        ball.x+=ball.vel.x;
-    }
-    if (ball.y > canvas.height || ball.y < 0) {
-        ball.vel.y*=-1; // flips velocity
-        ball.y+=ball.vel.y;
-    }
-
-
-
+    //clear last drawn content
     background(level);
+    //draw paddle
+    for (let i=left_paddle.y; i<left_paddle.y+left_paddle.height; i++) {
+        level.getBlock(canvas.x+left_paddle.x, canvas.y-i, canvas.z).set("minecraft:blue_concrete");
+    }
     //draw ball
     level.getBlock(canvas.x+ball.x, canvas.y-ball.y, canvas.z).set("minecraft:orange_concrete");
-    
 }
 
 
@@ -71,9 +82,19 @@ function drawLoop(level) {
 
 
 
+ItemEvents.rightClicked("minecraft:gold_nugget", e => {
+    let dist = 1;
+    if (e.player.isCrouching()) dist = -1;
+    //move paddle
+    left_paddle.y+=dist;
 
+    if (left_paddle.y < 0 || left_paddle.y+left_paddle.height > canvas.height) {
+        left_paddle-=dist;
+    }
+
+    gameLoop(e.level);
+})
 ItemEvents.rightClicked("minecraft:iron_nugget", e => {
-    //if (e.getHand() == ) return;
     e.player.tell(ball)
-    drawLoop(e.level);
+    gameLoop(e.level);
 })
