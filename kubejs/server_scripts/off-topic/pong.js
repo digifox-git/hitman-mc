@@ -58,17 +58,19 @@ function gameLoop(level) {
     // walls
     if (ball.x > canvas.width-1 || ball.x < 0) {
         ball.vel.x*=-1; // flips velocity
-        ball.x+=ball.vel.x;
+        //ball.x+=ball.vel.x;
+
+        //kill ball
+        ball.x = canvas.width/2;
+        ball.y = canvas.height/2;
     }
 
     // ceilings
     if (ball.y > canvas.height-1 || ball.y < 0) {
         ball.vel.y*=-1; // flips velocity
-        //ball.y+=ball.vel.y;
+        ball.y+=ball.vel.y;
 
-        //kill ball
-        ball.x = canvas.width/2;
-        ball.y = canvas.height/2;
+        
     }
 
     // paddles
