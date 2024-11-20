@@ -24,6 +24,8 @@ let left_paddle = {
     points: 0
 }
 
+let gaming = false;
+
 /**
  * Reset canvas
  * @param {Internal.Level} level 
@@ -107,15 +109,23 @@ ItemEvents.rightClicked("minecraft:gold_nugget", e => {
     //gameLoop(e.level);
 })
 
-let t = 0;
 ItemEvents.rightClicked("minecraft:iron_nugget", e => {
-    e.server.scheduleRepeatingInTicks(20, () => e.player.tell("w") );
+    e.player.tell(e.server.getScheduledEvents());
 
     
     gameLoop(e.level);
 })
+
 ItemEvents.rightClicked("minecraft:amethyst_shard", e => {
+    if (gaming) {
+        e.player.tell("Game already in progress!");
+        return;
+    }
+    gaming = true;
+    e.server.scheduleRepeatingInTicks(5, gameLoop(e.level));
+})
+ItemEvents.rightClicked("minecraft:quartz", e => {
+    gaming = false;
+    //e.server.scheduledEvents.clear()
     
-    e.player.tell(ball)
-    gameLoop(e.level);
 })
