@@ -7,10 +7,10 @@ let ball_pos = {
 
 /**
  * Main display loop
- * @param {Internal.Level} l 
+ * @param {Internal.Level} level 
  */
-function drawLoop(l) {
-    l.setBlock([canvas_pos.x+ball_pos.x, canvas_pos.y-ball_pos.y, canvas_pos.z], "minecraft:orange_concrete");
+function drawLoop(level) {
+    level.getBlock(canvas_pos.x+ball_pos.x, canvas_pos.y-ball_pos.y, canvas_pos.z).set("minecraft:orange_concrete");
     x++;
 }
 
