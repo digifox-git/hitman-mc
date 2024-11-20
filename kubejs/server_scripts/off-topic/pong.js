@@ -110,7 +110,7 @@ ItemEvents.rightClicked("minecraft:gold_nugget", e => {
 })
 
 ItemEvents.rightClicked("minecraft:iron_nugget", e => {
-    e.player.tell(e.server.getScheduledEvents().events.first);
+   e.server.getScheduledEvents().events.forEach(v => e.player.tell(v.id+" "));
 
     
     gameLoop(e.level);
