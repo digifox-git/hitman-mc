@@ -14,7 +14,8 @@ let ball = {
     vel: {
         x: 1,
         y: 1
-    }
+    },
+    delay: 4
 }
 
 let left_paddle = {
@@ -90,9 +91,12 @@ function paddleCollisions() {
 
     }
 
-    if (ball.x == right_paddle.x && ball.y >= right_paddle.y && ball.y <= right_paddle.y+right_paddle.height+1) {
+    if ((ball.x == right_paddle.x || ball.x == right_paddle.x-1) && ball.y >= right_paddle.y && ball.y <= right_paddle.y+right_paddle.height) {
         ball.vel.x*=-1;
         right_paddle.points++;
+        //in paddle
+        if (ball.x == right_paddle.x) ball.x+=ball.vel.x;
+
     }
 }
 
@@ -169,7 +173,7 @@ ItemEvents.rightClicked("minecraft:amethyst_shard", e => {
         return;
     }
     gaming = true;
-    e.server.scheduleRepeatingInTicks(5, () => gameLoop(e.level));
+    e.server.scheduleRepeatingInTicks(ball.delay, () => gameLoop(e.level));
 })
 ItemEvents.rightClicked("minecraft:quartz", e => {
     gaming = false;
