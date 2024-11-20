@@ -104,9 +104,17 @@ ItemEvents.rightClicked("minecraft:gold_nugget", e => {
         left_paddle.y-=dist;
     }
 
+    //gameLoop(e.level);
+})
+
+let t = 0;
+ItemEvents.rightClicked("minecraft:iron_nugget", e => {
+    e.server.scheduleRepeatingInTicks(20, () => e.player.tell(t++) );
+
+    
     gameLoop(e.level);
 })
-ItemEvents.rightClicked("minecraft:iron_nugget", e => {
+ItemEvents.rightClicked("minecraft:amethyst_shard", e => {
     
     e.player.tell(ball)
     gameLoop(e.level);
