@@ -56,9 +56,9 @@ function gameLoop(level) {
     ball.y+=ball.vel.y;
 
     // walls
+    // -1 and 0 because we like a frame of the ball on the wall before resetting
     if (ball.x > canvas.width-1 || ball.x < 0) {
         ball.vel.x*=-1; // flips velocity
-        //ball.x+=ball.vel.x;
 
         //kill ball
         ball.x = canvas.width/2;
@@ -66,11 +66,9 @@ function gameLoop(level) {
     }
 
     // ceilings
-    if (ball.y > canvas.height-1 || ball.y < 0) {
+    // -2 and 1 because its better than checking if ball is in wall and undoing movement
+    if (ball.y > canvas.height-2 || ball.y < 1) {
         ball.vel.y*=-1; // flips velocity
-        ball.y+=ball.vel.y;
-
-        
     }
 
     paddleCollisions();
@@ -85,11 +83,15 @@ function gameLoop(level) {
 function paddleCollisions() {
     // Checks for a collision box +2 the height of paddles and +1 in front.
 
-    if (ball.x == left_paddle.x+1 && ball.y >= left_paddle.y-1 && ball.y <= left_paddle.y+left_paddle.height+1) {
+    if ((ball.x == right_paddle.x || ball.x == right_paddle.x-1) && ball.y >= left_paddle.y && ball.y <= left_paddle.y+left_paddle.height) {
         ball.vel.x*=-1;
         left_paddle.points++;
+        //in paddle
+        if (ball.x == right_paddle.x) ball.x+=ball.vel.x;
+
     }
-    if (ball.x == right_paddle.x-1 && ball.y >= right_paddle.y-1 && ball.y <= right_paddle.y+right_paddle.height+1) {
+
+    if (ball.x == right_paddle.x && ball.y >= right_paddle.y && ball.y <= right_paddle.y+right_paddle.height+1) {
         ball.vel.x*=-1;
         right_paddle.points++;
     }
