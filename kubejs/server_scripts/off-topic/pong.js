@@ -110,7 +110,7 @@ ItemEvents.rightClicked("minecraft:gold_nugget", e => {
 })
 
 ItemEvents.rightClicked("minecraft:iron_nugget", e => {
-   e.server.getScheduledEvents().events.forEach(v => e.player.tell(v.id+" "));
+   e.server.getScheduledEvents().events.forEach(v => e.player.tell("All event ids: "+v.id+" "));
 
     
     gameLoop(e.level);
@@ -126,6 +126,6 @@ ItemEvents.rightClicked("minecraft:amethyst_shard", e => {
 })
 ItemEvents.rightClicked("minecraft:quartz", e => {
     gaming = false;
-    e.server.scheduledEvents.clear(2)
+    e.server.getScheduledEvents().events.forEach(v => v.clear()); // clear every event cause i dont know how to select the one i want
     
 })
