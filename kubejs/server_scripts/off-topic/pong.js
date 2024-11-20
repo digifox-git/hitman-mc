@@ -12,8 +12,8 @@ let ball = {
     x: 0,
     y: 0,
     vel: {
-        x: 1,
-        y: 2
+        x: 2,
+        y: 3
     }
 }
 
@@ -58,7 +58,7 @@ function gameLoop(level) {
     }
 
     // paddles
-    if (ball.x == left_paddle.x && ball.y > left_paddle.y && ball.y < left_paddle.y+left_paddle.height) {
+    if (ball.x == left_paddle.x+1 && ball.y >= left_paddle.y && ball.y <= left_paddle.y+left_paddle.height) {
         ball.vel.x*=-1;
         left_paddle.points++;
     }
