@@ -12,12 +12,18 @@ let ball = {
     x: 0,
     y: 0,
     vel: {
-        x: 2,
-        y: 3
+        x: 1,
+        y: 1
     }
 }
 
 let left_paddle = {
+    x: 1,
+    y: 0,
+    height: 4,
+    points: 0
+}
+let right_paddle = {
     x: 1,
     y: 0,
     height: 4,
@@ -62,6 +68,10 @@ function gameLoop(level) {
         ball.vel.x*=-1;
         left_paddle.points++;
     }
+    if (ball.x == right_paddle.x-1 && ball.y >= right_paddle.y && ball.y <= right_paddle.y+right_paddle.height) {
+        ball.vel.x*=-1;
+        right_paddle.points++;
+    }
 
     drawLoop(level);
 }
@@ -81,7 +91,7 @@ function drawLoop(level) {
     level.getBlock(canvas.x+ball.x, canvas.y-ball.y, canvas.z).set("minecraft:orange_concrete");
 
     //score
-    level.runCommandSilent(`execute positioned ${canvas.x} ${canvas.y} ${canvas.z} run title @a[distance=..50] actionbar {"text":"${left_paddle.points} : 0","bold":true}`)
+    level.runCommandSilent(`execute positioned ${canvas.x} ${canvas.y} ${canvas.z} run title @a[distance=..50] actionbar {"text":"${left_paddle.points} : ${right_paddle.points}","bold":true}`);
 }
 
 
