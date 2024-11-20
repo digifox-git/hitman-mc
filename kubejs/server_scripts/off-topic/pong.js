@@ -5,8 +5,8 @@ const canvas = {
     x: -6,
     y: -41,
     z: -245,
-    height: 16,
-    width: 32
+    height: 16, //try to keep these even
+    width: 32 //try to keep these even
 }
 let ball = {
     x: 0,
@@ -24,7 +24,7 @@ let left_paddle = {
     points: 0
 }
 let right_paddle = {
-    x: 31,
+    x: 30,
     y: 0,
     height: 4,
     points: 0
@@ -54,13 +54,21 @@ function gameLoop(level) {
     // ball
     ball.x+=ball.vel.x;
     ball.y+=ball.vel.y;
+
+    // walls
     if (ball.x > canvas.width-1 || ball.x < 0) {
         ball.vel.x*=-1; // flips velocity
         ball.x+=ball.vel.x;
     }
+
+    // ceilings
     if (ball.y > canvas.height-1 || ball.y < 0) {
         ball.vel.y*=-1; // flips velocity
-        ball.y+=ball.vel.y;
+        //ball.y+=ball.vel.y;
+
+        //kill ball
+        ball.x = canvas.width/2;
+        ball.y = canvas.height/2;
     }
 
     // paddles
