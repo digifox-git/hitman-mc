@@ -126,6 +126,6 @@ ItemEvents.rightClicked("minecraft:amethyst_shard", e => {
 })
 ItemEvents.rightClicked("minecraft:quartz", e => {
     gaming = false;
-    e.server.getScheduledEvents().events.forEach(v => v.clear()); // clear every event cause i dont know how to select the one i want
+    e.server.getScheduledEvents().events.forEach(v => e.server.scheduledEvents.clear(v.id)); // clear every event cause i dont know how to select the one i want
     
 })
