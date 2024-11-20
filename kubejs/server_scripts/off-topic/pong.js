@@ -24,7 +24,7 @@ let left_paddle = {
     points: 0
 }
 let right_paddle = {
-    x: canvas.width-1,
+    x: 31,
     y: 0,
     height: 4,
     points: 0
@@ -119,7 +119,7 @@ ItemEvents.rightClicked("minecraft:gold_nugget", e => {
         right_paddle.y-=dist;
     }
 
-    //gameLoop(e.level);
+    drawLoop(e.level);
 })
 ItemEvents.rightClicked("minecraft:gold_ingot", e => {
     let dist = 1;
@@ -131,7 +131,7 @@ ItemEvents.rightClicked("minecraft:gold_ingot", e => {
         left_paddle.y-=dist;
     }
 
-    //gameLoop(e.level);
+    drawLoop(e.level);
 })
 
 ItemEvents.rightClicked("minecraft:iron_nugget", e => {
