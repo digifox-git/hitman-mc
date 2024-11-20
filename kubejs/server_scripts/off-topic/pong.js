@@ -4,7 +4,7 @@ const canvas = {
     x: -6,
     y: -41,
     z: -245,
-    length: 16,
+    height: 16,
     width: 32
 }
 let ball = {
@@ -25,8 +25,8 @@ let left_paddle = {
  * @param {Internal.Level} level 
  */
 function background(level) {
-    for (let i=canvas.x; i<canvas.x-canvas.width; i++) {
-        for (let j=canvas.y; j<canvas.y+canvas.length; j++) {
+    for (let i=canvas.x; i<canvas.x+canvas.width; i++) {
+        for (let j=canvas.y; j>canvas.y-canvas.height; j--) {
             level.getBlock(i, j, canvas.z).set("minecraft:white_concrete");
         }
     }
