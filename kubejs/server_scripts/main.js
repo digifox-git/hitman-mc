@@ -2,6 +2,7 @@
 
 let hpoints, gpoints;
 let targetAlive
+global.villagerPlaced = false
 // Utility function to select entities by tag
 function selectE(server, tag) {
     return server.level.getEntities(e => e.tags.contains(tag));
@@ -74,8 +75,9 @@ function startGame(server) {
  * @param {Internal.MinecraftServer} server 
  */
 EntityEvents.spawned("minecraft:villager", e => {
-    if (e.entity.tags.contains("target")) {
+    if (e.entity.tags.contains("target") && global.villagerPlaced == false) {
         global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
+        global.villagerPlaced = true
         endRound(e.server);
     }
 });
