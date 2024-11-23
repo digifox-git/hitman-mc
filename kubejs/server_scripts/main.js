@@ -76,8 +76,8 @@ function startGame(server) {
 EntityEvents.spawned("minecraft:villager", e => {
     if (e.entity.tags.contains("target")) {
         global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
-        server.runCommandSilent(`kill @e[tag=target]`)
-        server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
+        e.server.runCommandSilent(`kill @e[tag=target]`)
+        e.server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         startRound(e.server);
     }
 });
