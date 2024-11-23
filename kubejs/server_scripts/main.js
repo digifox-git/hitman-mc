@@ -86,7 +86,7 @@ EntityEvents.spawned("minecraft:villager", e => {
  */
 function startRound(server) {
     targetAlive = true
-    server.runCommandSilent(`team join Target @e[tag=target]`)
+    // server.runCommandSilent(`team join Target @e[tag=target]`)
     server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
