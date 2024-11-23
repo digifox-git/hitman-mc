@@ -76,6 +76,8 @@ function startGame(server) {
 EntityEvents.spawned("minecraft:villager", e => {
     if (e.entity.tags.contains("target")) {
         global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
+        server.runCommandSilent(`kill @e[tag=target]`)
+        server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         startRound(e.server);
     }
 });
@@ -120,8 +122,6 @@ function endRound(server) {
     if (hpoints == 5 || gpoints == 5) {
         endGame(server)
     } else {
-        server.runCommandSilent(`kill @e[tag=target]`)
-        server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         server.runCommandSilent(`team join Target @e[tag=target]`)
         server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
         startRound(server);
@@ -134,8 +134,12 @@ function endRound(server) {
  */
 EntityEvents.death(e => {
     if (e.entity.tags.contains("target")) {
-        e.level.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
-        targetAlive = false
+        if (hpoints == 0 || gpoints == 0) {
+            return
+        } else {
+            e.level.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
+            targetAlive = false
+        }
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Danger Neutralized");
         endRound(e.server);
