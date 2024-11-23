@@ -120,7 +120,7 @@ function endRound(server) {
     if (hpoints == 5 || gpoints == 5) {
         endGame(server)
     } else {
-        server.runCommandSilent(`kill @e[type=villager]`)
+        server.runCommandSilent(`kill @e[type=minecraft:villager]`)
         server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         server.runCommandSilent(`team join Target @e[tag=target]`)
         server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
