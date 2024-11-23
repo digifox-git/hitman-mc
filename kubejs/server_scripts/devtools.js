@@ -18,7 +18,7 @@ ItemEvents.rightClicked("minecraft:nether_star", e => {
     //e.player.tell(kits.containsKey(working_kit))
     //e.item.nbt.get("kit")
     // Save Kits
-    if (e.player.isCrouching()) {
+    if (e.player.isCrouching() && e.player.isCreative()) {
         kits[working_kit] = {inv:[],offhand:{},armor:[]}
 
         let inventory = e.player.inventory.items.filter(i => (i.id != 'minecraft:air' && i.id != 'minecraft:nether_star')); // Gets inventory not air items (no offhand or armor yet)

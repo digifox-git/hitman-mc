@@ -82,6 +82,10 @@ EntityEvents.spawned("minecraft:villager", e => {
     }
 });
 
+/**
+ * 
+ * @param {Internal.MinecraftServer} server 
+ */
 function startRound(server) {
     targetAlive = true
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
