@@ -134,7 +134,7 @@ function endRound(server) {
  */
 EntityEvents.death(e => {
     if (e.entity.tags.contains("target")) {
-        e.level.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
+        e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
         targetAlive = false
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Danger Neutralized");
