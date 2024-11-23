@@ -74,10 +74,10 @@ function startGame(server) {
  * @param {Internal.MinecraftServer} server 
  */
 EntityEvents.spawned("minecraft:villager", e => {
-    if (e.entity.tags.contains("target")) {
+    if (e.entity.tags.contains("target") && hpoints == 0 && gpoints == 0) {
         global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
-        // se.server.runCommandSilent(`kill @e[tag=target]`)
-        // e.server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
+        e.server.runCommandSilent(`kill @e[tag=target]`)
+        e.server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         startRound(e.server);
     }
 });
@@ -134,7 +134,7 @@ function endRound(server) {
  */
 EntityEvents.death(e => {
     if (e.entity.tags.contains("target")) {
-        if (hpoints == 0 || gpoints == 0) {
+        if (hpoints == 0 && gpoints == 0) {
             return
         } else {
             e.level.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
