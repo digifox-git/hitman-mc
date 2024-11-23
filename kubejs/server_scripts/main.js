@@ -8,8 +8,8 @@ function selectE(server, tag) {
 }
 
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
-    selectE(server, "hitman").forEach(hitman => hitman.getTags().add('guard'))
-    selectE(server, "hitman").forEach(hitman => hitman.getTags().remove('hitman'))
+    //selectE(server, "hitman").forEach(hitman => hitman.getTags().add('guard'))
+    //selectE(server, "hitman").forEach(hitman => hitman.getTags().remove('hitman'))
     e.player.getTags().remove('guard')
     e.player.getTags().add('hitman')
     e.server.tell(`${e.player.username} is now the Hitman!`)
@@ -66,7 +66,7 @@ function startGame(server) {
         });
     });
     server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
-    global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
+    global.hitman.forEach(hitman => hitman.teleportTo(-138, 262, 13));
 }
 
 /**
@@ -76,8 +76,8 @@ function startGame(server) {
 EntityEvents.spawned("minecraft:villager", e => {
     if (e.entity.tags.contains("target")) {
         global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
-        server.runCommandSilent(`team join Target @e[tag=target]`)
-        server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
+        e.server.runCommandSilent(`team join Target @e[tag=target]`)
+        e.server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
         startRound(e.server);
     }
 });
