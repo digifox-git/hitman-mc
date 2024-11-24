@@ -167,14 +167,15 @@ PlayerEvents.tick(e => {
     if (!global.isGaming) return;
 
     // Decrease respawn time for guards
-    if (e.player.persistentData.respawnTime > 0) {
+    if (e.player.persistentData.respawnTime > 1) {
         e.player.persistentData.respawnTime--;
         e.player.paint({ respawn_time: { text: `${e.player.persistentData.respawnTime}` } });
         e.player.potionEffects.add('minecraft:glowing', 99999, 0, true, true); // "INFINITE isnt defined"
     }
 
     // Respawn guard when time reaches zero
-    if (e.player.persistentData.respawnTime == 0) {
+    if (e.player.persistentData.respawnTime == 1) {
+        e.player.persistentData.respawnTime = 0; // dont run previous if statment again
         e.player.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         e.player.paint({ respawn_time: { visible: false } });
         e.player.displayClientMessage(Component.blue("Back in action!"), true);
