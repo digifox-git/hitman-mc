@@ -9,6 +9,7 @@ function selectE(server, tag) {
 }
 
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
+    if (e.getHand() == "off_hand") return; // Prevents event from firing twice
     //selectE(server, "hitman").forEach(hitman => hitman.getTags().add('guard'))
     //selectE(server, "hitman").forEach(hitman => hitman.getTags().remove('hitman'))
     e.player.getTags().remove('guard')
@@ -79,6 +80,7 @@ EntityEvents.spawned("minecraft:villager", e => {
         global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
         global.villagerPlaced = true
         endRound(e.server);
+        e.entity.kill();
     }
 });
 
@@ -155,7 +157,7 @@ function respawnGuard(guard) {
     guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
     guard.persistentData.respawnTime = 120;
     guard.paint({ respawn_time: { visible: true } });
-    global.guards.forEach(guard => loadKit(guard, "guard", true));
+    //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
 }
 
 /**
@@ -168,14 +170,15 @@ PlayerEvents.tick(e => {
     if (e.player.persistentData.respawnTime > 0) {
         e.player.persistentData.respawnTime--;
         e.player.paint({ respawn_time: { text: `${e.player.persistentData.respawnTime}` } });
-        e.player.potionEffects.add('minecraft:glowing', INFINITE, 0, true, true)
+        e.player.potionEffects.add('minecraft:glowing', 99999, 0, true, true); // "INFINITE isnt defined"
     }
 
     // Respawn guard when time reaches zero
-    if (e.player.persistentData.respawnTime === 1) {
+    if (e.player.persistentData.respawnTime == 0) {
         e.player.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         e.player.paint({ respawn_time: { visible: false } });
         e.player.displayClientMessage(Component.blue("Back in action!"), true);
+        loadKit(e.player, "guard", true)
     }
 });
 
@@ -183,6 +186,7 @@ PlayerEvents.tick(e => {
  * Plays a sound when right-clicking on a monitor block
  */
 BlockEvents.rightClicked("kubejs:monitor", e => {
+    if (e.getHand() == "off_hand") return; // Prevents event from firing twice
     e.server.runCommandSilent(`playsound minecraft:block.note_block.bit master @a[distance=0..16] ~ ~ ~ 1 1 0`);
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:white_glazed_terracotta') {
         e.server.tell('ICA SELECTED')
