@@ -1,4 +1,4 @@
-// priority: 1;
+priority: 2
 
 let hpoints, gpoints;
 let targetAlive

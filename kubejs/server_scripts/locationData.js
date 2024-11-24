@@ -1,4 +1,4 @@
-// priority: 0;
+priority: 1; // needs to be loaded before main.js 
 
 const theWoods = {
   spawnSelection: false,
