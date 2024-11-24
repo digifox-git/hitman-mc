@@ -87,6 +87,7 @@ EntityEvents.spawned("minecraft:villager", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startRound(server) {
+    server.tell("Starting Round");
     targetAlive = true
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
@@ -120,6 +121,7 @@ function endRound(server) {
     if (hpoints == 5 || gpoints == 5) {
         endGame(server)
     } else {
+        server.tell("Ending round");
         server.runCommandSilent(`kill @e[tag=target]`)
         server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         server.runCommandSilent(`team join Target @e[tag=target]`)
