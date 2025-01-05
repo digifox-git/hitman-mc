@@ -46,6 +46,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startGame(server) {
+    server.runCommandSilent(`gamemode `)
     global.isGaming = true;
     global.villagerPlaced = false
     server.tell("Starting Game");
@@ -101,6 +102,7 @@ function startRound(server) {
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
     global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
+    console.log('YAYYYY!!')
 }
 
 /**
@@ -146,6 +148,7 @@ EntityEvents.death(e => {
         targetAlive = false
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Danger Neutralized");
+        gpoints++
         endRound(e.server);
     } else if (e.entity.tags.contains("guard")) {
         e.server.tell("Guard down!");
