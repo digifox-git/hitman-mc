@@ -156,7 +156,7 @@ EntityEvents.death(e => {
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
         targetAlive = false
     } else if (e.entity.tags.contains("hitman")) {
-        e.server.tell("Danger Neutralized");
+        e.server.tell("Threat neutralized.");
         gpoints++
         e.server.scheduleInTicks(20, () => {
             endRound(e.server)
