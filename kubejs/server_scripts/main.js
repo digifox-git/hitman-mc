@@ -100,10 +100,8 @@ function startRound(server) {
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
 
     // Reload kits
-    server.scheduleInTicks(20, () => {
-        global.guards.forEach(guard => loadKit(guard, "guard", true));
-        global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
-    })
+    global.guards.forEach(guard => loadKit(guard, "guard", true));
+    global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
     
     console.log('YAYYYY!!')
 }
@@ -152,7 +150,7 @@ EntityEvents.death(e => {
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Danger Neutralized");
         gpoints++
-        e.server.scheduleInTicks(120, () => {
+        e.server.scheduleInTicks(20, () => {
             endRound(e.server)
         })
     } else if (e.entity.tags.contains("guard")) {
