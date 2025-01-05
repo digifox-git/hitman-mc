@@ -31,8 +31,8 @@ const freeformTraining = {
     z: 26
   },
   condiiton: {
-    time: day,
-    weather: clear
+    time: "day",
+    weather: "clear"
   },
 }
 
