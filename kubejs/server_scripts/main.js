@@ -194,6 +194,9 @@ PlayerEvents.tick(e => {
         e.player.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         e.player.paint({ respawn_time: { visible: false } });
         e.player.displayClientMessage(Component.blue("Back in action!"), true);
+        e.player.runCommandSilent(`gamemode @s survival`)
+        e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master @a ~ ~ ~ 1 1.2 1`)
+        e.server.runCommandSilent(`particle minecraft:glow ~ ~ ~ 0.2 0.9 0.2 0 50 force`)
         loadKit(e.player, "guard", true)
     }
 });
