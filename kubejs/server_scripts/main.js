@@ -8,10 +8,14 @@ function selectE(server, tag) {
     return server.level.getEntities(e => e.tags.contains(tag));
 }
 
+/**
+ * blah blah blah
+ * @param {Internal.MinecraftServer} server 
+ */
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
     if (e.getHand() == "off_hand") return; // Prevents event from firing twice
-    //selectE(server, "hitman").forEach(hitman => hitman.getTags().add('guard'))
-    //selectE(server, "hitman").forEach(hitman => hitman.getTags().remove('hitman'))
+    selectE(e.server, "hitman").forEach(hitman => hitman.getTags().add('guard'))
+    selectE(e.server, "hitman").forEach(hitman => hitman.getTags().remove('hitman'))
     e.player.getTags().remove('guard')
     e.player.getTags().add('hitman')
     e.server.tell(`${e.player.username} is now the Hitman!`)
@@ -42,6 +46,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startGame(server) {
+    server.runCommandSilent(`gamemode `)
     global.isGaming = true;
     global.villagerPlaced = false
     server.tell("Starting Game...");
@@ -102,6 +107,8 @@ function startRound(server) {
     if (global.map = mapOptions[1])
         server.runCommandSilent(`time set midnight`)
         server.runCommandSilent(`weather rain`)
+    
+    console.log('YAYYYY!!')
 }
 
 /**
@@ -150,7 +157,10 @@ EntityEvents.death(e => {
         targetAlive = false
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Danger Neutralized");
-        endRound(e.server);
+        gpoints++
+        e.server.scheduleInTicks(20, () => {
+            endRound(e.server)
+        })
     } else if (e.entity.tags.contains("guard")) {
         e.server.tell("Guard down!");
         respawnGuard(e.entity);
