@@ -151,6 +151,8 @@ function endRound(server) {
 EntityEvents.death(e => {
     if (e.entity.tags.contains("target")) {
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
+        e.server.runCommandSilent(`playsound minecraft:entity.wither.spawn master @a ~ ~ ~ 1 1 1`)
+        e.server.runCommandSilent(`title @a actionbar {"text":"Target down!", "bold":true, "color":"red"}`)
         targetAlive = false
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Threat neutralized.");
@@ -195,7 +197,7 @@ PlayerEvents.tick(e => {
         e.player.paint({ respawn_time: { visible: false } });
         e.player.displayClientMessage(Component.blue("Back in action!"), true);
         e.player.runCommandSilent(`gamemode @s survival`)
-        e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master @a ~ ~ ~ 1 1.2 1`)
+        e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master @a[disctance] ~ ~ ~ 1 1.2 1`)
         e.server.runCommandSilent(`particle minecraft:glow ~ ~ ~ 0.2 0.9 0.2 0 50 force`)
         loadKit(e.player, "guard", true)
     }
