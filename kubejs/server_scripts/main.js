@@ -73,7 +73,12 @@ function startGame(server) {
         });
     });
     server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
+    server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
     global.hitman.forEach(hitman => hitman.teleportTo(-138, 262, 13));
+
+    if (global.map = mapOptions[1])
+        server.runCommandSilent(`time set midnight`)
+        server.runCommandSilent(`weather rain`)
 }
 
 /**
@@ -98,15 +103,10 @@ function startRound(server) {
     targetAlive = true
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
-    server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
 
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
     global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
-
-    if (global.map = mapOptions[1])
-        server.runCommandSilent(`time set midnight`)
-        server.runCommandSilent(`weather rain`)
     
     console.log('YAYYYY!!')
 }
