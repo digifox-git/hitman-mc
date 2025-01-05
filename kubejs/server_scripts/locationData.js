@@ -12,7 +12,7 @@ const theWoods = {
     y: -57,
     z: 134
   },
-  condiiton: {
+  condition: {
     time: "midnight",
     weather: "rain"
   },
@@ -30,7 +30,7 @@ const freeformTraining = {
     y: -56,
     z: 26
   },
-  condiiton: {
+  condition: {
     time: "day",
     weather: "clear"
   },
