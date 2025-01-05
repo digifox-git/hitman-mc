@@ -13,8 +13,8 @@ const theWoods = {
     z: 134
   },
   condiiton: {
-    time: midnight,
-    weather: rain
+    time: "midnight",
+    weather: "rain"
   },
 }
 
