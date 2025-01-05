@@ -73,14 +73,11 @@ function startGame(server) {
         });
     });
     server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
+    server.runCommandSilent(`weather ${global.map.condition.weather}`)
+    server.runCommandSilent(`time set ${global.map.condition.time}`)
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
     global.hitman.forEach(hitman => hitman.teleportTo(-138, 262, 13));
-
-    if (global.map = mapOptions[1])
-        server.runCommandSilent(`time set midnight`)
-        server.runCommandSilent(`weather rain`)
 }
-
 /**
  * Starts the next round when the target spawns
  * @param {Internal.MinecraftServer} server 

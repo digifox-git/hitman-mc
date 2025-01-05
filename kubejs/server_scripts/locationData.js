@@ -12,6 +12,10 @@ const theWoods = {
     y: -57,
     z: 134
   },
+  condiiton: {
+    time: midnight,
+    weather: rain
+  },
 }
 
 const freeformTraining = {
@@ -25,7 +29,11 @@ const freeformTraining = {
     x: 58,
     y: -56,
     z: 26
-  }
+  },
+  condiiton: {
+    time: day,
+    weather: clear
+  },
 }
 
 const mapOptions = [freeformTraining, theWoods]
