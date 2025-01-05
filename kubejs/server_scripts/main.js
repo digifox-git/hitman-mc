@@ -204,11 +204,11 @@ PlayerEvents.tick(e => {
 BlockEvents.rightClicked("kubejs:monitor", e => {
     if (e.getHand() == "off_hand") return; // Prevents event from firing twice
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:white_glazed_terracotta') {
-        e.server.tell('Map Selected: ICA Training Facility')
+        e.server.runCommandSilent('title @a actionbar "Map Selected: ICA Training Facility"')
         e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
         global.map = mapOptions[0]
     } else if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:light_gray_glazed_terracotta') {
-        e.server.tell('Map Selected: Tethys Outpost')
+        e.server.runCommandSilent('title @a actionbar "Map Selected: Tethys Outpost"')
         e.server.runCommandSilent('playsound minecraft:block.note_block.chime master @a ~ ~ ~ 1 1 1');
         global.map = mapOptions[1]
     }
