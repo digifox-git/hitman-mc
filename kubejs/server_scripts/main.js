@@ -20,7 +20,7 @@ BlockEvents.rightClicked("black_glazed_terracotta", e => {
 BlockEvents.rightClicked('minecraft:lodestone', e => {
     e.level.spawnParticles("minecraft:wax_on", false, e.block.x, e.block.y, e.block.z, .1, .1, .1, 40, 10);
     if (!global.map) {
-        e.server.tell('SELECT A MAP')
+        e.server.tell('You must select a map!')
     } else {
         startGame(e.server);
     }
@@ -44,7 +44,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
 function startGame(server) {
     global.isGaming = true;
     global.villagerPlaced = false
-    server.tell("Starting Game");
+    server.tell("Starting Game...");
     hpoints = 0, gpoints = 0;
     // Assign and teleport players by role
     global.guards = selectE(server, "guard");
@@ -89,14 +89,19 @@ EntityEvents.spawned("minecraft:villager", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startRound(server) {
-    server.tell("Starting Round");
+    server.tell("Starting Round...");
     targetAlive = true
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
+    server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
 
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
     global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
+
+    if (global.map = mapOptions[1])
+        server.runCommandSilent(`time set midnight`)
+        server.runCommandSilent(`weather rain`)
 }
 
 /**
@@ -106,12 +111,15 @@ function startRound(server) {
 function endGame(server) {
     global.isGaming = false;
     if (hpoints > gpoints) {
-        server.tell("hitman won");
+        server.tell("Hitman wins!");
     } else {
-        server.tell("guards won");
+        server.tell("Guards Win!");
     }
     server.runCommandSilent(`tp @a -10000 -47 -10000`)
     server.runCommandSilent(`clear @a`)
+    server.runCommandSilent(`effect clear @a`)
+    server.runCommandSilent(`time set day`)
+    server.runCommandSilent(`weather clear`)
 }
 
 /**
@@ -190,11 +198,11 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     if (e.getHand() == "off_hand") return; // Prevents event from firing twice
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:white_glazed_terracotta') {
         e.server.tell('Map Selected: ICA Training Facility')
-        e.server.playsound('minecraft:block.note_block.bit master @a[distance=0..16] ~ ~ ~ 1 1 0');
+        server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
         global.map = mapOptions[0]
     } else if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:light_gray_glazed_terracotta') {
         e.server.tell('Map Selected: Tethys Outpost')
-        e.server.playsound('minecraft:block.note_block.bit master @a[distance=0..16] ~ ~ ~ 1 1 0');
+        server.runCommandSilent('playsound minecraft:block.note_block.chime master @a ~ ~ ~ 1 1 1');
         global.map = mapOptions[1]
     }
 });
