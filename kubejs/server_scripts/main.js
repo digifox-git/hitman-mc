@@ -149,7 +149,7 @@ EntityEvents.death(e => {
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Danger Neutralized");
         gpoints++
-        endRound(e.server);
+        setTimeout(endRound(e.server), 2000);
     } else if (e.entity.tags.contains("guard")) {
         e.server.tell("Guard down!");
         respawnGuard(e.entity);
