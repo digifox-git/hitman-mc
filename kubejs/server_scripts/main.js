@@ -166,6 +166,7 @@ EntityEvents.death(e => {
         e.server.runCommandSilent(`gamemode spectator ${e.entity}`)
         e.player.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         respawnGuard(e.entity);
+        console.log(`${e.entity} died.`)
     }
 });
 
