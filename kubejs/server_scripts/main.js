@@ -138,7 +138,7 @@ function endRound(server) {
     if (hpoints == 5 || gpoints == 5) {
         endGame(server)
     } else {
-        server.tell("Ending round");
+        server.tell("Ending round...");
         server.runCommandSilent(`kill @e[tag=target]`)
         server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         server.runCommandSilent(`team join Target @e[tag=target]`)
