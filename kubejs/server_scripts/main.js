@@ -116,6 +116,7 @@ function endGame(server) {
     global.isGaming = false;
     if (hpoints > gpoints) {
         server.tell("Hitman wins!");
+
     } else {
         server.tell("Guards Win!");
     }
@@ -162,6 +163,8 @@ EntityEvents.death(e => {
         })
     } else if (e.entity.tags.contains("guard")) {
         e.server.tell("Guard down!");
+        e.server.runCommandSilent(`gamemode spectator ${e.entity}`)
+        e.player.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         respawnGuard(e.entity);
     }
 });
@@ -196,6 +199,7 @@ PlayerEvents.tick(e => {
         e.player.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         e.player.paint({ respawn_time: { visible: false } });
         e.player.displayClientMessage(Component.blue("Back in action!"), true);
+        e.server.runCommandSilent(`gamemode survival ${e.entity}`)
         e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master @a ~ ~ ~ 1 1.2 1`)
         e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.2 0.9 0.2 0 50 force`)
         loadKit(e.player, "guard", true)
