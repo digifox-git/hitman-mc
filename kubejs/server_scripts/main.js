@@ -100,8 +100,11 @@ function startRound(server) {
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
 
     // Reload kits
-    global.guards.forEach(guard => loadKit(guard, "guard", true));
-    global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
+    e.server.scheduleInTicks(20, () => {
+        global.guards.forEach(guard => loadKit(guard, "guard", true));
+        global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
+    })
+    
     console.log('YAYYYY!!')
 }
 
