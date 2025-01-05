@@ -37,3 +37,5 @@ const freeformTraining = {
 }
 
 const mapOptions = [freeformTraining, theWoods]
+
+// You *should* be able to put a number in for time, but no clue if it works.

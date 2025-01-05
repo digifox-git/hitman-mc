@@ -201,6 +201,7 @@ PlayerEvents.tick(e => {
         e.player.displayClientMessage(Component.blue("Back in action!"), true);
         e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master @a ~ ~ ~ 1 1.2 1`)
         e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.2 0.9 0.2 0 50 force`)
+        e.entity.setGameMode('survival')
         loadKit(e.player, "guard", true)
     }
 });
