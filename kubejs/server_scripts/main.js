@@ -168,6 +168,9 @@ EntityEvents.death(e => {
         e.server.tell("Guard down!");
         e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
         respawnGuard(e.entity);
+        e.server.scheduleInTicks(10, () => {
+            e.player.teleportTo(global.guardPosX, global.guardPosY, global.guardPosZ);
+        })
     }
 });
 
@@ -193,7 +196,6 @@ PlayerEvents.tick(e => {
         e.player.paint({ respawn_time: { text: `${e.player.persistentData.respawnTime}` } });
         e.entity.setGameMode('spectator')
         e.player.potionEffects.add('minecraft:glowing', 99999, 0, true, true); // "INFINITE isnt defined"
-        e.player.teleportTo(global.guardPosX, global.guardPosY, global.guardPosZ);
     }
 
     // Respawn guard when time reaches zero
