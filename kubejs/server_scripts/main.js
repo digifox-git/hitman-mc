@@ -169,10 +169,22 @@ EntityEvents.death(e => {
         e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
         respawnGuard(e.entity);
         e.server.scheduleInTicks(3, () => {
-            e.player.teleportTo(global.guardPosX, global.guardPosY, global.guardPosZ);
         })
     }
 });
+
+global.onEvent('entity.hurt', (event) => {
+    if (event.entity.type === 'minecraft:player') { // Check if the entity is a player
+        const player = event.entity;
+        const health = player.getHealth(); // Get the player's current health
+
+        if (health - event.damage <= 0) { // Check if health after damage would be 0 or less
+            event.cancel(); // Cancel the damage to prevent death
+            player.setGameMode('spectator'); // Set the player to spectator mode
+            player.tell('You are now in spectator mode because your health reached 0!');
+        }
+    }
+})
 
 /**
  * Respawns guards after a delay
@@ -189,6 +201,8 @@ function respawnGuard(guard) {
  */
 PlayerEvents.tick(e => {
     if (!global.isGaming) return;
+
+    e.player.teleportTo(global.guardPosX, global.guardPosY, global.guardPosZ);
 
     // Decrease respawn time for guards
     if (e.player.persistentData.respawnTime > 1) {
