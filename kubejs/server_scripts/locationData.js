@@ -16,6 +16,11 @@ const theWoods = {
     time: "midnight",
     weather: "rain"
   },
+  exit: {
+    x: -52.3,
+    y: -59.5,
+    z: 146.5
+  }
 }
 
 const freeformTraining = {

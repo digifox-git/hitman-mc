@@ -41,6 +41,8 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
         e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
         hpoints++;
         e.server.runCommandSilent(`title @a title {"text":"Hitman escaped!", "bold":true, "color":"red"}`)
+        e.server.runCommandSilent(`playsound minecraft:item.trident.thunder master @a ~ ~ ~ 1 1 1`)
+        e.server.runCommandSilent(`kill @e[type=minecraft:slime,tag=exit]`)
         e.server.runCommandSilent(`gamemode spectator @a`)
         e.server.scheduleInTicks(40, () => {
             endRound(e.server);
@@ -63,7 +65,6 @@ function startGame(server) {
     global.hitman = selectE(server, "hitman");
     server.runCommandSilent(`clear @a`)
     server.runCommandSilent(`effect give @a[tag=guard] minecraft:glowing infinite 0 true`)
-    server.runCommandSilent(`playsound minecraft:item.trident.thunder master @a ~ ~ ~ 1 1 1`)
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         guard.paint({
@@ -81,9 +82,9 @@ function startGame(server) {
         });
     });
     server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
+    server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
     server.runCommandSilent(`weather ${global.map.condition.weather}`)
     server.runCommandSilent(`time set ${global.map.condition.time}`)
-    server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
     global.hitman.forEach(hitman => hitman.teleportTo(-138, 262, 13));
 }
 /**
@@ -108,6 +109,7 @@ function startRound(server) {
     targetAlive = true
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
+    server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
 
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
@@ -147,6 +149,7 @@ function endRound(server) {
         server.tell("Ending round...");
         server.runCommandSilent(`kill @e[tag=target]`)
         server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
+        server.runCommandSilent(`summon slime ${global.map.exit.x} ${global.map.exit.y} ${global.map.exit.z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
         server.runCommandSilent(`team join Target @e[tag=target]`)
         server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
         startRound(server);
