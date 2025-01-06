@@ -168,6 +168,7 @@ EntityEvents.death(e => {
         e.server.tell("Guard down!");
         e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
         respawnGuard(e.entity);
+        e.entity.teleportTo(global.guardPosX, global.guardPosY, global.guardPosZ);
     }
 });
 
@@ -176,7 +177,6 @@ EntityEvents.death(e => {
  * @param {Player} guard 
  */
 function respawnGuard(guard) {
-    e.entity.teleportTo(global.guardPosX, global.guardPosY, global.guardPosZ);
     guard.persistentData.respawnTime = 120;
     guard.paint({ respawn_time: { visible: true } });
     //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
