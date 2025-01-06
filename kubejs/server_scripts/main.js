@@ -161,6 +161,7 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
     console.log(global.spawnPosX)
     console.log(global.spawnPosY)
     console.log(global.spawnPosZ)
+    console.log(`spawnpoint ${e.player.username} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
 })
 
 /**
