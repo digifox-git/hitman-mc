@@ -39,6 +39,11 @@ const freeformTraining = {
     time: "day",
     weather: "clear"
   },
+  exit: {
+    x: 55.5,
+    y: -45.5,
+    z: 11.5
+  }
 }
 
 const mapOptions = [freeformTraining, theWoods]
