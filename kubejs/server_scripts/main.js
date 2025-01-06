@@ -150,9 +150,9 @@ function endRound(server) {
 }
 
 PlayerEvents.tick(e => {
-    global.spawnPosX = player.x
-    global.spawnPosY = player.y
-    global.spawnPosZ = player.z
+    global.spawnPosX = e.player.x
+    global.spawnPosY = e.player.y
+    global.spawnPosZ = e.player.z
 
     e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
 })
