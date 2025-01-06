@@ -154,14 +154,21 @@ PlayerEvents.tick(e => {
     global.spawnPosY = Math.round(e.player.y)
     global.spawnPosZ = Math.round(e.player.z)
 
-    e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnPosX} ${global.spawnPosY} ${global.spawnPosZ}`)
+    let respawnPoint = {
+        x: global.spawnPosX,
+        y: global.spawnPosY,
+        z: global.spawnPosZ
+    }
+    player.persistentData.spawn = respawnPoint;
 })
 
 BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
     console.log(global.spawnPosX)
     console.log(global.spawnPosY)
     console.log(global.spawnPosZ)
-    console.log(`spawnpoint ${e.player.username} ${global.spawnPosX} ${global.spawnPosY} ${global.spawnPosZ}`)
+    console.log(player.persistentData.spawn)
+
+    player.spawn
 })
 
 /**
