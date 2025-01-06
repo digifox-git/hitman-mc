@@ -14,9 +14,9 @@ function selectE(server, tag) {
  */
 
 PlayerEvents.tick(e => {
-    global.spawnPosX = e.player.x
-    global.spawnPosY = e.player.y
-    global.spawnPosZ = e.player.z
+    global.spawnPosX = e.x
+    global.spawnPosY = e.y
+    global.spawnPosZ = e.z
 
     e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
 })
@@ -25,7 +25,6 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
     console.log(global.spawnposX)
     console.log(global.spawnposY)
     console.log(global.spawnposZ)
-    console.log(e.player.username)
 })
 
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
@@ -182,7 +181,7 @@ EntityEvents.death(e => {
         e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
         respawnGuard(e.entity);
         e.server.scheduleInTicks(3, () => {
-            e.player.teleportTo(global.guardPosX, global.guardPosY, global.guardPosZ);
+            e.player.teleportTo(global.spawnPosX, global.spawnPosY, global.spawnPosZ);
         })
     }
 });
