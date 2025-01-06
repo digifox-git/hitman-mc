@@ -42,6 +42,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
         hpoints++;
         e.server.runCommandSilent(`title @a title {"text":"Hitman escaped!", "bold":true, "color":"red"}`)
         e.server.runCommandSilent(`playsound minecraft:item.trident.thunder master @a ~ ~ ~ 1 1 1`)
+        e.server.runCommandSilent(`playsound minecraft:entity.firework_rocket.blast master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`kill @e[type=minecraft:slime,tag=exit]`)
         e.server.runCommandSilent(`gamemode spectator @a`)
         e.server.scheduleInTicks(40, () => {
@@ -149,7 +150,6 @@ function endRound(server) {
         server.tell("Ending round...");
         server.runCommandSilent(`kill @e[tag=target]`)
         server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
-        server.runCommandSilent(`summon slime ${global.map.exit.x} ${global.map.exit.y} ${global.map.exit.z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
         server.runCommandSilent(`team join Target @e[tag=target]`)
         server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
         startRound(server);
@@ -181,6 +181,7 @@ EntityEvents.death(e => {
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
         e.server.runCommandSilent(`playsound minecraft:entity.wither.spawn master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`title @a actionbar {"text":"Target down!", "bold":true, "color":"red"}`)
+        server.runCommandSilent(`summon slime ${global.map.exit.x} ${global.map.exit.y} ${global.map.exit.z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
         targetAlive = false
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Threat neutralized.");
