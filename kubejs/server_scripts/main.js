@@ -186,7 +186,7 @@ EntityEvents.death(e => {
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Threat neutralized.");
         gpoints++
-        e.server.scheduleInTicks(20, () => {
+        e.server.scheduleInTicks(40, () => {
             endRound(e.server)
         })
     } else if (e.entity.tags.contains("guard")) {
