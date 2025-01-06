@@ -14,11 +14,11 @@ function selectE(server, tag) {
  */
 
 PlayerEvents.tick(e => {
-    global.spawnPosX = e.target.x
+    global.spawnPosX = e.player.x
     global.spawnPosY = e.target.y
     global.spawnPosZ = e.target.z
 
-    e.server.runCommandSilent(`spawnpoint ${e.player} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
+    e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
 })
 
 BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
