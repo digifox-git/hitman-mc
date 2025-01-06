@@ -25,7 +25,7 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
     console.log(global.spawnposX)
     console.log(global.spawnposY)
     console.log(global.spawnposZ)
-    console.log(e.player)
+    console.log(e)
 })
 
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
