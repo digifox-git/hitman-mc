@@ -21,6 +21,13 @@ PlayerEvents.tick(e => {
     e.server.runCommandSilent(`spawnpoint ${e.player} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
 })
 
+BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
+    console.log(global.spawnposX)
+    console.log(global.spawnposY)
+    console.log(global.spawnposZ)
+    console.log(global.e.player)
+})
+
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
     if (e.getHand() == "off_hand") return; // Prevents event from firing twice
     selectE(e.server, "hitman").forEach(hitman => hitman.getTags().add('guard'))
