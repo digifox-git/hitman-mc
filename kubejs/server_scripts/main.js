@@ -193,9 +193,10 @@ PlayerEvents.tick(e => {
     // Decrease respawn time for guards
     if (e.player.persistentData.respawnTime > 1) {
         e.player.persistentData.respawnTime--;
+        e.player.teleportTo("-131", "-58", "20")
         e.player.paint({ respawn_time: { text: `${e.player.persistentData.respawnTime}` } });
         e.entity.setGameMode('spectator')
-        e.player.potionEffects.add('minecraft:glowing', 99999, 0, true, true); // "INFINITE isnt defined"
+        e.player.potionEffects.add('minecraft:glowing', 99999, 0, false, false); // "INFINITE isnt defined"
     }
 
     // Respawn guard when time reaches zero
