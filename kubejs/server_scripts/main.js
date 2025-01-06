@@ -168,7 +168,7 @@ EntityEvents.death(e => {
         e.server.tell("Guard down!");
         e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
         respawnGuard(e.entity);
-        e.server.scheduleInTicks(10, () => {
+        e.server.scheduleInTicks(1, () => {
             e.player.teleportTo(global.guardPosX, global.guardPosY, global.guardPosZ);
         })
     }
