@@ -167,6 +167,7 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
 /**
  * Handles death events
  */
+
 EntityEvents.death(e => {
     if (e.entity.tags.contains("target")) {
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
@@ -183,6 +184,9 @@ EntityEvents.death(e => {
         e.server.tell("Guard down!");
         e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
         respawnGuard(e.entity);
+        e.server.scheduleInTicks(3, () => {
+            e.server.runCommandSilent(`title @a title {"text":"You Died!", "bold":true, "color":"red"}`)
+        })
     }
 });
 
