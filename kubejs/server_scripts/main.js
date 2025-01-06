@@ -12,6 +12,15 @@ function selectE(server, tag) {
  * blah blah blah
  * @param {Internal.MinecraftServer} server 
  */
+
+PlayerEvents.tick(e => {
+    global.spawnPosX = e.player.x
+    global.spawnPosY = e.player.y
+    global.spawnPosZ = e.player.z
+
+    e.server.runCommandSilent(`spawnpoint ${e.player} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
+})
+
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
     if (e.getHand() == "off_hand") return; // Prevents event from firing twice
     selectE(e.server, "hitman").forEach(hitman => hitman.getTags().add('guard'))
@@ -162,9 +171,6 @@ EntityEvents.death(e => {
             endRound(e.server)
         })
     } else if (e.entity.tags.contains("guard")) {
-        global.guardPosX = e.entity.x
-        global.guardPosY = e.entity.y
-        global.guardPosZ = e.entity.z
         e.server.tell("Guard down!");
         e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
         respawnGuard(e.entity);
@@ -193,7 +199,6 @@ PlayerEvents.tick(e => {
     // Decrease respawn time for guards
     if (e.player.persistentData.respawnTime > 1) {
         e.player.persistentData.respawnTime--;
-        e.player.teleportTo("-131", "-58", "20")
         e.player.paint({ respawn_time: { text: `${e.player.persistentData.respawnTime}` } });
         e.entity.setGameMode('spectator')
         e.player.potionEffects.add('minecraft:glowing', 99999, 0, false, false); // "INFINITE isnt defined"
