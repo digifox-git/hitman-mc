@@ -45,7 +45,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
         e.server.runCommandSilent(`playsound minecraft:entity.firework_rocket.blast master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`kill @e[type=minecraft:slime,tag=exit]`)
         e.server.runCommandSilent(`gamemode spectator @a`)
-        e.server.scheduleInTicks(40, () => {
+        e.server.scheduleInTicks(100, () => {
             endRound(e.server);
         })
     } 
@@ -186,7 +186,7 @@ EntityEvents.death(e => {
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Threat neutralized.");
         gpoints++
-        e.server.scheduleInTicks(40, () => {
+        e.server.scheduleInTicks(100, () => {
             endRound(e.server)
         })
     } else if (e.entity.tags.contains("guard")) {
