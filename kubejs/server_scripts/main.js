@@ -13,14 +13,6 @@ function selectE(server, tag) {
  * @param {Internal.MinecraftServer} server 
  */
 
-PlayerEvents.tick(e => {
-    global.spawnPosX = e.x
-    global.spawnPosY = e.y
-    global.spawnPosZ = e.z
-
-    e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
-})
-
 BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
     console.log(global.spawnposX)
     console.log(global.spawnposY)
@@ -160,6 +152,14 @@ function endRound(server) {
     }
     
 }
+
+PlayerEvents.tick(e => {
+    global.spawnPosX = e.player.x
+    global.spawnPosY = e.player.y
+    global.spawnPosZ = e.player.z
+
+    e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
+})
 
 /**
  * Handles death events
