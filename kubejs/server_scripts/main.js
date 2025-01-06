@@ -151,24 +151,17 @@ function endRound(server) {
 
 PlayerEvents.tick(e => {
     global.spawnPosX = Math.round(e.player.x)
-    global.spawnPosY = Math.round(e.player.y)
-    global.spawnPosZ = Math.round(e.player.z)
+    global.spawnPosY = Math.round(e.player.x)
+    global.spawnPosZ = Math.round(e.player.x)
 
-    let respawnPoint = {
-        x: global.spawnPosX,
-        y: global.spawnPosY,
-        z: global.spawnPosZ
-    }
-    e.player.persistentData.spawn = respawnPoint;
+    e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnPosX} ${global.spawnPosY} ${global.spawnPosZ}`)
 })
 
 BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
     console.log(global.spawnPosX)
     console.log(global.spawnPosY)
     console.log(global.spawnPosZ)
-    console.log(e.player.persistentData.spawn)
-
-    player.spawn
+    console.log(`spawnpoint ${e.player.username} ${global.spawnPosX} ${global.spawnPosY} ${global.spawnPosZ}`)
 })
 
 /**
@@ -190,9 +183,6 @@ EntityEvents.death(e => {
         e.server.tell("Guard down!");
         e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
         respawnGuard(e.entity);
-        e.server.scheduleInTicks(3, () => {
-            e.player.teleportTo(global.spawnPosX, global.spawnPosY, global.spawnPosZ);
-        })
     }
 });
 
@@ -216,7 +206,7 @@ PlayerEvents.tick(e => {
     if (e.player.persistentData.respawnTime > 1) {
         e.player.persistentData.respawnTime--;
         e.player.paint({ respawn_time: { text: `${e.player.persistentData.respawnTime}` } });
-        e.entity.setGameMode('spectator')
+        e.player.setGameMode('spectator')
         e.player.potionEffects.add('minecraft:glowing', 99999, 0, false, false); // "INFINITE isnt defined"
     }
 
@@ -228,7 +218,7 @@ PlayerEvents.tick(e => {
         e.player.displayClientMessage(Component.blue("Back in action!"), true);
         e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master @a ~ ~ ~ 1 1.2 1`)
         e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.2 0.9 0.2 0 50 force`)
-        e.entity.setGameMode('survival')
+        e.player.setGameMode('survival')
         loadKit(e.player, "guard", true)
     }
 });
