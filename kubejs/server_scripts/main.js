@@ -154,7 +154,7 @@ PlayerEvents.tick(e => {
     global.spawnPosY = e.player.y
     global.spawnPosZ = e.player.z
 
-    e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
+    e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnPosX} ${global.spawnPosX} ${global.spawnPosX}`)
 })
 
 BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
