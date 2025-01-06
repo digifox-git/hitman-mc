@@ -176,6 +176,7 @@ EntityEvents.death(e => {
  * @param {Player} guard 
  */
 function respawnGuard(guard) {
+    e.entity.teleportTo(global.guardPosX, global.guardPosY, global.guardPosZ);
     guard.persistentData.respawnTime = 120;
     guard.paint({ respawn_time: { visible: true } });
     //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
@@ -192,7 +193,6 @@ PlayerEvents.tick(e => {
         e.player.persistentData.respawnTime--;
         e.player.paint({ respawn_time: { text: `${e.player.persistentData.respawnTime}` } });
         e.entity.setGameMode('spectator')
-        guard.teleportTo(global.guardPosX, global.guardPosY, global.guardPosZ);
         e.player.potionEffects.add('minecraft:glowing', 99999, 0, true, true); // "INFINITE isnt defined"
     }
 
