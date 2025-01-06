@@ -159,7 +159,7 @@ PlayerEvents.tick(e => {
         y: global.spawnPosY,
         z: global.spawnPosZ
     }
-    player.persistentData.spawn = respawnPoint;
+    e.player.persistentData.spawn = respawnPoint;
 })
 
 BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
