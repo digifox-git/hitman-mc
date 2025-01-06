@@ -14,9 +14,9 @@ function selectE(server, tag) {
  */
 
 PlayerEvents.tick(e => {
-    global.spawnPosX = e.target.x
-    global.spawnPosY = e.target.y
-    global.spawnPosZ = e.target.z
+    global.spawnPosX = e.player.x
+    global.spawnPosY = e.player.y
+    global.spawnPosZ = e.player.z
 
     e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
 })
