@@ -40,7 +40,11 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
     if (e.target.type === 'minecraft:slime' && targetAlive == false) {
         e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
         hpoints++;
-        endRound(e.server);
+        e.server.runCommandSilent(`title @a title {"text":"Hitman escaped!", "bold":true, "color":"red"}`)
+        e.server.runCommandSilent(`gamemode spectator @a`)
+        e.server.scheduleInTicks(40, () => {
+            endRound(e.server);
+        })
     } 
 });
 
@@ -59,6 +63,7 @@ function startGame(server) {
     global.hitman = selectE(server, "hitman");
     server.runCommandSilent(`clear @a`)
     server.runCommandSilent(`effect give @a[tag=guard] minecraft:glowing infinite 0 true`)
+    server.runCommandSilent(`playsound minecraft:item.trident.thunder master @a ~ ~ ~ 1 1 1`)
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         guard.paint({
