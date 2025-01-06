@@ -13,11 +13,7 @@ function selectE(server, tag) {
  * @param {Internal.MinecraftServer} server 
  */
 
-BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
-    console.log(global.spawnposX)
-    console.log(global.spawnposY)
-    console.log(global.spawnposZ)
-})
+
 
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
     if (e.getHand() == "off_hand") return; // Prevents event from firing twice
@@ -154,11 +150,17 @@ function endRound(server) {
 }
 
 PlayerEvents.tick(e => {
-    global.spawnPosX = e.player.x
-    global.spawnPosY = e.player.y
-    global.spawnPosZ = e.player.z
+    global.spawnPosX = e.player.username
+    global.spawnPosY = e.player.username
+    global.spawnPosZ = e.player.username
 
     e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnposX} ${global.spawnposY} ${global.spawnposZ}`)
+})
+
+BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
+    console.log(global.spawnposX)
+    console.log(global.spawnposY)
+    console.log(global.spawnposZ)
 })
 
 /**
