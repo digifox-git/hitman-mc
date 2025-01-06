@@ -151,8 +151,8 @@ function endRound(server) {
 
 PlayerEvents.tick(e => {
     global.spawnPosX = Math.round(e.player.x)
-    global.spawnPosY = Math.round(e.player.x)
-    global.spawnPosZ = Math.round(e.player.x)
+    global.spawnPosY = Math.round(e.player.y)
+    global.spawnPosZ = Math.round(e.player.z)
 
     e.server.runCommandSilent(`spawnpoint ${e.player.username} ${global.spawnPosX} ${global.spawnPosY} ${global.spawnPosZ}`)
 })
