@@ -173,7 +173,6 @@ EntityEvents.death(e => {
  * @param {Player} guard 
  */
 function respawnGuard(guard) {
-    guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
     guard.persistentData.respawnTime = 120;
     guard.paint({ respawn_time: { visible: true } });
     //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
