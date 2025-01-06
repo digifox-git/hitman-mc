@@ -164,7 +164,6 @@ EntityEvents.death(e => {
     } else if (e.entity.tags.contains("guard")) {
         e.server.tell("Guard down!");
         e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
-        e.runCommandSilent(`spawnpoint ${e.entity} ~ ~ ~`)
         respawnGuard(e.entity);
     }
 });
