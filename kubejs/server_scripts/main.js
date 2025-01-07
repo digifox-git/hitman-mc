@@ -111,10 +111,12 @@ function startRound(server) {
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
+    e.player.potionEffects.add('minecraft:slowness', 99999, 0, false, false); // "INFINITE isnt defined"
+
 
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
-    global.hitman.forEach(hitman => loadKit(hitman, "hitman", true));
+    global.hitman.forEach(hitman => loadKit(hitman, "hitman", true))
     
     console.log('YAYYYY!!')
 }
@@ -136,6 +138,7 @@ function endGame(server) {
     server.runCommandSilent(`effect clear @a`)
     server.runCommandSilent(`time set day`)
     server.runCommandSilent(`weather clear`)
+    server.runCommandSilent(`gamemode @a adventure`)
 }
 
 /**
@@ -146,6 +149,7 @@ function endRound(server) {
     server.tell(`${hpoints}-${gpoints}`);
     if (hpoints == 3 || gpoints == 3) {
         endGame(server)
+        server.runCommandSilent(`kill @e[tag=target]`)
     } else {
         server.tell("Ending round...");
         server.runCommandSilent(`kill @e[tag=target]`)
@@ -194,10 +198,8 @@ EntityEvents.death(e => {
         })
     } else if (e.entity.tags.contains("guard")) {
         e.server.tell("Guard down!");
-        e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
+        e.server.runCommandSilent(`playsound minecraft:entity.evoker.death master @a ~ ~ ~ 1 1 1`)
         respawnGuard(e.entity);
-        e.server.scheduleInTicks(0, () => {
-        })
     }
 });
 
