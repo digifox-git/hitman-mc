@@ -144,7 +144,7 @@ function endGame(server) {
  */
 function endRound(server) {
     server.tell(`${hpoints}-${gpoints}`);
-    if (hpoints == 5 || gpoints == 5) {
+    if (hpoints == 3 || gpoints == 3) {
         endGame(server)
     } else {
         server.tell("Ending round...");
@@ -186,6 +186,9 @@ EntityEvents.death(e => {
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Threat neutralized.");
         gpoints++
+        e.server.scheduleInTicks(2, () => {
+            e.player.setGameMode('spectator')
+        })
         e.server.scheduleInTicks(100, () => {
             endRound(e.server)
         })
@@ -194,7 +197,6 @@ EntityEvents.death(e => {
         e.server.runCommandSilent(`playsound minecraft:entity.bat.death master @a ~ ~ ~ 0.25 0.6 1`)
         respawnGuard(e.entity);
         e.server.scheduleInTicks(0, () => {
-            e.server.runCommandSilent(`title @a title {"text":"You Died!", "bold":true, "color":"red"}`)
         })
     }
 });
