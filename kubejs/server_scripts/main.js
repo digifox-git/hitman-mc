@@ -198,7 +198,7 @@ EntityEvents.death(e => {
         })
     } else if (e.entity.tags.contains("guard")) {
         e.server.runCommandSilent(`title @a actionbar {"text":"Guard down!", "bold":true, "color":"white"}`)
-        e.server.runCommandSilent(`playsound minecraft:entity.allay.hurt master @a ~ ~ ~ 1 1 1`)
+        e.server.runCommandSilent(`playsound minecraft:entity.allay.hurt master @a ~ ~ ~ 1 0.85 1`)
         respawnGuard(e.entity);
     }
 });
