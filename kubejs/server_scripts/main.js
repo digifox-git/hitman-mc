@@ -111,8 +111,7 @@ function startRound(server) {
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
-    e.player.potionEffects.add('minecraft:slowness', 99999, 0, false, false); // "INFINITE isnt defined"
-
+    e.server.runCommandSilent(`effect give @a minecraft:slowness 999999 0 true`)
 
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
@@ -189,6 +188,7 @@ EntityEvents.death(e => {
         targetAlive = false
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Threat neutralized.");
+        e.server.runCommandSilent(`playsound minecraft:entity.evoker.death master @a ~ ~ ~ 1 1 1`)
         gpoints++
         e.server.scheduleInTicks(2, () => {
             e.player.setGameMode('spectator')
@@ -197,8 +197,8 @@ EntityEvents.death(e => {
             endRound(e.server)
         })
     } else if (e.entity.tags.contains("guard")) {
-        e.server.tell("Guard down!");
-        e.server.runCommandSilent(`playsound minecraft:entity.evoker.death master @a ~ ~ ~ 1 1 1`)
+        e.server.runCommandSilent(`title @a actionbar {"text":"Guard down!", "bold":true, "color":"white"}`)
+        e.server.runCommandSilent(`playsound minecraft:entity.allay.hurt master @a ~ ~ ~ 1 1 1`)
         respawnGuard(e.entity);
     }
 });
@@ -235,7 +235,7 @@ PlayerEvents.tick(e => {
         e.player.displayClientMessage(Component.blue("Back in action!"), true);
         e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master @a ~ ~ ~ 1 1.2 1`)
         e.server.runCommandSilent(`playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1`)
-        e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.2 0.9 0.2 0 50 force`)
+        e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.4 1 0.4 0 50 force`)
         e.player.setGameMode('survival')
         loadKit(e.player, "guard", true)
 
