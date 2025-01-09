@@ -110,7 +110,7 @@ function startRound(server) {
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
-    e.server.runCommandSilent(`effect give @a minecraft:slowness 999999 0 true`)
+    server.runCommandSilent(`effect give @a minecraft:slowness 999999 0 true`)
 
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
