@@ -117,8 +117,6 @@ function startRound(server) {
     // Reload kits
     global.guards.forEach(guard => loadKit(guard, "guard", true));
     global.hitman.forEach(hitman => loadKit(hitman, "hitman", true))
-    
-    console.log('YAYYYY!!')
 }
 
 /**
@@ -160,7 +158,6 @@ function endRound(server) {
         server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
         startRound(server);
     }
-    
 }
 
 PlayerEvents.tick(e => {
@@ -183,7 +180,7 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
  */
 
 EntityEvents.death(e => {
-    if (e.entity.tags.contains("target") && gameInProgress == true) {
+    if (e.entity.tags.contains("target")) {
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
         e.server.runCommandSilent(`playsound minecraft:entity.wither.spawn master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`title @a actionbar {"text":"Target down!", "bold":true, "color":"red"}`)
