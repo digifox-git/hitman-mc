@@ -27,6 +27,7 @@ BlockEvents.rightClicked("black_glazed_terracotta", e => {
 BlockEvents.rightClicked('minecraft:lodestone', e => {
     e.level.spawnParticles("minecraft:wax_on", false, e.block.x, e.block.y, e.block.z, .1, .1, .1, 40, 10);
     if (!global.map) {
+        if (e.getHand() == "off_hand") return;
         e.server.tell('You must select a map!')
     } else {
         startGame(e.server);
@@ -64,7 +65,6 @@ function startGame(server) {
     global.guards = selectE(server, "guard");
     global.hitman = selectE(server, "hitman");
     server.runCommandSilent(`clear @a`)
-    server.runCommandSilent(`effect give @a[tag=guard] minecraft:glowing infinite 0 true`)
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         guard.paint({
@@ -95,8 +95,10 @@ EntityEvents.spawned("minecraft:villager", e => {
     if (e.entity.tags.contains("target") && global.villagerPlaced == false) {
         global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
         global.villagerPlaced = true
-        endRound(e.server);
+        
+        global.isGaming = false
         e.entity.kill();
+        endRound(e.server);
     }
 });
 
@@ -105,17 +107,22 @@ EntityEvents.spawned("minecraft:villager", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startRound(server) {
+    server.runCommandSilent(`effect clear @a`)
     global.isGaming = true
     server.tell("Starting Round...");
     targetAlive = true
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
+    server.runCommandSilent(`effect give @a[tag=guard] minecraft:glowing infinite 0 true`)
     server.runCommandSilent(`effect give @a minecraft:slowness 999999 0 true`)
 
     // Reload kits
-    global.guards.forEach(guard => loadKit(guard, "guard", true));
-    global.hitman.forEach(hitman => loadKit(hitman, "hitman", true))
+    server.scheduleInTicks(20, () => {
+        global.guards.forEach(guard => loadKit(guard, "guard", true));
+    global.hitman.forEach(hitman => loadKit(hitman, "guard", true))
+    })
+    
 }
 
 /**
@@ -153,6 +160,7 @@ function endRound(server) {
         server.tell("Ending round...");
         server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         server.runCommandSilent(`summon slime ${global.map.exit.x} ${global.map.exit.y} ${global.map.exit.z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
+        server.tell(global.map.exit.y)
         server.runCommandSilent(`team join Target @e[tag=target]`)
         server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
         startRound(server);
@@ -179,8 +187,8 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
  */
 
 EntityEvents.death(e => {
+    e.server.tell(global.isGaming)
     if (e.entity.tags.contains("target") && global.isGaming) {
-        e.server.tell(global.isGaming)
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
         e.server.runCommandSilent(`playsound minecraft:entity.wither.spawn master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`title @a actionbar {"text":"Target down!", "bold":true, "color":"red"}`)
