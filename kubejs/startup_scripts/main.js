@@ -18,7 +18,7 @@ StartupEvents.registry('block', event => {
 })
 
 StartupEvents.registry('block', event => {
-    event.create('monitor', 'cardinal')
+    event.create('glow', 'cardinal')
         .defaultCutout()
         .displayName("Myserious Glow")
         .mapColor("metal")
