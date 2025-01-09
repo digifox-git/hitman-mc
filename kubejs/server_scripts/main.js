@@ -180,6 +180,7 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
 
 EntityEvents.death(e => {
     if (e.entity.tags.contains("target") && global.isGaming) {
+        e.server.tell(global.isGaming)
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
         e.server.runCommandSilent(`playsound minecraft:entity.wither.spawn master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`title @a actionbar {"text":"Target down!", "bold":true, "color":"red"}`)
