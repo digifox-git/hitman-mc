@@ -105,6 +105,7 @@ EntityEvents.spawned("minecraft:villager", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startRound(server) {
+    global.isGaming = true
     server.tell("Starting Round...");
     targetAlive = true
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
@@ -142,13 +143,14 @@ function endGame(server) {
  * @param {Internal.MinecraftServer} server 
  */
 function endRound(server) {
+    global.isGaming = false
     server.tell(`${hpoints}-${gpoints}`);
+    server.runCommandSilent(`kill @e[tag=target]`)
+    server.runCommandSilent(`kill @e[type=item]`)
     if (hpoints == 3 || gpoints == 3) {
         endGame(server)
-        server.runCommandSilent(`kill @e[tag=target]`)
     } else {
         server.tell("Ending round...");
-        server.runCommandSilent(`kill @e[tag=target]`)
         server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
         server.runCommandSilent(`summon slime ${global.map.exit.x} ${global.map.exit.y} ${global.map.exit.z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
         server.runCommandSilent(`team join Target @e[tag=target]`)
@@ -177,7 +179,7 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
  */
 
 EntityEvents.death(e => {
-    if (e.entity.tags.contains("target")) {
+    if (e.entity.tags.contains("target") && global.isGaming) {
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
         e.server.runCommandSilent(`playsound minecraft:entity.wither.spawn master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`title @a actionbar {"text":"Target down!", "bold":true, "color":"red"}`)
@@ -189,7 +191,7 @@ EntityEvents.death(e => {
         e.server.scheduleInTicks(2, () => {
             e.player.setGameMode('spectator')
         })
-        e.server.scheduleInTicks(100, () => {
+        e.server.scheduleInTicks(20, () => {
             endRound(e.server)
         })
     } else if (e.entity.tags.contains("guard")) {
