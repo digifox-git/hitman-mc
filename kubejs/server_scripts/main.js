@@ -108,7 +108,6 @@ EntityEvents.spawned("minecraft:villager", e => {
 function startRound(server) {
     server.tell("Starting Round...");
     targetAlive = true
-    gameInProgress = true
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
@@ -145,7 +144,6 @@ function endGame(server) {
  */
 function endRound(server) {
     server.tell(`${hpoints}-${gpoints}`);
-    gameInProgress = false
     if (hpoints == 3 || gpoints == 3) {
         endGame(server)
         server.runCommandSilent(`kill @e[tag=target]`)
