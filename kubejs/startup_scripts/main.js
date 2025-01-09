@@ -16,3 +16,19 @@ StartupEvents.registry('block', event => {
         .box(1, 1, 2, 15, 4, 1, true) //keyboard
         .box(1, 1, 1, 15, 3, 0, true) //keyboard
 })
+
+StartupEvents.registry('block', event => {
+    event.create('monitor', 'cardinal')
+        .defaultCutout()
+        .displayName("Myserious Glow")
+        .mapColor("metal")
+        .soundType("wool")
+        .hardness(0.0)
+        .resistance(10000.0)
+        .requiresTool(false)
+        .tagBlock("mineable/pickaxe")
+        .tagBlock("minecraft:needs_iron_tool")
+        .lightLevel(15)
+        .box(0,0,0,16,16,16,true) //box
+
+})
