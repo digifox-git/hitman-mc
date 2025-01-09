@@ -46,6 +46,30 @@ const freeformTraining = {
   }
 }
 
+const control = {
+  spawnSelection: false,
+  hSpawn: {
+    x: -122,
+    y: 45,
+    z: -245
+  },
+  gSpawn: {
+    x: x,
+    y: y,
+    z: z
+  },
+  condition: {
+    time: "day",
+    weather: "clear"
+  },
+  exit: {
+    x: x,
+    y: y,
+    z: z
+  }
+}
+
+
 const mapOptions = [freeformTraining, theWoods]
 
 // You *should* be able to put a number in for time, but no clue if it works.

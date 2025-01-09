@@ -108,6 +108,7 @@ EntityEvents.spawned("minecraft:villager", e => {
 function startRound(server) {
     server.tell("Starting Round...");
     targetAlive = true
+    gameInProgress = true
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
@@ -146,6 +147,7 @@ function endGame(server) {
  */
 function endRound(server) {
     server.tell(`${hpoints}-${gpoints}`);
+    gameInProgress = false
     if (hpoints == 3 || gpoints == 3) {
         endGame(server)
         server.runCommandSilent(`kill @e[tag=target]`)
@@ -181,7 +183,7 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
  */
 
 EntityEvents.death(e => {
-    if (e.entity.tags.contains("target")) {
+    if (e.entity.tags.contains("target") && gameInProgress == true) {
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
         e.server.runCommandSilent(`playsound minecraft:entity.wither.spawn master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`title @a actionbar {"text":"Target down!", "bold":true, "color":"red"}`)
