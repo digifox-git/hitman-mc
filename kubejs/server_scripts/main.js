@@ -17,7 +17,7 @@ function selectE(server, tag) {
 
 BlockEvents.rightClicked("black_glazed_terracotta", e => {
     if (e.getHand() == "off_hand") return; // Prevents event from firing twice
-    selectE(e.server, "hitman").forEach(hitman => hitman.getTags().add('guard'))
+    e.server.runCommandSilent(`tag @a add guard`)
     selectE(e.server, "hitman").forEach(hitman => hitman.getTags().remove('hitman'))
     e.player.getTags().remove('guard')
     e.player.getTags().add('hitman')
