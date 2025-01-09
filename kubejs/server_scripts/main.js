@@ -27,6 +27,7 @@ BlockEvents.rightClicked("black_glazed_terracotta", e => {
 BlockEvents.rightClicked('minecraft:lodestone', e => {
     e.level.spawnParticles("minecraft:wax_on", false, e.block.x, e.block.y, e.block.z, .1, .1, .1, 40, 10);
     if (!global.map) {
+        if (e.getHand() == "off_hand") return;
         e.server.tell('You must select a map!')
     } else {
         startGame(e.server);
@@ -115,8 +116,11 @@ function startRound(server) {
     server.runCommandSilent(`effect give @a minecraft:slowness 999999 0 true`)
 
     // Reload kits
-    global.guards.forEach(guard => loadKit(guard, "guard", true));
-    global.hitman.forEach(hitman => loadKit(hitman, "hitman", true))
+    server.scheduleInTicks(20, () => {
+        global.guards.forEach(guard => loadKit(guard, "guard", true));
+        global.hitman.forEach(hitman => loadKit(hitman, "hitman", true))
+    })
+    
 }
 
 /**
