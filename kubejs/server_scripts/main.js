@@ -96,6 +96,7 @@ EntityEvents.spawned("minecraft:villager", e => {
         global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
         global.villagerPlaced = true
         endRound(e.server);
+        global.isGaming = false
         e.entity.kill();
     }
 });
