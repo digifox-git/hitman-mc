@@ -56,7 +56,6 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startGame(server) {
-    server.runCommandSilent(`gamemode `)
     global.isGaming = true;
     global.villagerPlaced = false
     server.tell("Starting Game...");
