@@ -63,9 +63,9 @@ const control = {
     weather: "clear"
   },
   exit: {
-    x: x,
-    y: y,
-    z: z
+    x: 0,
+    y: 0,
+    z: 0
   }
 }
 
