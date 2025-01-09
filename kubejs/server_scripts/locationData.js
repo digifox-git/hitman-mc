@@ -54,9 +54,9 @@ const control = {
     z: -245
   },
   gSpawn: {
-    x: x,
-    y: y,
-    z: z
+    x: 0,
+    y: 0,
+    z: 0
   },
   condition: {
     time: "day",
