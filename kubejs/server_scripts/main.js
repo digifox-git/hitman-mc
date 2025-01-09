@@ -65,7 +65,6 @@ function startGame(server) {
     global.guards = selectE(server, "guard");
     global.hitman = selectE(server, "hitman");
     server.runCommandSilent(`clear @a`)
-    server.runCommandSilent(`effect give @a[tag=guard] minecraft:glowing infinite 0 true`)
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
         guard.paint({
@@ -107,18 +106,20 @@ EntityEvents.spawned("minecraft:villager", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startRound(server) {
+    server.runCommandSilent(`effect clear @a`)
     global.isGaming = true
     server.tell("Starting Round...");
     targetAlive = true
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
+    server.runCommandSilent(`effect give @a[tag=guard] minecraft:glowing infinite 0 true`)
     server.runCommandSilent(`effect give @a minecraft:slowness 999999 0 true`)
 
     // Reload kits
     server.scheduleInTicks(20, () => {
         global.guards.forEach(guard => loadKit(guard, "guard", true));
-        global.hitman.forEach(hitman => loadKit(hitman, "hitman", true))
+    global.hitman.forEach(hitman => loadKit(hitman, "hitman", true))
     })
     
 }
@@ -185,8 +186,8 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
  */
 
 EntityEvents.death(e => {
+    e.server.tell(global.isGaming)
     if (e.entity.tags.contains("target") && global.isGaming) {
-        e.server.tell(global.isGaming)
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
         e.server.runCommandSilent(`playsound minecraft:entity.wither.spawn master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`title @a actionbar {"text":"Target down!", "bold":true, "color":"red"}`)
