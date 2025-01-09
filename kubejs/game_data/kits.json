@@ -45,7 +45,7 @@
 			{
 				"id": "pointblank:m1911a1",
 				"count": 1,
-				"nbt": ""
+				"nbt": "{GeckoLibID:5826L,RepairCost:0,aim:0b,ammo:7,ammox:{},as:[{id:\"pointblank:smg_suppressor\",rmv:1b}],display:{Name:'{\"text\":\"ICA19\"}'},fmid:[I;-1636272185,45363964,-1509764009,649528026],lid:-5913844022498838710L,mid:6682376299637196439L,sa:{scope:\"/\"},seed:5253172018714532081L}"
 			},
 			{
 				"id": "pointblank:ammo45acp",
