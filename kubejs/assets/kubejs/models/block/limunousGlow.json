@@ -1,9 +1,9 @@
 {
-	"credit": "Made with Blockbench",
+	"credit": "digifox, Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "block/texture",
-		"particle": "block/texture"
+		"0": "block/white",
+		"particle": "block/white"
 	},
 	"elements": [
 		{
