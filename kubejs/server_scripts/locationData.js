@@ -41,7 +41,7 @@ const freeformTraining = {
   },
   exit: {
     x: 55.5,
-    y: -45.5,
+    y: -55,
     z: 11.5
   }
 }
