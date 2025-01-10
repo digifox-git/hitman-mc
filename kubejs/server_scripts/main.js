@@ -13,27 +13,6 @@ function selectE(server, tag) {
  * @param {Internal.MinecraftServer} server 
  */
 
-
-
-BlockEvents.rightClicked("black_glazed_terracotta", e => {
-    if (e.getHand() == "off_hand") return; // Prevents event from firing twice
-    e.server.runCommandSilent(`tag @a add guard`)
-    selectE(e.server, "hitman").forEach(hitman => hitman.getTags().remove('hitman'))
-    e.player.getTags().remove('guard')
-    e.player.getTags().add('hitman')
-    e.server.tell(`${e.player.username} is now the Hitman!`)
-});
-
-BlockEvents.rightClicked('minecraft:lodestone', e => {
-    e.level.spawnParticles("minecraft:wax_on", false, e.block.x, e.block.y, e.block.z, .1, .1, .1, 40, 10);
-    if (!global.map) {
-        if (e.getHand() == "off_hand") return;
-        e.server.tell('You must select a map!')
-    } else {
-        startGame(e.server);
-    }
-    
-})
 /**
  * Event when interacting with entities
  */
@@ -255,6 +234,23 @@ PlayerEvents.tick(e => {
  */
 BlockEvents.rightClicked("kubejs:monitor", e => {
     if (e.getHand() == "off_hand") return; // Prevents event from firing twice
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:lodestone') {
+        if (!global.map) {
+            if (e.getHand() == "off_hand") return;
+            e.server.tell('There is no map selected!')
+        } else {
+            startGame(e.server);
+        }
+    }
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:black_glazed_terracotta') {
+        e.server.runCommandSilent(`tag @a add guard`)
+        selectE(e.server, "hitman").forEach(hitman => hitman.getTags().remove('hitman'))
+        e.player.getTags().remove('guard')
+        e.player.getTags().add('hitman')
+        e.server.tell(`${e.player.username} will play as the Hitman.`)
+    }
+
+    // Map Selection
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:white_glazed_terracotta') {
         e.server.runCommandSilent('title @a actionbar "Map Selected: ICA Training Facility"')
         e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
