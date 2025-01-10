@@ -261,9 +261,15 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         e.server.runCommandSilent('title @a actionbar "Map Selected: ICA Training Facility"')
         e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
         global.map = mapOptions[0]
-    } else if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:light_gray_glazed_terracotta') {
+    } 
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:light_gray_glazed_terracotta') {
         e.server.runCommandSilent('title @a actionbar "Map Selected: Tethys Outpost"')
         e.server.runCommandSilent('playsound minecraft:block.note_block.chime master @a ~ ~ ~ 1 1 1');
         global.map = mapOptions[1]
     }
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:gray_glazed_terracotta') {
+        e.server.runCommandSilent('title @a actionbar "Map Selected: Control"')
+        e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
+        global.map = mapOptions[2]
+    } 
 });

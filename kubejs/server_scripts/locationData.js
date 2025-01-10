@@ -70,6 +70,6 @@ const control = {
 }
 
 
-const mapOptions = [freeformTraining, theWoods]
+const mapOptions = [freeformTraining, theWoods, control]
 
 // You *should* be able to put a number in for time, but no clue if it works.
