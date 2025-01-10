@@ -252,7 +252,10 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:crafting_table') {
         e.server.runCommandSilent(`tp @p -8 -59 4`)
     }
-    
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:cartography_table') {
+        e.server.runCommandSilent(`tp @p -10000 -47 -10000`)
+    }
+
     // Map Selection
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:white_glazed_terracotta') {
         e.server.runCommandSilent('title @a actionbar "Map Selected: ICA Training Facility"')
