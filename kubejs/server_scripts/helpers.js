@@ -106,7 +106,7 @@ function loadKit(server, player, kit, clear_inv) {
     // Items
     if (!Array.isArray(kits[kit].inv)) return false;
     kits[kit].inv.forEach(item => {
-        server.runCommandSilent(`give ${player.username} ${item.id}${item.nbt}`)
+        server.runCommandSilent(`give ${player.username} ${item.id}${item.nbt} ${item.count}`)
         // player.give(`${item.count}x ${item.id} ${item.nbt}`);
     });
 
