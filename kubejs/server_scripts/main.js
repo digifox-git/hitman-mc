@@ -93,13 +93,14 @@ function startRound(server) {
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
+    server.runCommandSilent(`effect give @a minecraft:instant_health 1 255`)
     server.runCommandSilent(`effect give @a[tag=guard] minecraft:glowing infinite 0 true`)
     server.runCommandSilent(`effect give @a minecraft:slowness 999999 0 true`)
 
     // Reload kits
     server.scheduleInTicks(20, () => {
         global.guards.forEach(guard => loadKit(server, guard, "guard", true));
-    global.hitman.forEach(hitman => loadKit(server, hitman, "guard", true))
+    global.hitman.forEach(hitman => loadKit(server, hitman, "hitman", true))
     })
     
 }
@@ -133,6 +134,7 @@ function endRound(server) {
     server.tell(`${hpoints}-${gpoints}`);
     server.runCommandSilent(`kill @e[tag=target]`)
     server.runCommandSilent(`kill @e[type=item]`)
+    server.runCommandSilent(`clear @a`)
     if (hpoints == 3 || gpoints == 3) {
         endGame(server)
     } else {

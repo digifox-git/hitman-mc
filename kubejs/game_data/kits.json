@@ -4,7 +4,7 @@
 			{
 				"id": "pointblank:glock17",
 				"count": 1,
-				"nbt": "{}"
+				"nbt": "{GeckoLibID:5827L,RepairCost:0,aim:0b,ammo:15,ammox:{},display:{Name:'{\"text\":\"Bartoli 75R\"}'},fmid:[I;2024040644,790376639,-1901301172,-347176430],lid:-7672045357788949544L,mid:-5931368223776816371L,sa:{scope:\"/\"},seed:2766427260837752437L}"
 			},
 			{
 				"id": "pointblank:ammo9mm",
