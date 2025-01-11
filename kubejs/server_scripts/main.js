@@ -98,8 +98,8 @@ function startRound(server) {
 
     // Reload kits
     server.scheduleInTicks(20, () => {
-        global.guards.forEach(guard => loadKit(guard, "guard", true));
-    global.hitman.forEach(hitman => loadKit(hitman, "guard", true))
+        global.guards.forEach(guard => loadKit(server, guard, "guard", true));
+    global.hitman.forEach(hitman => loadKit(server, hitman, "guard", true))
     })
     
 }
