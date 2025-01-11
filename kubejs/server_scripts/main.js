@@ -138,7 +138,7 @@ function endRound(server) {
     server.runCommandSilent(`kill @e[tag=target]`)
     server.runCommandSilent(`kill @e[type=item]`)
     server.runCommandSilent(`clear @a`)
-    if (hpoints == 3 || gpoints == 3) {
+    if (hpoints == 5 || gpoints == 5) {
         endGame(server)
     } else {
         server.tell("Ending round...");
