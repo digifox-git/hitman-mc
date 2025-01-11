@@ -49,9 +49,9 @@ const freeformTraining = {
 const control = {
   spawnSelection: false,
   hSpawn: {
-    x: -122,
-    y: 45,
-    z: -245
+    x: -115,
+    y: 21,
+    z: -350
   },
   gSpawn: {
     x: -123,
