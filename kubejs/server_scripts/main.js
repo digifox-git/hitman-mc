@@ -98,7 +98,7 @@ function startRound(server) {
     server.runCommandSilent(`effect give @a minecraft:slowness 999999 0 true`)
 
     // Reload kits
-    server.scheduleInTicks(20, () => {
+    server.scheduleInTicks(5, () => {
         global.guards.forEach(guard => loadKit(server, guard, "guard", true));
     global.hitman.forEach(hitman => loadKit(server, hitman, "hitman", true))
     })
@@ -122,7 +122,10 @@ function endGame(server) {
     server.runCommandSilent(`effect clear @a`)
     server.runCommandSilent(`time set day`)
     server.runCommandSilent(`weather clear`)
-    server.runCommandSilent(`gamemode @a adventure`)
+    server.scheduleInTicks(5, () => { 
+        server.runCommandSilent(`gamemode @a adventure`)
+    })
+    
 }
 
 /**
@@ -139,7 +142,7 @@ function endRound(server) {
         endGame(server)
     } else {
         server.tell("Ending round...");
-        server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"],Profession:5,Career:1}`);
+        server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"],VillagerData:{level:1,profession:"minecraft:nitwit"}`);
         server.runCommandSilent(`summon slime ${global.map.exit.x} ${global.map.exit.y} ${global.map.exit.z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
         server.tell(global.map.exit.y)
         server.runCommandSilent(`team join Target @e[tag=target]`)

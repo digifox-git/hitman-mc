@@ -54,18 +54,18 @@ const control = {
     z: -245
   },
   gSpawn: {
-    x: 0,
-    y: 0,
-    z: 0
+    x: -123,
+    y: 57,
+    z: -343
   },
   condition: {
     time: "day",
     weather: "clear"
   },
   exit: {
-    x: 0,
-    y: 0,
-    z: 0
+    x: -122,
+    y: 46,
+    z: 245
   }
 }
 
