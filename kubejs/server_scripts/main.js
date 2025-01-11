@@ -139,7 +139,7 @@ function endRound(server) {
         endGame(server)
     } else {
         server.tell("Ending round...");
-        server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
+        server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"],Profession:5,Career:1}`);
         server.runCommandSilent(`summon slime ${global.map.exit.x} ${global.map.exit.y} ${global.map.exit.z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
         server.tell(global.map.exit.y)
         server.runCommandSilent(`team join Target @e[tag=target]`)
