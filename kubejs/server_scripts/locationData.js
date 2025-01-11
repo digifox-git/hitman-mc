@@ -65,7 +65,7 @@ const control = {
   exit: {
     x: -122,
     y: 46,
-    z: 245
+    z: -245
   }
 }
 
