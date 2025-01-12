@@ -275,7 +275,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         global.map = mapOptions[1]
     }
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:gray_glazed_terracotta') {
-        e.server.runCommandSilent('title @a actionbar "Map Selected: Control"')
+        e.server.runCommandSilent('title @a actionbar "Map Selected: FBC Research Sector"')
         e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
         global.map = mapOptions[2]
     } 
