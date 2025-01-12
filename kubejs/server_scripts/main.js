@@ -93,13 +93,14 @@ function startRound(server) {
     global.guards.forEach(guard => guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z));
     global.hitman.forEach(hitman => hitman.teleportTo(global.map.hSpawn.x, global.map.hSpawn.y, global.map.hSpawn.z));
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
+    server.runCommandSilent(`effect give @a minecraft:instant_health 1 255`)
     server.runCommandSilent(`effect give @a[tag=guard] minecraft:glowing infinite 0 true`)
     server.runCommandSilent(`effect give @a minecraft:slowness 999999 0 true`)
 
     // Reload kits
-    server.scheduleInTicks(20, () => {
-        global.guards.forEach(guard => loadKit(guard, "guard", true));
-    global.hitman.forEach(hitman => loadKit(hitman, "guard", true))
+    server.scheduleInTicks(5, () => {
+        global.guards.forEach(guard => loadKit(server, guard, "guard", true));
+    global.hitman.forEach(hitman => loadKit(server, hitman, "hitman", true))
     })
     
 }
@@ -116,12 +117,15 @@ function endGame(server) {
     } else {
         server.tell("Guards Win!");
     }
-    server.runCommandSilent(`tp @a -10000 -47 -10000`)
+    server.runCommandSilent(`tp @a 10000 -42 0`)
     server.runCommandSilent(`clear @a`)
     server.runCommandSilent(`effect clear @a`)
     server.runCommandSilent(`time set day`)
     server.runCommandSilent(`weather clear`)
-    server.runCommandSilent(`gamemode @a adventure`)
+    server.scheduleInTicks(5, () => { 
+        server.runCommandSilent(`gamemode @a adventure`)
+    })
+    
 }
 
 /**
@@ -133,13 +137,13 @@ function endRound(server) {
     server.tell(`${hpoints}-${gpoints}`);
     server.runCommandSilent(`kill @e[tag=target]`)
     server.runCommandSilent(`kill @e[type=item]`)
-    if (hpoints == 3 || gpoints == 3) {
+    server.runCommandSilent(`clear @a`)
+    if (hpoints == 5 || gpoints == 5) {
         endGame(server)
     } else {
         server.tell("Ending round...");
-        server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"], NoAI:1b}`);
+        server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"],VillagerData:{level:1,profession:"minecraft:nitwit"}}`);
         server.runCommandSilent(`summon slime ${global.map.exit.x} ${global.map.exit.y} ${global.map.exit.z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
-        server.tell(global.map.exit.y)
         server.runCommandSilent(`team join Target @e[tag=target]`)
         server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
         startRound(server);
@@ -177,7 +181,7 @@ EntityEvents.death(e => {
         e.server.runCommandSilent(`playsound minecraft:entity.evoker.death master @a ~ ~ ~ 1 1 1`)
         gpoints++
         e.server.scheduleInTicks(2, () => {
-            e.player.setGameMode('spectator')
+            e.server.runCommandSilent(`gamemode ${e.entity.username} spectator`)
         })
         e.server.scheduleInTicks(20, () => {
             endRound(e.server)
@@ -223,7 +227,7 @@ PlayerEvents.tick(e => {
         e.server.runCommandSilent(`playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.4 1 0.4 0 50 force`)
         e.player.setGameMode('survival')
-        loadKit(e.player, "guard", true)
+        loadKit(e.server, e.player, "guard", true)
 
         
     }
@@ -256,7 +260,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         e.server.runCommandSilent(`tp @p -8 -59 4`)
     }
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:cartography_table') {
-        e.server.runCommandSilent(`tp @p -10000 -47 -10000`)
+        e.server.runCommandSilent(`tp @p 10000 -42 0`)
     }
 
     // Map Selection

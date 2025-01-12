@@ -98,7 +98,7 @@ function selectE(s, tag) {
  * @param {boolean} clear_inv Clear inventory before loading kit
  * @returns true if could load whole kit, false if failed to load any part
  */
-function loadKit(player, kit, clear_inv) {
+function loadKit(server, player, kit, clear_inv) {
     let kits = JsonIO.read("kubejs/game_data/kits.json");
     if (!kits.containsKey(kit)) return false;
 
@@ -106,7 +106,8 @@ function loadKit(player, kit, clear_inv) {
     // Items
     if (!Array.isArray(kits[kit].inv)) return false;
     kits[kit].inv.forEach(item => {
-        player.give(`${item.count}x ${item.id} ${item.nbt}`);
+        server.runCommandSilent(`give ${player.username} ${item.id}${item.nbt} ${item.count}`)
+        // player.give(`${item.count}x ${item.id} ${item.nbt}`);
     });
 
     // Offhand

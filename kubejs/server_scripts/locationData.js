@@ -49,23 +49,23 @@ const freeformTraining = {
 const control = {
   spawnSelection: false,
   hSpawn: {
-    x: -122,
-    y: 45,
-    z: -245
+    x: -115,
+    y: 21,
+    z: -350
   },
   gSpawn: {
-    x: 0,
-    y: 0,
-    z: 0
+    x: -123,
+    y: 57,
+    z: -343
   },
   condition: {
     time: "day",
     weather: "clear"
   },
   exit: {
-    x: 0,
-    y: 0,
-    z: 0
+    x: -122,
+    y: 46,
+    z: -245
   }
 }
 
