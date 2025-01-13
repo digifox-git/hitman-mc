@@ -234,7 +234,7 @@ PlayerEvents.tick(e => {
         
     }
 
-    if (e.player.block.down.pos.id == "grass") {
+    if (e.player.block.down.pos.id == "minecraft:grass_block") {
         e.server.tell('yay')
     }
 });
