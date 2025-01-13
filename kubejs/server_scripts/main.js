@@ -230,8 +230,12 @@ PlayerEvents.tick(e => {
         e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.4 1 0.4 0 50 force`)
         e.player.setGameMode('survival')
         loadKit(e.server, e.player, "guard", true)
-
+    
         
+    }
+
+    if (e.player.block.down.pos.id == "grass") {
+        e.server.tell('yay')
     }
 });
 
