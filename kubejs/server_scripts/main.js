@@ -209,8 +209,15 @@ function respawnGuard(guard) {
  * Tick event for managing guard respawn times
  */
 PlayerEvents.tick(e => {
-    if (e.player.block.down.id == "minecraft:red_glazed_terracotta") {
-        e.server.tell(e.player.tags.contains('guard'))
+    if (e.player.block.down.id == "minecraft:red_glazed_terracotta" && !e.player.tags.contains('hitman')) {
+        e.player.getTags().remove('guard')
+        e.player.getTags().add('hitman')
+        e.server.tell(`${e.player.username} is now a hitman!`)
+    }
+    if (e.player.block.down.id == "minecraft:blue_glazed_terracotta" && !e.player.tags.contains('guard')) {
+        e.player.getTags().remove('hitman')
+        e.player.getTags().add('guard')
+        e.server.tell(`${e.player.username} is now a guard!`)
     }
     if (!global.isGaming) return;
 
