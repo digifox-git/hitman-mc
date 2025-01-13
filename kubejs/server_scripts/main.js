@@ -210,7 +210,7 @@ function respawnGuard(guard) {
  */
 PlayerEvents.tick(e => {
     if (e.player.block.down.id == "minecraft:red_glazed_terracotta") {
-        e.server.tell('hitman')
+        e.server.tell(e.player.tags.contains('guard'))
     }
     if (!global.isGaming) return;
 
