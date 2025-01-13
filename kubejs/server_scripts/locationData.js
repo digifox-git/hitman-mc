@@ -40,9 +40,9 @@ const freeformTraining = {
     weather: "clear"
   },
   exit: {
-    x: 55.5,
+    x: 57.5,
     y: -55,
-    z: 11.5
+    z: 10.5
   }
 }
 
