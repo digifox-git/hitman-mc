@@ -209,8 +209,8 @@ function respawnGuard(guard) {
  * Tick event for managing guard respawn times
  */
 PlayerEvents.tick(e => {
-    if (true) {
-        e.server.tell(e.player.block.down)
+    if (e.player.block.down == 'red_glazed_terracotta') {
+        e.server.tell('hit')
     }
     if (!global.isGaming) return;
 
