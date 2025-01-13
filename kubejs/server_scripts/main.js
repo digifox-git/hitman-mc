@@ -3,6 +3,7 @@ priority: 2
 let hpoints, gpoints;
 let targetAlive
 global.villagerPlaced = false
+
 // Utility function to select entities by tag
 function selectE(server, tag) {
     return server.level.getEntities(e => e.tags.contains(tag));
@@ -95,6 +96,7 @@ function startRound(server) {
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
     server.runCommandSilent(`effect give @a minecraft:instant_health 1 255`)
     server.runCommandSilent(`effect give @a[tag=guard] minecraft:glowing infinite 0 true`)
+    server.runCommandSilent(`effect give @a[tag=hitman] minecraft:resistance infinite ${global.difficulty} true`)
     server.runCommandSilent(`effect give @a minecraft:slowness 999999 0 true`)
 
     // Reload kits
@@ -278,5 +280,22 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         e.server.runCommandSilent('title @a actionbar "Map Selected: FBC Research Sector"')
         e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
         global.map = mapOptions[2]
+    } 
+
+    // Difficulty Selection
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:green_concrete') {
+        e.server.runCommandSilent('title @a actionbar "Difficulty Selected: Casual"')
+        e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
+        global.difficulty = 4
+    } 
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:yellow_concrete') {
+        e.server.runCommandSilent('title @a actionbar "Difficulty Selected: Professional"')
+        e.server.runCommandSilent('playsound minecraft:block.note_block.chime master @a ~ ~ ~ 1 1 1');
+        global.difficulty = 3
+    }
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:red_concrete') {
+        e.server.runCommandSilent('title @a actionbar "Difficulty Selected: Master"')
+        e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
+        global.difficulty = 2
     } 
 });
