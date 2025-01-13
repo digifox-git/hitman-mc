@@ -209,6 +209,9 @@ function respawnGuard(guard) {
  * Tick event for managing guard respawn times
  */
 PlayerEvents.tick(e => {
+    if (true) {
+        e.server.tell(2)
+    }
     if (!global.isGaming) return;
 
     // Decrease respawn time for guards
@@ -233,10 +236,7 @@ PlayerEvents.tick(e => {
     
         
     }
-
-    if (true) {
-        e.server.tell(2)
-    }
+    
 });
 
 /**
