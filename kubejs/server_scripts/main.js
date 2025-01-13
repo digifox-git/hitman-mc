@@ -210,7 +210,7 @@ function respawnGuard(guard) {
  */
 PlayerEvents.tick(e => {
     if (true) {
-        e.server.tell(2)
+        e.server.tell(e.player.block.down)
     }
     if (!global.isGaming) return;
 
