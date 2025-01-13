@@ -234,8 +234,8 @@ PlayerEvents.tick(e => {
         
     }
 
-    if (e.player.block.down.pos.id) {
-        e.server.tell(e.player.block.down.pos.id)
+    if (true) {
+        e.server.tell(e.level.getBlock(e.player.block.down.pos))
     }
 });
 
