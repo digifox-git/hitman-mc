@@ -250,11 +250,13 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         e.player.getTags().remove('guard')
         e.player.getTags().add('hitman')
         e.server.tell(`${e.player.username} is now a Hitman!`)
+        e.server.runCommandSilent(`playsound minecraft:block.beacon.deactivate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
     }
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:blue_glazed_terracotta') {
         e.player.getTags().remove('hitman')
         e.player.getTags().add('guard')
         e.server.tell(`${e.player.username} is now a Guard!`)
+        e.server.runCommandSilent(`playsound minecraft:block.beacon.activate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
     }
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:crafting_table') {
         e.server.runCommandSilent(`tp @p -8 -59 4`)
