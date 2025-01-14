@@ -39,11 +39,23 @@ const freeformTraining = {
     time: "day",
     weather: "clear"
   },
-  exit: {
-    x: 55.5,
-    y: -55,
-    z: 11.5
-  }
+  exit: [
+    {
+      x: 57.5,
+      y: -55,
+      z: 10.5
+    },
+    {
+      x: 93.5,
+      y: -54,
+      z: 11.5
+    },
+    {
+      x: 69.5,
+      y: -42,
+      z: 39.5
+    }
+  ]
 }
 
 const control = {
@@ -62,11 +74,13 @@ const control = {
     time: "day",
     weather: "clear"
   },
-  exit: {
-    x: -122,
-    y: 46,
-    z: -245
-  }
+  exit: [
+    {
+      x: -122,
+      y: 46,
+      z: -245
+    }
+  ]
 }
 
 

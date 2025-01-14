@@ -8,7 +8,7 @@
 			},
 			{
 				"id": "pointblank:ammo9mm",
-				"count": 64,
+				"count": 36,
 				"nbt": "{}"
 			}
 		],
@@ -49,7 +49,7 @@
 			},
 			{
 				"id": "pointblank:ammo45acp",
-				"count": 64,
+				"count": 28,
 				"nbt": "{}"
 			}
 		],
