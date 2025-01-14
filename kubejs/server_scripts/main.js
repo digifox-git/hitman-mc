@@ -316,7 +316,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 });
 
 ServerEvents.commandRegistry(e => {
-    const { commands: Commands, arguments: Arguments } = event
+    const { commands: Commands, arguments: Arguments } = e
     
     e.register(Commands.literal('cancel') // The name of the command
       .requires(s => s.hasPermission(1)) // Check if the player has operator privileges
