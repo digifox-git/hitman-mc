@@ -215,11 +215,13 @@ PlayerEvents.tick(e => {
         e.player.getTags().remove('guard')
         e.player.getTags().add('hitman')
         e.server.tell(`${e.player.username} is now a hitman!`)
+        e.server.runCommandSilent(`playsound minecraft:block.beacon.deactivate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
     }
     if (e.player.block.down.id == "minecraft:blue_glazed_terracotta" && !e.player.tags.contains('guard')) {
         e.player.getTags().remove('hitman')
         e.player.getTags().add('guard')
         e.server.tell(`${e.player.username} is now a guard!`)
+        e.server.runCommandSilent(`playsound minecraft:block.beacon.activate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
     }
     if (!global.isGaming) return;
 
