@@ -302,17 +302,17 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     // Difficulty Selection
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:green_concrete') {
         e.server.runCommandSilent('title @a actionbar "Difficulty Selected: Casual"')
-        e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
+        e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 0.8 1');
         global.difficulty = 2
     } 
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:yellow_concrete') {
         e.server.runCommandSilent('title @a actionbar "Difficulty Selected: Professional"')
-        e.server.runCommandSilent('playsound minecraft:block.note_block.chime master @a ~ ~ ~ 1 1 1');
+        e.server.runCommandSilent('playsound minecraft:item.firecharge.use master @a ~ ~ ~ 1 1 1');
         global.difficulty = 1
     }
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:red_concrete') {
         e.server.runCommandSilent('title @a actionbar "Difficulty Selected: Master"')
-        e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
+        e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1.2 1');
         global.difficulty = 0
     } 
 });
