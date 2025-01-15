@@ -150,6 +150,7 @@ function endRound(server) {
         }
         server.runCommandSilent(`team join Target @e[tag=target]`)
         server.runCommandSilent(`effect give @e[tag=target] minecraft:glowing infinite 0 true`)
+        server.runCommandSilent(`effect give @e[tag=target] minecraft:slowness infinite 1 true`)
         startRound(server);
     }
 }
