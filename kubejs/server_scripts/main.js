@@ -40,6 +40,7 @@ function startGame(server) {
     global.isGaming = false;
     global.villagerPlaced = false
     server.tell("Starting Game...");
+    server.runCommandSilent(`playsound minecraft:item.trident.riptide_1 master @a ~ ~ ~ 1 1 1`)
     hpoints = 0, gpoints = 0;
     // Assign and teleport players by role
     global.guards = selectE(server, "guard");
