@@ -260,9 +260,10 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         if (!global.map) {
             if (e.getHand() == "off_hand") return;
             e.server.tell('There is no map selected!')
+        } else if (e.server.tell(selectE(e.server, "guard")) == [] || e.server.tell(selectE(e.server, "hitman") == [])) {
+            e.server.tell("There can't be empty teams!")
         } else {
             e.server.tell(selectE(e.server, "guard"))
-            e.server.tell(selectE(e.server, "hitman"))
             // startGame(e.server);
         }
 
@@ -292,10 +293,11 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
         global.map = mapOptions[0]
     } 
+
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:light_gray_glazed_terracotta') {
         e.server.runCommandSilent('title @a actionbar "Map Selected: Tethys Outpost"')
         e.server.runCommandSilent('playsound minecraft:block.note_block.chime master @a ~ ~ ~ 1 1 1');
-        global.map = mapOptions[1]
+        global.map = mapOptions[1] /* DEPRECATED MAP */
     }
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:gray_glazed_terracotta') {
         e.server.runCommandSilent('title @a actionbar "Map Selected: FBC Research Sector"')
