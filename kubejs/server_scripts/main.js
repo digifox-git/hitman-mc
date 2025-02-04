@@ -260,9 +260,13 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         if (!global.map) {
             if (e.getHand() == "off_hand") return;
             e.server.tell('There is no map selected!')
+        } else if (selectE(server, "guard") == [] || selectE(server, "hitman")) {
+            if (e.getHand() == "off_hand") return;
+            e.server.tell('There must be at least 1 player on both teams!')
         } else {
             startGame(e.server);
         }
+
     }
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:red_glazed_terracotta') {
         e.player.getTags().remove('guard')
