@@ -275,8 +275,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         } else if (gCount == 0 || hCount == 0) {
             e.server.tell('There cannot be empty teams!')
         } else {
-            console.log(e.player.getTags().tags)
-            // startGame(e.server);
+            startGame(e.server);
         }
 
     }
