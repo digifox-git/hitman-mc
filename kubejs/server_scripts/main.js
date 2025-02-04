@@ -262,7 +262,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         } else if (selectE(e.server, "guard") == {} || selectE(e.server, "hitman") == {}) {
             e.server.tell('There cannot be empty teams!')
         } else {
-            console.log(selectE(e.server, "guard"))
+            console.log(e.player.getTags())
             // startGame(e.server);
         }
 
