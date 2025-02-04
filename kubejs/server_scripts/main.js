@@ -258,13 +258,11 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     if (e.getHand() == "off_hand") return; // Prevents event from firing twice
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:lodestone') {
         if (!global.map) {
-            if (e.getHand() == "off_hand") return;
             e.server.tell('There is no map selected!')
-        } else if (selectE(e.server, "guard") == [] || selectE(e.server, "hitman") == []) {
-            if (e.getHand() == "off_hand") return;
+        } /**else if (selectE(e.server, "guard") == [] || selectE(e.server, "hitman") == []) {
             e.server.tell('There cannot be empty teams!')
-        } else {
-            e.server.tell(selectE(e.server, "guard"))
+        }**/ else {
+            e.server.tell(typeof selectE(e.server, "guard"))
             // startGame(e.server);
         }
 
