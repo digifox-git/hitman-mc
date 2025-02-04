@@ -260,7 +260,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         if (!global.map) {
             if (e.getHand() == "off_hand") return;
             e.server.tell('There is no map selected!')
-        } else if (e.server.tell(selectE(e.server, "guard")) == [] || e.server.tell(selectE(e.server, "hitman") == [])) {
+        } else if (selectE(e.server, "guard") == [] || selectE(e.server, "hitman") == []) {
             e.server.tell("There can't be empty teams!")
         } else {
             e.server.tell(selectE(e.server, "guard"))
