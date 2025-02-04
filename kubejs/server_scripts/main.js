@@ -11,9 +11,6 @@ function selectE(server, tag) {
     return server.level.getEntities(e => e.tags.contains(tag));
 }
 
-global.guards = selectE(server, "guard");
-global.hitman = selectE(server, "hitman");
-
 global.guards.forEach(() => {
     gCount++
 })
@@ -222,6 +219,8 @@ function respawnGuard(guard) {
  * Tick event for managing guard respawn times
  */
 PlayerEvents.tick(e => {
+    global.guards = selectE(e.server, "guard");
+    global.hitman = selectE(e.server, "hitman");
     if (e.player.block.down.id == "minecraft:red_glazed_terracotta" && !e.player.tags.contains('hitman')) {
         e.player.getTags().remove('guard')
         e.player.getTags().add('hitman')
