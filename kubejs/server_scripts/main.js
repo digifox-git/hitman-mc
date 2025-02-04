@@ -260,11 +260,10 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         if (!global.map) {
             if (e.getHand() == "off_hand") return;
             e.server.tell('There is no map selected!')
-        } else if (selectE(server, "guard") == [] || selectE(server, "hitman") == []) {
-            if (e.getHand() == "off_hand") return;
-            e.server.tell('There must be at least 1 player on both teams!')
         } else {
-            startGame(e.server);
+            e.server.tell(selectE(e.server, "guard"))
+            e.server.tell(selectE(e.server, "hitman"))
+            // startGame(e.server);
         }
 
     }
