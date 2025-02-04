@@ -2,12 +2,24 @@ priority: 2
 
 let hpoints, gpoints;
 let targetAlive
+let gCount, hCount
+gCount = hCount = 0
 global.villagerPlaced = false
 
 // Utility function to select entities by tag
 function selectE(server, tag) {
     return server.level.getEntities(e => e.tags.contains(tag));
 }
+
+global.guards = selectE(server, "guard");
+global.hitman = selectE(server, "hitman");
+
+global.guards.forEach(() => {
+    gCount++
+})
+global.hitman.forEach(() => {
+    hCount++
+})
 
 /**
  * blah blah blah
@@ -43,8 +55,6 @@ function startGame(server) {
     server.runCommandSilent(`playsound minecraft:item.trident.riptide_1 master @a ~ ~ ~ 1 1 1`)
     hpoints = 0, gpoints = 0;
     // Assign and teleport players by role
-    global.guards = selectE(server, "guard");
-    global.hitman = selectE(server, "hitman");
     server.runCommandSilent(`clear @a`)
     global.guards.forEach(guard => {
         guard.teleportTo(global.map.gSpawn.x, global.map.gSpawn.y, global.map.gSpawn.z);
@@ -215,12 +225,16 @@ PlayerEvents.tick(e => {
     if (e.player.block.down.id == "minecraft:red_glazed_terracotta" && !e.player.tags.contains('hitman')) {
         e.player.getTags().remove('guard')
         e.player.getTags().add('hitman')
+        hCount++
+        gCount--
         e.server.tell(`${e.player.username} is now a hitman!`)
         e.server.runCommandSilent(`playsound minecraft:block.beacon.deactivate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
     }
     if (e.player.block.down.id == "minecraft:blue_glazed_terracotta" && !e.player.tags.contains('guard')) {
         e.player.getTags().remove('hitman')
         e.player.getTags().add('guard')
+        gCount++
+        hCount--
         e.server.tell(`${e.player.username} is now a guard!`)
         e.server.runCommandSilent(`playsound minecraft:block.beacon.activate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
     }
@@ -259,10 +273,10 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:lodestone') {
         if (!global.map) {
             e.server.tell('There is no map selected!')
-        } else if (selectE(e.server, "guard") == {} || selectE(e.server, "hitman") == {}) {
+        } else if (gCount == 0 || hCount == 0) {
             e.server.tell('There cannot be empty teams!')
         } else {
-            console.log(e.server.getTags())
+            console.log(e.player.getTags().tags)
             // startGame(e.server);
         }
 
