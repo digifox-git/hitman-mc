@@ -263,9 +263,9 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:lodestone') {
         if (!global.map) {
             e.server.tell('There is no map selected!')
-        } else if (global.guards.length == 0) {
-            e.server.tell('You need at least 1 Hitman!')
         } else if (global.hitman.length == 0) {
+            e.server.tell('You need at least 1 Hitman!')
+        } else if (global.guards.length == 0) {
             e.server.tell('You need at least 1 Guard!')
         } else {
             startGame(e.server);
