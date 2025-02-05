@@ -268,6 +268,10 @@ PlayerEvents.tick(e => {
  * Plays a sound when right-clicking on a monitor block
  */
 BlockEvents.rightClicked("kubejs:monitor", e => {
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'dirt') {
+        e.server.tell(global.guards.length)
+        e.server.tell(global.hitman.length)
+    }
     if (e.getHand() == "off_hand") return; // Prevents event from firing twice
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:lodestone') {
         if (!global.map) {
