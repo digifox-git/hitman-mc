@@ -29,6 +29,9 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
         e.server.scheduleInTicks(100, () => {
             endRound(e.server);
         })
+        let currPoints = (10000 * global.guards.length**1.8) / (global.map.difficulty**2 * global.hitman.length) - 500 * global.killCount
+        e.server.tell(currPoints)
+        global.points = currPoints + global.points
     } 
 });
 
@@ -196,9 +199,11 @@ EntityEvents.death(e => {
             endRound(e.server)
         })
         e.server.tell('0')
+        e.server.runCommandSilent(`kill @e[type=minecraft:slime,tag=exit]`)
     } else if (e.entity.tags.contains("guard")) {
         e.server.runCommandSilent(`title @a actionbar {"text":"Guard down!", "bold":true, "color":"white"}`)
         e.server.runCommandSilent(`playsound minecraft:entity.allay.hurt master @a ~ ~ ~ 1 0.85 1`)
+        global.killCount++
         /*if (e.source.entity.isPlayer()) {
             global.killCount++
         }*/
