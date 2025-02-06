@@ -271,10 +271,10 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
             e.server.tell('There is no map selected!')
         } else if (global.hitman.length == 0) {
             e.server.runCommandSilent('title @a actionbar {"text":"You need at least 1 Hitman to play!","bold":true,"color":"yellow"}')
-            e.server.runCommandSilent('playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1')
+            e.server.runCommandSilent('playsound minecraft:entity.enderman.hurt master @a ~ ~ ~ 1 1 1')
         } else if (global.guards.length == 0) {
             e.server.runCommandSilent('title @a actionbar {"text":"You need at least 1 Guard to play!","bold":true,"color":"yellow"}')
-            e.server.runCommandSilent('playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1')
+            e.server.runCommandSilent('playsound minecraft:entity.enderman.hurt master @a ~ ~ ~ 1 1 1')
         } else {
             startGame(e.server);
         }
