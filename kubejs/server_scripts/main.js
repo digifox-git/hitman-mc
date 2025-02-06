@@ -29,7 +29,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
         e.server.scheduleInTicks(100, () => {
             endRound(e.server);
         })
-        let currPoints = (10000 * (global.guards.length**1.7)) / (global.map.difficulty**2 * global.hitman.length) - (500 * global.killCount)
+        let currPoints = Math.round((10000 * (global.guards.length**1.7)) / (global.map.difficulty**2 * global.hitman.length) - (500 * global.killCount))
         e.server.tell(currPoints)
         global.points = currPoints + global.points
     } 
