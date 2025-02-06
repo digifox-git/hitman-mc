@@ -66,10 +66,6 @@ function startGame(server) {
     server.runCommandSilent(`weather ${global.map.condition.weather}`)
     server.runCommandSilent(`time set ${global.map.condition.time}`)
     global.hitman.forEach(hitman => hitman.teleportTo(-138, 262, 13));
-    
-    server.runCommandSilent(`team empty Hitman`)
-    server.runCommandSilent(`team join Guard @a[tag=guard]`)
-    server.runCommandSilent(`team join Hitman @a[tag=hitman]`)
 }
 /**
  * Starts the next round when the target spawns
