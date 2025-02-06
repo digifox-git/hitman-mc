@@ -29,7 +29,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
         e.server.scheduleInTicks(100, () => {
             endRound(e.server);
         })
-        let currPoints = Math.round((10000 * (global.guards.length**1.7)) / (global.map.difficulty**2 * global.hitman.length) - (500 * global.killCount) / 10) * 10
+        let currPoints = Math.trunc(Math.round(((10000 * (global.guards.length**1.7)) / (global.map.difficulty**2 * global.hitman.length) - (500 * global.killCount)) / 10) * 10)
         if (currPoints < 0) {
             currPoints = 0
         }
@@ -138,7 +138,7 @@ function endGame(server) {
     server.scheduleInTicks(5, () => { 
         server.runCommandSilent(`gamemode adventure @a`)
     })
-    e.server.tell(global.points)
+    server.tell(global.points)
 }
 
 /**
