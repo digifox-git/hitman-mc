@@ -236,7 +236,7 @@ PlayerEvents.tick(e => {
     if (e.player.persistentData.respawnTime > 1) {
         e.player.persistentData.respawnTime--;
         e.player.paint({ respawn_time: { text: `${e.player.persistentData.respawnTime}` } });
-        e.player.setGameMode('spectator')
+        e.server.runCommandSilent(`gamemode spectator ${e.player.username}`)
         e.player.potionEffects.add('minecraft:glowing', 99999, 0, false, false); // "INFINITE isnt defined"
     }
 
@@ -271,8 +271,10 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
             e.server.tell('There is no map selected!')
         } else if (global.hitman.length == 0) {
             e.server.tell('You need at least 1 Hitman!')
+            e.server.runCommandSilent('playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1')
         } else if (global.guards.length == 0) {
             e.server.tell('You need at least 1 Guard!')
+            e.server.runCommandSilent('playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1')
         } else {
             startGame(e.server);
         }
