@@ -18,7 +18,7 @@ function selectE(server, tag) {
  * Event when interacting with entities
  */
 ItemEvents.entityInteracted("minecraft:interaction", e => {
-    if (e.target.type === 'minecraft:slime' && targetAlive == false) {
+    if (e.target.type === 'minecraft:slime' && targetAlive == false && e.player.tags.contains("hitman")) {
         e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
         hpoints++;
         e.server.runCommandSilent(`title @a title {"text":"Hitman escaped!", "bold":true, "color":"red"}`)
@@ -37,6 +37,7 @@ ItemEvents.entityInteracted("minecraft:interaction", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startGame(server) {
+    global.points = 0
     global.isGaming = false;
     global.villagerPlaced = false
     server.tell("Starting Game...");
@@ -86,6 +87,7 @@ EntityEvents.spawned("minecraft:villager", e => {
  * @param {Internal.MinecraftServer} server 
  */
 function startRound(server) {
+    global.killCount = 0
     server.runCommandSilent(`effect clear @a`)
     global.isGaming = true
     server.tell("Starting Round...");
@@ -124,7 +126,7 @@ function endGame(server) {
     server.runCommandSilent(`time set day`)
     server.runCommandSilent(`weather clear`)
     server.scheduleInTicks(5, () => { 
-        server.runCommandSilent(`gamemode @a adventure`)
+        server.runCommandSilent(`gamemode adventure @a`)
     })
     
 }
@@ -184,14 +186,18 @@ EntityEvents.death(e => {
         e.server.runCommandSilent(`playsound minecraft:entity.evoker.death master @a ~ ~ ~ 1 1 1`)
         gpoints++
         e.server.scheduleInTicks(2, () => {
-            e.server.runCommandSilent(`gamemode ${e.entity.username} spectator`)
+            e.server.runCommandSilent(`gamemode spectator ${e.entity.username}`)
         })
         e.server.scheduleInTicks(20, () => {
             endRound(e.server)
         })
+        e.server.tell('0')
     } else if (e.entity.tags.contains("guard")) {
         e.server.runCommandSilent(`title @a actionbar {"text":"Guard down!", "bold":true, "color":"white"}`)
         e.server.runCommandSilent(`playsound minecraft:entity.allay.hurt master @a ~ ~ ~ 1 0.85 1`)
+        if (e.source.entity.isPlayer()) {
+            global.killCount++
+        }
         respawnGuard(e.entity);
     }
 });

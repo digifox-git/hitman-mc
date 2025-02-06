@@ -22,7 +22,8 @@ const theWoods = {
       y: -58.5,
       z: 146.5
     }
-  ]
+  ],
+  difficulty: 15 
 }
 
 const freeformTraining = {
@@ -57,7 +58,8 @@ const freeformTraining = {
       y: -42,
       z: 39.5
     }
-  ]
+  ],
+  difficulty: 15 
 }
 
 const control = {
@@ -82,7 +84,8 @@ const control = {
       y: 46,
       z: -245
     }
-  ]
+  ],
+  difficulty: 15 
 }
 
 
