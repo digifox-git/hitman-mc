@@ -66,6 +66,10 @@ function startGame(server) {
     server.runCommandSilent(`weather ${global.map.condition.weather}`)
     server.runCommandSilent(`time set ${global.map.condition.time}`)
     global.hitman.forEach(hitman => hitman.teleportTo(-138, 262, 13));
+    
+    server.runCommandSilent(`team empty Hitman`)
+    server.runCommandSilent(`team join Guard @a[tag=guard]`)
+    server.runCommandSilent(`team join Hitman @a[tag=hitman]`)
 }
 /**
  * Starts the next round when the target spawns
@@ -104,6 +108,10 @@ function startRound(server) {
     server.scheduleInTicks(5, () => {
         global.guards.forEach(guard => loadKit(server, guard, "guard", true));
     global.hitman.forEach(hitman => loadKit(server, hitman, "hitman", true))
+
+    
+    server.runCommandSilent(`team join Target @e[tag=target]`)
+
     })
     
 }
@@ -221,12 +229,16 @@ PlayerEvents.tick(e => {
     if (e.player.block.down.id == "minecraft:red_glazed_terracotta" && !e.player.tags.contains('hitman')) {
         e.player.getTags().remove('guard')
         e.player.getTags().add('hitman')
+        e.server.runCommandSilent(`team leave ${e.player.username}`)
+        e.server.runCommandSilent(`team join Hitman ${e.player.username}`)
         e.server.tell(`${e.player.username} is now a hitman!`)
         e.server.runCommandSilent(`playsound minecraft:block.beacon.deactivate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
     }
     if (e.player.block.down.id == "minecraft:blue_glazed_terracotta" && !e.player.tags.contains('guard')) {
         e.player.getTags().remove('hitman')
         e.player.getTags().add('guard')
+        e.server.runCommandSilent(`team leave ${e.player.username}`)
+        e.server.runCommandSilent(`team join Guard ${e.player.username}`)
         e.server.tell(`${e.player.username} is now a guard!`)
         e.server.runCommandSilent(`playsound minecraft:block.beacon.activate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
     }
