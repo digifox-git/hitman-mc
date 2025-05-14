@@ -351,7 +351,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     } 
 
     // Matchmaking GUI
-    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:cartography_table') {
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:redstone_block') {
         e.server.runCommandSilent(`openguiscreen matchmaking @p`)
     }
 });
