@@ -364,7 +364,7 @@ ServerEvents.commandRegistry(e => {
       })
     )
 
-    e.register(Commands.literal('setmap0'))
-        .requires(s => s.hasPermission(0))
-        .executes(c => global.map = mapOptions[0])
+    event.register(Commands.literal('maptoptions0')
+    .requires(s => s.hasPermission(0))
+    .executes(c => global.map = mapOptions[0]))
   })
