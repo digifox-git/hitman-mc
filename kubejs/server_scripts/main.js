@@ -367,12 +367,12 @@ ServerEvents.commandRegistry(e => {
 
 ServerEvents.customCommand('setMap0', e => {
     global.map = mapOptions[0]
-    e.server.runCommandSilent('Map Selected: ICA Training Facility')
+    e.server.runCommandSilent('say Map Selected: ICA Training Facility')
     e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
   })
 
 ServerEvents.customCommand('setMap2', e => {
     global.map = mapOptions[0]
-    e.server.runCommandSilent('Map Selected: FBC Research Sector')
+    e.server.runCommandSilent('say Map Selected: FBC Research Sector')
     e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
   })
