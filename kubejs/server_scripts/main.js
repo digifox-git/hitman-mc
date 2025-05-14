@@ -363,9 +363,12 @@ ServerEvents.commandRegistry(e => {
         e.server.runCommandSilent(`kubejs reload server_scripts`)
       })
     )
-  })
 
-ServerEvents.customCommand('setMap0', e => {
-    global.map = mapOptions[0]
-    e.server.runCommandSilent('say global.map = mapOptions[0]')
+    e.register(Commands.literal('setmap0') // The name of the command
+      .requires(s => s.hasPermission(0))
+      .executes(() => {
+        global.map = mapOptions[0]
+        e.server.runCommandSilent('Map Selected: ICA Training Facility')
+      })
+    )
   })
