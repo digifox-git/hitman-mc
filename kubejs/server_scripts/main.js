@@ -349,6 +349,11 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         e.server.runCommandSilent('playsound minecraft:item.firecharge.use master @a ~ ~ ~ 1 1.2 1');
         global.difficulty = 0
     } 
+
+    // Matchmaking GUI
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:cartography_table') {
+        e.server.runCommandSilent(`openguiscreen matchmaking @p`)
+    }
 });
 
 ServerEvents.commandRegistry(e => {
