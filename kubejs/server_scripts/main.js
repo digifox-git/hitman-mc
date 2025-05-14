@@ -363,12 +363,16 @@ ServerEvents.commandRegistry(e => {
         e.server.runCommandSilent(`kubejs reload server_scripts`)
       })
     )
+  })
 
-    e.register(Commands.literal('setmap0') // The name of the command
-      .requires(s => s.hasPermission(0))
-      .executes(() => {
-        global.map = mapOptions[0]
-        e.server.runCommandSilent('Map Selected: ICA Training Facility')
-      })
-    )
+ServerEvents.customCommand('setMap0', e => {
+    global.map = mapOptions[0]
+    e.server.runCommandSilent('Map Selected: ICA Training Facility')
+    e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
+  })
+
+ServerEvents.customCommand('setMap2', e => {
+    global.map = mapOptions[0]
+    e.server.runCommandSilent('Map Selected: FBC Research Sector')
+    e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
   })
