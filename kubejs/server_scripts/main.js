@@ -377,7 +377,22 @@ ServerEvents.customCommand('setMap0', e => {
   })
 
 ServerEvents.customCommand('setMap2', e => {
-    global.map = mapOptions[0]
+    global.map = mapOptions[2]
     e.server.runCommandSilent('say Map Selected: FBC Research Sector')
     e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
+  })
+
+ServerEvents.customCommand('startGame', e => {
+    if (!global.map) {
+        e.server.tell('There is no map selected!')
+    } else if (global.hitman.length == 0) {
+        e.server.runCommandSilent('title @a actionbar {"text":"You need at least 1 Hitman to play!","bold":true,"color":"yellow"}')
+        e.server.runCommandSilent('playsound minecraft:entity.enderman.hurt master @a ~ ~ ~ 1 1 1')
+    } else if (global.guards.length == 0) {
+        e.server.runCommandSilent('title @a actionbar {"text":"You need at least 1 Guard to play!","bold":true,"color":"yellow"}')
+        e.server.runCommandSilent('playsound minecraft:entity.enderman.hurt master @a ~ ~ ~ 1 1 1')
+    } else {
+        startGame(e.server);
+        e.server.runCommandSilent(`closeguiscreen @a`)
+    }
   })
