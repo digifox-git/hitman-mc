@@ -367,5 +367,5 @@ ServerEvents.commandRegistry(e => {
 
 ServerEvents.customCommand('setMap0', e => {
     global.map = mapOptions[0]
-    e.server.runCommandSilent('global.map = mapOptions[0]')
+    e.server.runCommandSilent('say global.map = mapOptions[0]')
   })
