@@ -363,8 +363,9 @@ ServerEvents.commandRegistry(e => {
         e.server.runCommandSilent(`kubejs reload server_scripts`)
       })
     )
+  })
 
-    event.register(Commands.literal('maptoptions0')
-    .requires(s => s.hasPermission(0))
-    .executes(c => global.map = mapOptions[0]))
+ServerEvents.customCommand('setMap0', e => {
+    global.map = mapOptions[0]
+    e.server.runCommandSilent('global.map = mapOptions[0]')
   })
