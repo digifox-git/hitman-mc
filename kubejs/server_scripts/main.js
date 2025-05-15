@@ -354,6 +354,10 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:redstone_block') {
         e.server.runCommandSilent(`openguiscreen matchmaking ${e.player.username}`)
     }
+
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:lapis_block') {
+        e.server.runCommandSilent(`openguiscreen teamsettings ${e.player.username}`)
+    }
 });
 
 ServerEvents.commandRegistry(e => {
