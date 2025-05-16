@@ -408,7 +408,7 @@ ServerEvents.customCommand('joinTeamHitman', e => {
         e.server.runCommandSilent(`team leave ${e.player.username}`)
         e.server.runCommandSilent(`team join Hitman ${e.player.username}`)
         e.server.tell(`${e.player.username} is now a hitman!`)
-        e.server.runCommandSilent(`playsound minecraft:block.beacon.deactivate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
+        e.server.runCommandSilent(`playsound minecraft:block.beacon.deactivate master @a ~ ~ ~ 1 1 1`)
     }
   })
 
@@ -419,6 +419,6 @@ ServerEvents.customCommand('joinTeamGuard', e => {
         e.server.runCommandSilent(`team leave ${e.player.username}`)
         e.server.runCommandSilent(`team join Guard ${e.player.username}`)
         e.server.tell(`${e.player.username} is now a guard!`)
-        e.server.runCommandSilent(`playsound minecraft:block.beacon.activate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
+        e.server.runCommandSilent(`playsound minecraft:block.beacon.activate master @a ~ ~ ~ 1 1 1`)
     }
   })
