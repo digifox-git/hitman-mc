@@ -361,8 +361,9 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 });
 
 BlockEvents.rightClicked(/minecraft:.*_slab$/g, e => {
+    if (e.getHand() == "off_hand") return
     if (e.player.username == "digifox_"){
-            e.server.tell(`This debug is for ${e.player.username} ONLY!`)
+            e.server.tell(`${e.block}`)
     }
 })
 
