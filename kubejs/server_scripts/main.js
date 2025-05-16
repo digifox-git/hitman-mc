@@ -362,7 +362,6 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 
 BlockEvents.rightClicked(/minecraft:.*_slab$/g, e => {
     e.server.tell(`DONT TOUCH MY SLAB`)
-    e.server.runCommandSilent(`summon minecraft:lightning_bolt ${e.player.x} ${e.player.y} ${e.player.z}`)
 })
 
 ServerEvents.commandRegistry(e => {
