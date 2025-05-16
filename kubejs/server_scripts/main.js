@@ -400,3 +400,25 @@ ServerEvents.customCommand('startGame', e => {
         e.server.runCommandSilent(`closeguiscreen @a`)
     }
   })
+
+ServerEvents.customCommand('joinTeamHitman', e => {
+      if (!e.player.tags.contains('hitman')) {
+        e.player.getTags().remove('guard')
+        e.player.getTags().add('hitman')
+        e.server.runCommandSilent(`team leave ${e.player.username}`)
+        e.server.runCommandSilent(`team join Hitman ${e.player.username}`)
+        e.server.tell(`${e.player.username} is now a hitman!`)
+        e.server.runCommandSilent(`playsound minecraft:block.beacon.deactivate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
+    }
+  })
+
+ServerEvents.customCommand('joinTeamGuard', e => {
+    if (!e.player.tags.contains('guard')) {
+        e.player.getTags().remove('hitman')
+        e.player.getTags().add('guard')
+        e.server.runCommandSilent(`team leave ${e.player.username}`)
+        e.server.runCommandSilent(`team join Guard ${e.player.username}`)
+        e.server.tell(`${e.player.username} is now a guard!`)
+        e.server.runCommandSilent(`playsound minecraft:block.beacon.activate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
+    }
+  })
