@@ -362,7 +362,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 
 
 
-BlockEvents.rightClicked((/minecraft:.*_slab$/g).test, e => {
+BlockEvents.rightClicked(`#minecraft:slabs`, e => {
     if (e.getHand() == "off_hand") return
     if (e.player.username == "digifox_"){
             e.server.tell(`${e.block}`)
