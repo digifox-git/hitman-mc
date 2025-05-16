@@ -361,11 +361,13 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 });
 
 
-
-BlockEvents.rightClicked(`#minecraft:slabs`, e => {
-    if (e.getHand() == "off_hand") return
-    e.server.tell(`${e.block}`)
+Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
+    BlockEvents.rightClicked(x, e => {
+        if (e.getHand() == "off_hand") return
+        e.server.tell(`${e.block}`)
+    })
 })
+
 
 ServerEvents.commandRegistry(e => {
     const { commands: Commands, arguments: Arguments } = e
