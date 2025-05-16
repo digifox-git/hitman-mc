@@ -361,7 +361,6 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 });
 
 BlockEvents.rightClicked(/minecraft:.*_slab$/g, e => {
-    e.server.tell(`DONT TOUCH MY SLAB`)
 })
 
 ServerEvents.commandRegistry(e => {
