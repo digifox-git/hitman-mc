@@ -364,9 +364,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 
 BlockEvents.rightClicked(`#minecraft:slabs`, e => {
     if (e.getHand() == "off_hand") return
-    if (e.player.username == "CrazyManInASuit" && e.block == `#minecraft:slabs`){
-            e.server.tell(`${e.block}`)
-    }
+    e.server.tell(`${e.block}`)
 })
 
 ServerEvents.commandRegistry(e => {
