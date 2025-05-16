@@ -147,14 +147,13 @@ function endGame(server) {
  */
 function endRound(server) {
     global.isGaming = false
-    server.tell(`${hpoints}-${gpoints}`);
+    server.runCommandSilent(`title @a title {"text":"§c${hpoints}§f-§9${gpoints}", "bold":true}`)
     server.runCommandSilent(`kill @e[tag=target]`)
     server.runCommandSilent(`kill @e[type=item]`)
     server.runCommandSilent(`clear @a`)
     if (hpoints == 5 || gpoints == 5) {
         endGame(server)
     } else {
-        server.tell("Ending round...");
         server.runCommandSilent(`summon villager ${global.targetPos[0]} ${global.targetPos[1]} ${global.targetPos[2]} {Tags:["target"],VillagerData:{level:1,profession:"minecraft:nitwit"}}`);
         for (let i = 0; i < global.map.exit.length; i++) {
             server.runCommandSilent(`summon slime ${global.map.exit[i].x} ${global.map.exit[i].y} ${global.map.exit[i].z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
