@@ -368,20 +368,13 @@ Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     })
 })
 
-
-ServerEvents.commandRegistry(e => {
-    const { commands: Commands, arguments: Arguments } = e
-    
-    e.register(Commands.literal('cancel') // The name of the command
-      .requires(s => s.hasPermission(1)) // Check if the player has operator privileges
-      .executes(() => {
-        e.server.runCommandSilent(`kill @e[tag='target']`)
-        e.server.runCommandSilent(`clear @a`)
-        e.server.runCommandSilent(`tp @a 10000 -42 0`)
-        e.server.runCommandSilent(`kubejs reload server_scripts`)
-      })
-    )
+ServerEvents.customCommand('cancel', e => {
+    e.server.runCommandSilent(`kill @e[tag='target']`)
+    e.server.runCommandSilent(`clear @a`)
+    e.server.runCommandSilent(`tp @a 10000 -42 0`)
+    e.server.runCommandSilent(`kubejs reload server_scripts`)
   })
+
 
 ServerEvents.customCommand('setMap0', e => {
     global.map = mapOptions[0]
