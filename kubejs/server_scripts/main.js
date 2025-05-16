@@ -360,10 +360,11 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 });
 
 
+
 Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     BlockEvents.rightClicked(x, e => {
         if (e.getHand() == "off_hand") return
-        e.server.tell(`${e.block}`)
+        e.server.tell(`${e.player.facing}`)
     })
 })
 
