@@ -228,9 +228,9 @@ PlayerEvents.tick(e => {
 
     let window = e.entity.tags.contains('window')
 
-    if (e.player.distanceToEntitySqr(window) < 16) {
+    if (e.player.block.down.id == "minecraft:brown_glazed_terracotta") {
         // e.player.setPose(Pose.SWIMMING);
-        e.server.tell(`You are ${e.player.distanceToEntitySqr(e.entity.tags.contains('window'))} block away from the window!`)
+        e.server.tell(`${e.player.distanceToEntitySqr(window)}`)
     }
 })
 
