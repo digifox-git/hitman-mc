@@ -362,12 +362,13 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 let crawlCheck = false
 
-if (crawlCheck = true) {
-    e.player.setPose(Pose.SWIMMING);
-}
-
 Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     BlockEvents.rightClicked(x, e => {
+
+    if (crawlCheck = true) {
+        e.player.setPose(Pose.SWIMMING);
+    }   
+
     if (e.getHand() == "off_hand") return
     if (e.level.getBlock(e.block.x, e.block.y - 3, e.block.z) == 'minecraft:red_glazed_terracotta') {
     if (e.block.getPlayersInRadius(16) = true) {
