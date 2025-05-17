@@ -265,9 +265,13 @@ PlayerEvents.tick(e => {
         e.server.runCommandSilent(`playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.4 1 0.4 0 50 force`)
         e.player.setGameMode('survival')
-        loadKit(e.server, e.player, "guard", true)
-    
-        
+        loadKit(e.server, e.player, "guard", true)  
+    }
+
+    const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
+
+    if (e.player.distanceToEntitySqr(e.entity.tags.contains('window')) < 16) {
+        e.player.setPose(Pose.SWIMMING);
     }
     
 });
@@ -359,25 +363,12 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     }
 });
 
-const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
-let crawlCheck = 0
+
 
 Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     BlockEvents.rightClicked(x, e => {
     if (e.getHand() == "off_hand") return
-    if (e.level.getBlock(e.block.x, e.block.y - 3, e.block.z) == 'minecraft:red_glazed_terracotta') {
-    if (e.block.getPlayersInRadius(16) = true) {
-        crawlCheck = true
-    } else
-    {
-        crawlCheck = false
-    }
-    }
     })
-
-    if (crawlCheck = true) {
-        e.player.setPose(Pose.SWIMMING);
-    }   
 })
 
 ServerEvents.customCommand('cancel', e => {
