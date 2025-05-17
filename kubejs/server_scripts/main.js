@@ -364,7 +364,10 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     BlockEvents.rightClicked(x, e => {
         if (e.getHand() == "off_hand") return
-        console.log(`${Object.keys(e.player)}`)
+        e.server.tell(`${Object.keys(e.player.xRot)}`)
+        e.server.tell(`${Object.keys(e.player.viewXRot)}`)
+        e.server.tell(`${Object.keys(e.player.getViewXRot)}`)
+        e.server.tell(`${Object.keys(e.player.xRotO)}`)
     })
 })
 
