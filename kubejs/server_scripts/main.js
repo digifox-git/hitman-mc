@@ -362,7 +362,6 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
 Ingredient.of('#minecraft:slabs').itemIds.forEach(e => {
-    if (e.getHand() == "off_hand") return
     if (e.level.getBlock(e.block.x, e.block.y - 3, e.block.z) == 'minecraft:red_glazed_terracotta') {
     if (e.block.getPlayersInRadius(16) = true) {
         e.player.setPose(Pose.SWIMMING);
