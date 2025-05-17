@@ -223,14 +223,14 @@ function respawnGuard(guard) {
     //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
 }
 
-EntityEvents.tick(e => {
+PlayerEvents.tick(e => {
         // const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
     let window = e.entity.tags.contains('window')
 
-    if (e.player.distanceToEntity(window) < 10) {
+    if (e.player.block.down.id == "minecraft:brown_glazed_terracotta") {
         // e.player.setPose(Pose.SWIMMING);
-        e.server.tell(`OUCH`)
+        e.server.tell(`${e.player.distanceToEntity(window)}`)
     }
 })
 
