@@ -223,7 +223,7 @@ function respawnGuard(guard) {
     //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
 }
 
-PlayerEvents.tick(e => {
+EntityEvents.tick(e => {
         // const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
     let window = e.entity.tags.contains('window')
