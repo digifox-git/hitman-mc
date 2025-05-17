@@ -364,7 +364,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     BlockEvents.rightClicked(x, e => {
         if (e.getHand() == "off_hand") return
-        event.player.forcedPose = 'swimming'
+        e.player.forcedPose = 'swimming'
     })
 })
 
