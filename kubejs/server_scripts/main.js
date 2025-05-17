@@ -271,7 +271,8 @@ PlayerEvents.tick(e => {
     const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
     if (e.player.distanceToEntitySqr(e.entity.tags.contains('window')) < 16) {
-        e.player.setPose(Pose.SWIMMING);
+        // e.player.setPose(Pose.SWIMMING);
+        e.server.tell(`You are ${e.player.distanceToEntitySqr(e.entity.tags.contains('window'))} block away from the window!`)
     }
     
 });
