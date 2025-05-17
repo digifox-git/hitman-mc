@@ -367,6 +367,10 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:lapis_block') {
         e.server.runCommandSilent(`openguiscreen teamsettings ${e.player.username}`)
     }
+
+    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:brown_glazed_terracotta') {
+        e.server.tell(`${e.player.distanceToEntitySqr(e.entity.tags.contains('window'))}`)
+    }
 });
 
 
