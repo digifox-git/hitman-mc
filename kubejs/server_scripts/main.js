@@ -223,6 +223,16 @@ function respawnGuard(guard) {
     //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
 }
 
+PlayerEvents.tick(e => {
+        // const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
+
+    if (e.player.distanceToEntitySqr(e.entity.tags.contains('window')) < 16) {
+        // e.player.setPose(Pose.SWIMMING);
+        e.server.tell(`You are ${e.player.distanceToEntitySqr(e.entity.tags.contains('window'))} block away from the window!`)
+    }
+})
+
+
 /**
  * Tick event for managing guard respawn times
  */
@@ -266,13 +276,6 @@ PlayerEvents.tick(e => {
         e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.4 1 0.4 0 50 force`)
         e.player.setGameMode('survival')
         loadKit(e.server, e.player, "guard", true)  
-    }
-
-    // const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
-
-    if (e.player.distanceToEntitySqr(e.entity.tags.contains('window')) < 16) {
-        // e.player.setPose(Pose.SWIMMING);
-        e.server.tell(`You are ${e.player.distanceToEntitySqr(e.entity.tags.contains('window'))} block away from the window!`)
     }
     
 });
