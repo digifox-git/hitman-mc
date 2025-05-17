@@ -228,9 +228,9 @@ PlayerEvents.tick(e => {
 
     let window = e.entity.tags.contains('window')
 
-    if (e.player.block.down.id == "minecraft:brown_glazed_terracotta") {
+    if (e.player.distanceToEntity(window) < 10) {
         // e.player.setPose(Pose.SWIMMING);
-        e.server.tell(`${e.player.distanceToEntity(window)}`)
+        e.server.tell(`OUCH`)
     }
 })
 
