@@ -365,7 +365,7 @@ Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     BlockEvents.rightClicked(x, e => {
     if (e.getHand() == "off_hand") return
     if (e.level.getBlock(e.block.x, e.block.y - 3, e.block.z) == 'minecraft:red_glazed_terracotta') {
-    if (distance(e.player.x, e.player.y, e.player.z , e.block.x, e.block.y, e.block.z) < 40){
+    if (e.player.distanceToEntitySqr(e.block)){
         e.player.setPose(Pose.SWIMMING);
     }
     }
