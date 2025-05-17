@@ -268,7 +268,7 @@ PlayerEvents.tick(e => {
         loadKit(e.server, e.player, "guard", true)  
     }
 
-    const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
+    // const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
     if (e.player.distanceToEntitySqr(e.entity.tags.contains('window')) < 16) {
         // e.player.setPose(Pose.SWIMMING);
