@@ -366,7 +366,7 @@ Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     if (e.getHand() == "off_hand") return
     if (e.level.getBlock(e.block.x, e.block.y - 3, e.block.z) == 'minecraft:red_glazed_terracotta') {
     e.player.setPose(Pose.SWIMMING);
-    e.server.tell(e.block.distanceToSqr(e.player))
+    e.server.tell(Object.keys(e.block))
     }
     })
 })
