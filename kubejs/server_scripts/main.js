@@ -359,12 +359,12 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     }
 });
 
-
+const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
 Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     BlockEvents.rightClicked(x, e => {
         if (e.getHand() == "off_hand") return
-        e.player.forcedPose = 'swimming'
+        e.player.setPose(Pose.SWIMMING);
     })
 })
 
