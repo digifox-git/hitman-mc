@@ -365,9 +365,6 @@ Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     BlockEvents.rightClicked(x, e => {
         if (e.getHand() == "off_hand") return
         e.server.tell(`${Object.keys(e.player.xRot)}`)
-        e.server.tell(`${Object.keys(e.player.viewXRot)}`)
-        e.server.tell(`${Object.keys(e.player.getViewXRot)}`)
-        e.server.tell(`${Object.keys(e.player.xRotO)}`)
     })
 })
 
