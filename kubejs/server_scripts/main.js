@@ -239,13 +239,13 @@ PlayerEvents.tick(e => {
 
     if (e.player.block.down.id == "minecraft:brown_glazed_terracotta") {
         // e.player.setPose(Pose.SWIMMING);
-        e.server.tell(`${windowPos.x}`)
+        e.server.tell(`${global.windowPos.x}`)
     }
 })
 
 EntityEvents.spawned("minecraft:slime", e => {
     if (e.entity.tags.contains("window")) {
-        windowPos = [e.entity.x, e.entity.y, e.entity.z]
+        global.windowPos = [e.entity.x, e.entity.y, e.entity.z]
     }
 });
 
