@@ -253,6 +253,7 @@ PlayerEvents.tick(e => {
 
 BlockEvents.placed("kubejs:glow", e => {
     if (e.getHand() == "off_hand") return;
+    e.server.runCommandSilent(`placed ${e.block}`)
     server.runCommandSilent(`setblock ~ ~ ~ minecraft:end_gateway`)
 })
 
