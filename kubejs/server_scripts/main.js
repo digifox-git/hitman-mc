@@ -238,8 +238,13 @@ PlayerEvents.tick(e => {
         // const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
     if (e.player.block.down.id == "minecraft:brown_glazed_terracotta") {
-        // e.player.setPose(Pose.SWIMMING);
-        e.server.tell(`${Math.hypot(e.player.x - global.windowPos[0], e.player.y - global.windowPos[1], e.player.z - global.windowPos[2])}`)
+
+        distance = (`${Math.hypot(e.player.x - global.windowPos[0], e.player.y - global.windowPos[1], e.player.z - global.windowPos[2])}`)
+    
+        if (distance > 2.5) {
+            e.player.setPose(Pose.SWIMMING);
+            e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
+        }
     }
 })
 
