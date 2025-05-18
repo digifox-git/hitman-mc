@@ -239,21 +239,28 @@ PlayerEvents.tick(e => {
         const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
         // let distance = Math.hypot(e.player.x - global.windowPos[0], e.player.y - global.windowPos[1], e.player.z - global.windowPos[2])
-    
-        for (let i = 0; i < global.map.window.length; i++) {
-            server.runCommandSilent(`particle minecraft:end_rod ${global.map.window[i].x} ${global.map.window[i].y} ${global.map.window[i].z} 0.2 1.2 0.2 0 10 force`)
-        }
 
-        if (distance < 3 && e.player.isCrouching()) {
-            e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
-            e.player.setPose(Pose.SWIMMING);
-        }
+        // if (distance < 3 && e.player.isCrouching()) {
+        //     e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
+        //     e.player.setPose(Pose.SWIMMING);
+        // }
 
-        if (distance < 3 && e.player.isCrouching()) {
-            e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
-            e.player.setPose(Pose.SWIMMING);
-        }
+        // if (distance < 3 && e.player.isCrouching()) {
+        //     e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
+        //     e.player.setPose(Pose.SWIMMING);
+        // }
 });
+
+ItemEvents.rightClicked("kubejs:glow", e => {
+    windowtest()
+})
+
+function windowtest() {
+    for (let i = 0; i < global.map.window.length; i++) {
+        e.server.tell('debug; UNLEASH!')
+        server.runCommandSilent(`summon slime ${global.map.exit[i].x} ${global.map.exit[i].y} ${global.map.exit[i].z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
+    }
+}
 
 
 /**
