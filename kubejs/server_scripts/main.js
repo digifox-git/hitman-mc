@@ -251,13 +251,14 @@ PlayerEvents.tick(e => {
         // }
 });
 
-ItemEvents.rightClicked("kubejs:glow", e => {
+BlockEvents.rightClicked("kubejs:glow", e => {
+    e.server.tell('debug;')
     windowtest()
 })
 
 function windowtest() {
     for (let i = 0; i < global.map.window.length; i++) {
-        e.server.tell('debug; UNLEASH!')
+        e.server.tell('UNLEASH!')
         server.runCommandSilent(`summon slime ${global.map.exit[i].x} ${global.map.exit[i].y} ${global.map.exit[i].z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
     }
 }
