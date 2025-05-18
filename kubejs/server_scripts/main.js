@@ -235,9 +235,9 @@ EntityEvents.spawned("minecraft:villager", e => {
 });
 
 PlayerEvents.tick(e => {
-        // const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
+        const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
-        distance = Math.hypot(e.player.x - global.windowPos[0], e.player.y - global.windowPos[1], e.player.z - global.windowPos[2])
+        let distance = Math.hypot(e.player.x - global.windowPos[0], e.player.y - global.windowPos[1], e.player.z - global.windowPos[2])
     
         if (distance < 2.5) {
             e.player.setPose(Pose.SWIMMING);
