@@ -223,14 +223,31 @@ function respawnGuard(guard) {
     //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
 }
 
+EntityEvents.spawned("minecraft:villager", e => {
+    if (e.entity.tags.contains("target") && global.villagerPlaced == false) {
+        global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
+        global.villagerPlaced = true
+        
+        global.isGaming = false
+        e.entity.kill();
+        endRound(e.server);
+    }
+});
+
 PlayerEvents.tick(e => {
         // const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
     if (e.player.block.down.id == "minecraft:brown_glazed_terracotta") {
         // e.player.setPose(Pose.SWIMMING);
-        e.server.tell(`${Math.hypot(e.player.x - e.entity.tags.contains('window').x, e.player.y - e.entity.tags.contains('window').y, e.player.z - e.entity.tags.contains('window').z)}`)
+        e.server.tell(`${windowPos.x}`)
     }
 })
+
+EntityEvents.spawned("minecraft:slime", e => {
+    if (e.entity.tags.contains("window")) {
+        windowPos = [e.entity.x, e.entity.y, e.entity.z]
+    }
+});
 
 
 /**
