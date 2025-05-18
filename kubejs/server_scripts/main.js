@@ -230,7 +230,7 @@ PlayerEvents.tick(e => {
 
     if (e.player.block.down.id == "minecraft:brown_glazed_terracotta") {
         // e.player.setPose(Pose.SWIMMING);
-        e.server.tell(`${e.player.distanceToEntity(e.window)}`)
+        e.server.tell(`${Math.hypot(e.player.x - e.window.x, e.player.y - e.window.y, e.player.z - e.window.z)}`)
     }
 })
 
