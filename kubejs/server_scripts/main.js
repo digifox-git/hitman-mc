@@ -239,7 +239,7 @@ PlayerEvents.tick(e => {
 
         let distance = Math.hypot(e.player.x - global.windowPos[0], e.player.y - global.windowPos[1], e.player.z - global.windowPos[2])
     
-        if (distance < 3) {
+        if (distance < 3 && e.player.isCrouching()) {
             e.player.setPose(Pose.SWIMMING);
             e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
         }
