@@ -241,7 +241,7 @@ PlayerEvents.tick(e => {
         // let distance = Math.hypot(e.player.x - global.windowPos[0], e.player.y - global.windowPos[1], e.player.z - global.windowPos[2])
     
         for (let i = 0; i < global.map.window.length; i++) {
-            server.runCommandSilent(`/particle minecraft:end_rod ${global.map.window[i].x} ${global.map.window[i].y} ${global.map.window[i].z} 0.2 1.2 0.2 0 10 force`)
+            server.runCommandSilent(`particle minecraft:end_rod ${global.map.window[i].x} ${global.map.window[i].y} ${global.map.window[i].z} 0.2 1.2 0.2 0 10 force`)
         }
 
         if (distance < 3 && e.player.isCrouching()) {
