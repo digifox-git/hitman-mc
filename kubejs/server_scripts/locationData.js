@@ -170,6 +170,6 @@ const cubaTraining = {
 }
 
 
-const mapOptions = [freeformTraining, theWoods, control]
+const mapOptions = [freeformTraining, theWoods, control, cubaTraining],
 
 // You *should* be able to put a number in for time, but no clue if it works.
