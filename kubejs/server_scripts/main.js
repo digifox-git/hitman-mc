@@ -226,11 +226,9 @@ function respawnGuard(guard) {
 PlayerEvents.tick(e => {
         // const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
-    let window = e.entity.tags.contains('window')
-
     if (e.player.block.down.id == "minecraft:brown_glazed_terracotta") {
         // e.player.setPose(Pose.SWIMMING);
-        e.server.tell(`${Math.hypot(e.player.x - window.x, e.player.y - window.y, e.player.z - window.z)}`)
+        e.server.tell(`${Math.hypot(e.player.x - e.entity.tags.contains('window').x, e.player.y - e.entity.tags.contains('window').y, e.player.z - e.entity.tags.contains('window').z)}`)
     }
 })
 
