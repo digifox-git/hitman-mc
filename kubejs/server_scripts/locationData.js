@@ -92,7 +92,7 @@ const control = {
       z: -245
     }
   ],
-  windows: [
+  window: [
     {
       
     }
@@ -123,11 +123,12 @@ const warehouse = {
       z: -245
     }
   ],
-  windows: [
+  window: [
     {
 
     }
-  ]
+  ],
+  difficulty: 15
 }
 
 const cubaTraining = {
@@ -153,7 +154,7 @@ const cubaTraining = {
       z: 0
     }
   ],
-  windows: [
+  window: [
     {
       x: -1,
       y: -59,
