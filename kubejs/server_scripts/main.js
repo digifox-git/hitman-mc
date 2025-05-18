@@ -147,7 +147,8 @@ function endGame(server) {
  */
 function endRound(server) {
     global.isGaming = false
-    server.runCommandSilent(`title @a title {"text":"§c${hpoints}§f-§9${gpoints}", "bold":true}`)
+    server.runCommandSilent(`title @a title {"text":"§kX§c§l${hpoints}§f§l-§9§l${gpoints}§kX", "bold":true}`)
+    server.runCommandSilent(`playsound minecraft:entity.ender_dragon.growl master @a`)
     server.runCommandSilent(`kill @e[tag=target]`)
     server.runCommandSilent(`kill @e[type=item]`)
     server.runCommandSilent(`clear @a`)
