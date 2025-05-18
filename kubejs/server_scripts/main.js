@@ -226,9 +226,11 @@ function respawnGuard(guard) {
 PlayerEvents.tick(e => {
         // const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
+    let window = e.entity.tags.contains('window')
+
     if (e.player.block.down.id == "minecraft:brown_glazed_terracotta") {
         // e.player.setPose(Pose.SWIMMING);
-        e.server.tell(`${e.player.distanceToEntity(e.entity.tags.contains('window'))}`)
+        e.server.tell(`${e.player.distanceToEntity(e.window)}`)
     }
 })
 
