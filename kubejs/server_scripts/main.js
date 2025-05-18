@@ -246,7 +246,7 @@ PlayerEvents.tick(e => {
 
         setInterval(() => {
             e.server.tell(`${distance}`)
-        }, 100);
+        }, 1000);
 })
 
 EntityEvents.spawned("minecraft:slime", e => {
