@@ -224,6 +224,35 @@ function respawnGuard(guard) {
     //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
 }
 
+EntityEvents.spawned("minecraft:villager", e => {
+    if (e.entity.tags.contains("target") && global.villagerPlaced == false) {
+        global.targetPos = [e.entity.x, e.entity.y, e.entity.z]
+        global.villagerPlaced = true
+        
+        global.isGaming = false
+        e.entity.kill();
+        endRound(e.server);
+    }
+});
+
+PlayerEvents.tick(e => {
+        const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
+
+        let distance = Math.hypot(e.player.x - global.windowPos[0], e.player.y - global.windowPos[1], e.player.z - global.windowPos[2])
+    
+        if (distance < 3 && e.player.isCrouching()) {
+            e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
+            e.player.setPose(Pose.SWIMMING);
+        }
+})
+
+EntityEvents.spawned("minecraft:slime", e => {
+    if (e.entity.tags.contains("window")) {
+        global.windowPos = [e.entity.x, e.entity.y, e.entity.z]
+    }
+});
+
+
 /**
  * Tick event for managing guard respawn times
  */
@@ -266,9 +295,7 @@ PlayerEvents.tick(e => {
         e.server.runCommandSilent(`playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.4 1 0.4 0 50 force`)
         e.player.setGameMode('survival')
-        loadKit(e.server, e.player, "guard", true)
-    
-        
+        loadKit(e.server, e.player, "guard", true)  
     }
     
 });
@@ -364,8 +391,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 
 Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
     BlockEvents.rightClicked(x, e => {
-        if (e.getHand() == "off_hand") return
-        e.server.tell(`${e.player.facing}`)
+    if (e.getHand() == "off_hand") return
     })
 })
 
