@@ -16,15 +16,18 @@ const theWoods = {
     time: "midnight",
     weather: "rain"
   },
-  exit: [
+  exit: {
+    x: -52.3,
+    y: -58.5,
+    z: 146.5
+  },
+  window: [
     {
-      x: -52.3,
-      y: -58.5,
-      z: 146.5
+      
     }
   ],
   difficulty: 15 
-}
+} // !WARNING! - Map it unused (poorly designed/confusing layout)
 
 const freeformTraining = {
   spawnSelection: false,
@@ -59,9 +62,13 @@ const freeformTraining = {
       z: 39.5
     }
   ],
+  window: [
+    {
+      
+    }
+  ],
   difficulty: 15 
 }
-
 const control = {
   spawnSelection: false,
   hSpawn: {
@@ -85,7 +92,80 @@ const control = {
       z: -245
     }
   ],
-  difficulty: 15 
+  windows: [
+    {
+      
+    }
+  ],
+  difficulty: 15
+}
+
+const warehouse = {
+  spawnSelection: false,
+  hSpawn: {
+    x: -62,
+    y: -59,
+    z: 612
+  },
+  gSpawn: {
+    x: -52,
+    y: -55,
+    z: 741
+  },
+  condition: {
+    time: "day",
+    weather: "clear"
+  },
+  exit: [
+    {
+      x: -122,
+      y: 46,
+      z: -245
+    }
+  ],
+  windows: [
+    {
+
+    }
+  ]
+}
+
+const cubaTraining = {
+  spawnSelection: false,
+  hSpawn: {
+    x: 0,
+    y: 0,
+    z: 0
+  },
+  gSpawn: {
+    x: 0,
+    y: 0,
+    z: 0
+  },
+  condition: {
+    time: "midnight",
+    weather: "clear"
+  },
+  exit: [
+    {
+      x: 0,
+      y: 0,
+      z: 0
+    }
+  ],
+  windows: [
+    {
+      x: -1,
+      y: -59,
+      z: -81
+    },
+    {
+      x: -3,
+      y: -59,
+      z: -81
+    },
+  ],
+  difficulty: 15
 }
 
 

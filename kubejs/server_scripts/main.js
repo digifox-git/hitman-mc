@@ -238,18 +238,21 @@ EntityEvents.spawned("minecraft:villager", e => {
 PlayerEvents.tick(e => {
         const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
-        let distance = Math.hypot(e.player.x - global.windowPos[0], e.player.y - global.windowPos[1], e.player.z - global.windowPos[2])
+        // let distance = Math.hypot(e.player.x - global.windowPos[0], e.player.y - global.windowPos[1], e.player.z - global.windowPos[2])
     
+        for (let i = 0; i < global.map.window.length; i++) {
+            server.runCommandSilent(`/particle minecraft:end_rod ${global.map.window[i].x} ${global.map.window[i].y} ${global.map.window[i].z} 0.2 1.2 0.2 0 10 force`)
+        }
+
         if (distance < 3 && e.player.isCrouching()) {
             e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
             e.player.setPose(Pose.SWIMMING);
         }
-})
 
-EntityEvents.spawned("minecraft:slime", e => {
-    if (e.entity.tags.contains("window")) {
-        global.windowPos = [e.entity.x, e.entity.y, e.entity.z]
-    }
+        if (distance < 3 && e.player.isCrouching()) {
+            e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
+            e.player.setPose(Pose.SWIMMING);
+        }
 });
 
 
@@ -386,14 +389,6 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         e.server.runCommandSilent(`openguiscreen teamsettings ${e.player.username}`)
     }
 });
-
-
-
-Ingredient.of('#minecraft:slabs').itemIds.forEach(x => {
-    BlockEvents.rightClicked(x, e => {
-    if (e.getHand() == "off_hand") return
-    })
-})
 
 ServerEvents.customCommand('cancel', e => {
     e.server.runCommandSilent(`kill @e[tag='target']`)
