@@ -251,7 +251,14 @@ PlayerEvents.tick(e => {
         // }
 });
 
+BlockEvents.placed("kubejs:glow", e => {
+    if (e.getHand() == "off_hand") return;
+    server.runCommandSilent(`setblock ~ ~ ~ minecraft:end_gateway`)
+})
+
+
 BlockEvents.rightClicked("kubejs:glow", e => {
+    if (e.getHand() == "off_hand") return;
     e.server.tell('debug;')
     windowtest()
 })
