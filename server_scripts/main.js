@@ -10,7 +10,7 @@ function selectE(server, tag) {
 }
 
 /**
- * blah blah blah
+ * blah blah blah blah
  * @param {Internal.MinecraftServer} server 
  */
 
