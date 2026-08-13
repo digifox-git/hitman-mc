@@ -100,14 +100,15 @@ function selectE(s, tag) {
  */
 function loadKit(server, player, kit, clear_inv) {
     let kits = JsonIO.read("kubejs/game_data/kits.json");
-
+    server.tell("Loaded kits...")
     if (!kits.containsKey(kit)) return false;
-
+    server.tell(`[DEBUG] Found kit ${kit}!`);
     if (clear_inv) player.inventory.clear();
     // Items
     if (!Array.isArray(kits[kit].inv)) return false;
+    server.tell(`[DEBUG] ${kit} indeed has an inventory array!`);
     kits[kit].inv.forEach(item => {
-        server.tell("TAKE YOUR DIRTY ITEMS");
+
         server.runCommandSilent(`give ${player.username} ${item.id}${item.nbt} ${item.count}`)
         // player.give(`${item.count}x ${item.id} ${item.nbt}`);
     });
