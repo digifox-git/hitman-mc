@@ -4,8 +4,13 @@ let targetAlive
 
 // Utility function to select entities by tag
 function selectE(server, tag) {
-
-    return server.getLevel("minecraft:overworld").getEntities(e => e.tags.contains(tag));
+    let results = [];
+    server.getLevel("minecraft:overworld").getEntities(
+        EntityTypeTest.forClass(Entity.class),
+        entity => entity.tags.contains('my_tag'),
+        results
+    );
+    return results;
 }
 
 /**
@@ -17,6 +22,7 @@ function selectE(server, tag) {
  * Event when interacting with entities
  */
 ItemEvents.entityInteracted("minecraft:interaction", e => {
+    e.server.getLevel("minecraft:overworld").getEntities()
     let data = e.server.data;
     if (e.target.type === 'minecraft:slime' && targetAlive == false && e.player.tags.contains("hitman")) {
         e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
