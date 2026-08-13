@@ -2,9 +2,9 @@
 	"guard": {
 		"inv": [
 			{
-				"id": "pointblank:glock17",
+				"id": "pointblank:m9",
 				"count": 1,
-				"nbt": "{GeckoLibID:5827L,RepairCost:0,aim:0b,ammo:15,ammox:{},display:{Name:'{\"text\":\"Bartoli 75R\"}'},fmid:[I;2024040644,790376639,-1901301172,-347176430],lid:-7672045357788949544L,mid:-5931368223776816371L,sa:{scope:\"/\"},seed:2766427260837752437L}"
+				"nbt": "[custom_name='\"Bartoli 75R\"',custom_data={GeckoLibID:5827L,aim:0b,ammo:11,ammox:{},fmid:[I;2024040644,790376639,-1901301172,-347176430],lid:-7672045357788949544L,mid:-5931368223776816371L,sa:{scope:\"/\"},seed:2766427260837752437L},geckolib:stack_animatable_id=6135L,pointblank:custom_tag={aim:0b,ammo:15,ammox:{},fmid:[I;2024040644,790376639,-1901301172,-347176430],lid:-6239343144447279527L,mid:-7444116084339620873L,sa:{scope:\"/\"},seed:-7667940938360128180L},pointblank:ts=1786608060069L]"
 			},
 			{
 				"id": "pointblank:ammo9mm",
@@ -40,12 +40,12 @@
 			}
 		]
 	},
-    "hitman": {
+	"hitman": {
 		"inv": [
 			{
 				"id": "pointblank:m1911a1",
 				"count": 1,
-				"nbt": "{GeckoLibID:5826L,RepairCost:0,aim:0b,ammo:7,ammox:{},as:[{id:\"pointblank:smg_suppressor\",rmv:1b}],display:{Name:'{\"text\":\"ICA19\"}'},fmid:[I;-1636272185,45363964,-1509764009,649528026],lid:-5913844022498838710L,mid:6682376299637196439L,sa:{scope:\"/\"},seed:5253172018714532081L}"
+				"nbt": "[custom_name='\"ICA19\"',custom_data={GeckoLibID:5977L,aim:0b,ammo:7,ammox:{},as:[{id:\"pointblank:smg_suppressor\",rmv:1b}],fmid:[I;-1636272185,45363964,-1509764009,649528026],lid:-4760310035107099092L,mid:3404308902466897395L,sa:{scope:\"/\"},seed:4305567926135398961L},geckolib:stack_animatable_id=6134L,pointblank:custom_tag={aim:0b,ammo:7,ammox:{},fmid:[I;-1636272185,45363964,-1509764009,649528026],lid:-6510096321805951747L,mid:-3260941526134206779L,sa:{scope:\"/\"},seed:4252288730720814752L},pointblank:ts=1786607924869L]"
 			},
 			{
 				"id": "pointblank:ammo45acp",
@@ -80,7 +80,7 @@
 				"nbt": "{}"
 			}
 		]
-    },
+	},
 	"testlol": {
 		"inv": [
 			{
@@ -117,7 +117,5 @@
 			}
 		]
 	},
-	"pong": {
-		
-	}
+	"pong": {}
 }
