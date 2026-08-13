@@ -291,7 +291,7 @@ PlayerEvents.tick(e => {
         e.server.tell(`${e.player.username} is now a guard!`)
         e.server.runCommandSilent(`playsound minecraft:block.beacon.activate master @a[distance=0..512] ~ ~ ~ 1 1 1`)
     }
-    if (!data.get(isGaming)) return;
+    if (!data.get("isGaming")) return;
 
     // Decrease respawn time for guards
     if (e.player.persistentData.respawnTime > 1) {
