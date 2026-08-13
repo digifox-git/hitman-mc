@@ -58,7 +58,7 @@ function startGame(server) {
             data.get("map").gSpawn.z
         );
     });
-    server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg{EntityTag:{NoAI:1b,Tags:["target"]}}`)
+    server.runCommandSilent(`give @r[tag=guard] minecraft:villager_spawn_egg[minecraft:entity_data={id:"minecraft:villager",NoAI:1b,Tags:["target"]}]`)
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
     server.runCommandSilent(`weather ${data.get("map").condition.weather}`)
     server.runCommandSilent(`time set ${data.get("map").condition.time}`)
@@ -152,7 +152,7 @@ function endRound(server) {
     } else {
         let map = data.get("map");
         let targetPos = data.get("targetPos");
-        server.runCommandSilent(`summon villager ${targetPos[0]} ${targetPos[1]} ${targetPos[2]} {Tags:["target"],VillagerData:{level:1,profession:"minecraft:nitwit"}}`);
+        server.runCommandSilent(`summon minecraft:villager ${targetPos[0]} ${targetPos[1]} ${targetPos[2]} {Tags:["target"],villager_data:{level:1,profession:"minecraft:nitwit",type:"minecraft:plains"}}`);
         for (let i = 0; i < map.exit.length; i++) {
             server.runCommandSilent(`summon slime ${map.exit[i].x} ${map.exit[i].y} ${map.exit[i].z} {Size:0,Invulnerable:1b,NoAI:1b,PersistenceRequired:1b,Invisible:1b,Tags:["exit"]}`)
         }
