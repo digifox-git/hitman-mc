@@ -4,7 +4,8 @@ let targetAlive
 
 // Utility function to select entities by tag
 function selectE(server, tag) {
-    return server.level.getEntities(e => e.tags.contains(tag));
+
+    return server.getLevel("minecraft:overworld").getEntities(e => e.tags.contains(tag));
 }
 
 /**
