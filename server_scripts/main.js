@@ -403,60 +403,60 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
     }
 });
 
-ServerEvents.customCommand('cancel', e => {
-    e.server.runCommandSilent(`kill @e[tag='target']`)
-    e.server.runCommandSilent(`clear @a`)
-    e.server.runCommandSilent(`tp @a 10000 -42 0`)
-    e.server.runCommandSilent(`kubejs reload server_scripts`)
-})
+// ServerEvents.customCommand('cancel', e => {
+//     e.server.runCommandSilent(`kill @e[tag='target']`)
+//     e.server.runCommandSilent(`clear @a`)
+//     e.server.runCommandSilent(`tp @a 10000 -42 0`)
+//     e.server.runCommandSilent(`kubejs reload server_scripts`)
+// })
 
 
-ServerEvents.customCommand('setMap0', e => {
-    data.put("map", mapOptions[0]);
-    e.server.tell('Map Selected: ICA Training Facility')
-    e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
-})
+// ServerEvents.customCommand('setMap0', e => {
+//     data.put("map", mapOptions[0]);
+//     e.server.tell('Map Selected: ICA Training Facility')
+//     e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
+// })
 
-ServerEvents.customCommand('setMap2', e => {
-    data.put("map", mapOptions[2]);
-    e.server.tell('Map Selected: FBC Research Sector')
-    e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
-})
+// ServerEvents.customCommand('setMap2', e => {
+//     data.put("map", mapOptions[2]);
+//     e.server.tell('Map Selected: FBC Research Sector')
+//     e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
+// })
 
-ServerEvents.customCommand('startGame', e => {
-    let data = e.server.data;
-    if (!data.get("map")) {
-        e.server.tell('There is no map selected!')
-    } else if (data.get("hitman").length == 0) {
-        e.server.runCommandSilent('title @a actionbar {"text":"You need at least 1 Hitman to play!","bold":true,"color":"yellow"}')
-        e.server.runCommandSilent('playsound minecraft:entity.enderman.hurt master @a ~ ~ ~ 1 1 1')
-    } else if (data.get("guards").length == 0) {
-        e.server.runCommandSilent('title @a actionbar {"text":"You need at least 1 Guard to play!","bold":true,"color":"yellow"}')
-        e.server.runCommandSilent('playsound minecraft:entity.enderman.hurt master @a ~ ~ ~ 1 1 1')
-    } else {
-        startGame(e.server);
-        e.server.runCommandSilent(`closeguiscreen @a`)
-    }
-})
+// ServerEvents.customCommand('startGame', e => {
+//     let data = e.server.data;
+//     if (!data.get("map")) {
+//         e.server.tell('There is no map selected!')
+//     } else if (data.get("hitman").length == 0) {
+//         e.server.runCommandSilent('title @a actionbar {"text":"You need at least 1 Hitman to play!","bold":true,"color":"yellow"}')
+//         e.server.runCommandSilent('playsound minecraft:entity.enderman.hurt master @a ~ ~ ~ 1 1 1')
+//     } else if (data.get("guards").length == 0) {
+//         e.server.runCommandSilent('title @a actionbar {"text":"You need at least 1 Guard to play!","bold":true,"color":"yellow"}')
+//         e.server.runCommandSilent('playsound minecraft:entity.enderman.hurt master @a ~ ~ ~ 1 1 1')
+//     } else {
+//         startGame(e.server);
+//         e.server.runCommandSilent(`closeguiscreen @a`)
+//     }
+// })
 
-ServerEvents.customCommand('joinTeamHitman', e => {
-    if (!e.player.tags.contains('hitman')) {
-        e.player.getTags().remove('guard')
-        e.player.getTags().add('hitman')
-        e.server.runCommandSilent(`team leave ${e.player.username}`)
-        e.server.runCommandSilent(`team join Hitman ${e.player.username}`)
-        e.server.tell(`${e.player.username} is now a hitman!`)
-        e.server.runCommandSilent(`playsound minecraft:block.beacon.deactivate master @a ~ ~ ~ 1 1 1`)
-    }
-})
+// ServerEvents.customCommand('joinTeamHitman', e => {
+//     if (!e.player.tags.contains('hitman')) {
+//         e.player.getTags().remove('guard')
+//         e.player.getTags().add('hitman')
+//         e.server.runCommandSilent(`team leave ${e.player.username}`)
+//         e.server.runCommandSilent(`team join Hitman ${e.player.username}`)
+//         e.server.tell(`${e.player.username} is now a hitman!`)
+//         e.server.runCommandSilent(`playsound minecraft:block.beacon.deactivate master @a ~ ~ ~ 1 1 1`)
+//     }
+// })
 
-ServerEvents.customCommand('joinTeamGuard', e => {
-    if (!e.player.tags.contains('guard')) {
-        e.player.getTags().remove('hitman')
-        e.player.getTags().add('guard')
-        e.server.runCommandSilent(`team leave ${e.player.username}`)
-        e.server.runCommandSilent(`team join Guard ${e.player.username}`)
-        e.server.tell(`${e.player.username} is now a guard!`)
-        e.server.runCommandSilent(`playsound minecraft:block.beacon.activate master @a ~ ~ ~ 1 1 1`)
-    }
-})
+// ServerEvents.customCommand('joinTeamGuard', e => {
+//     if (!e.player.tags.contains('guard')) {
+//         e.player.getTags().remove('hitman')
+//         e.player.getTags().add('guard')
+//         e.server.runCommandSilent(`team leave ${e.player.username}`)
+//         e.server.runCommandSilent(`team join Guard ${e.player.username}`)
+//         e.server.tell(`${e.player.username} is now a guard!`)
+//         e.server.runCommandSilent(`playsound minecraft:block.beacon.activate master @a ~ ~ ~ 1 1 1`)
+//     }
+// })
