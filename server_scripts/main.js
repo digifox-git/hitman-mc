@@ -210,23 +210,27 @@ EntityEvents.death(e => {
         /*if (e.source.entity.isPlayer()) {
             global.killCount++
         }*/
-        respawnGuard(e.entity);
+
     }
 });
 
 PlayerEvents.respawned(e => {
-    e.server.runCommandSilent(`gamemode spectator ${e.entity.username}`)
+    e.server.runCommandSilent(`gamemode spectator ${e.player.username}`)
+    if (e.player.tags.contains("guard")) {
+        e.server.scheduleInTicks(120, () => {
+            e.server.runCommandSilent(`gamemode adventure ${e.player.username}`)
+            e.player.teleportTo(
+                data.get("map").gSpawn.x,
+                data.get("map").gSpawn.y,
+                data.get("map").gSpawn.z
+            );
+        })
+
+    }
+
 })
 
-/**
- * Respawns guards after a delay
- * @param {Player} guard 
- */
-function respawnGuard(guard) {
-    guard.persistentData.respawnTime = 120;
-    // guard.paint({ respawn_time: { visible: true } });
-    //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
-}
+
 
 EntityEvents.spawned("minecraft:villager", e => {
     if (e.entity.tags.contains("target") && !e.server.data.get("villagerPlaced")) {
