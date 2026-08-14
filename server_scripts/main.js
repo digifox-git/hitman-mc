@@ -479,7 +479,7 @@ PlayerEvents.tick(e => {
 
         // Check if near window, crouching, and above window y level
         // If true, set isVaulting to true and set windowCoords to be used later
-        if (distance < 1.5 && e.player.isShiftKeyPressed() && Math.floor(e.player.y) == Math.floor(window.y) + 1) {
+        if (distance < 1.5 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y) + 1 && e.player.getPose() != Pose.SWIMMING) {
             windowCoords = {x: window.x, y: window.y, z: window.z}
             isVaulting = true
             break
@@ -497,7 +497,7 @@ PlayerEvents.tick(e => {
         // Check if near window, crouching, and at vent y level
         // If true, set isVaulting to true and set windowCoords to be used later
 
-        if (distance < 1.25 && e.player.isShiftKeyPressed() && Math.floor(e.player.y) == Math.floor(vent.y)) {
+        if (distance < 1.25 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(vent.y) && e.player.getPose() != Pose.SWIMMING) {
             windowCoords = {x: vent.x, y: vent.y, z: vent.z}
             isVaulting = true
             break
