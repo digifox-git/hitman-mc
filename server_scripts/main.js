@@ -460,7 +460,7 @@ ServerEvents.tick(e => {
         `@e[type=minecraft:slime,tag=window]`
     )
     windows.forEach(slime => {
-        console.log(slime)
+        e.server.runCommandSilent(`say SLIME!!`)
     })
 })
 
