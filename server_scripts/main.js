@@ -215,16 +215,12 @@ EntityEvents.death(e => {
 });
 
 PlayerEvents.respawned(e => {
+    let data = e.server.data;
     e.server.runCommandSilent(`playsound minecraft:entity.allay.hurt player ${e.player.username}`)
     e.server.runCommandSilent(`gamemode spectator ${e.player.username}`)
     if (e.player.tags.contains("guard")) {
         e.server.scheduleInTicks(120, () => {
             e.server.runCommandSilent(`gamemode adventure ${e.player.username}`)
-            tell(e, "THERE SHOULD'VE BEEN SOME INFO")
-            tell(e, data.get("map").gSpawn.x);
-            tell(e, data.get("map").gSpawn.y);
-            tell(e, data.get("map").gSpawn.z);
-
             e.player.teleportTo(
                 data.get("map").gSpawn.x,
                 data.get("map").gSpawn.y,
