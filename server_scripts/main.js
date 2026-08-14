@@ -450,7 +450,7 @@ PlayerEvents.tick(e => {
             e.player.z - window.z
         )
 
-        if (distance < 2 && e.player.isCrouching()) {
+        if (distance < 2 && e.player.getPose() == "SWIMMING" || e.player.getPose() == "CROUCHING") {
             isVaulting = true
             break
         } else {
