@@ -449,7 +449,7 @@ PlayerEvents.tick(e => {
             e.player.z - window.z // Unused
         )
 
-        if (distance < 2 && e.player.isShiftKeyDown()) {
+        if (distance < 2) {
             isVaulting = true
             break
         } else {
