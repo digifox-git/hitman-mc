@@ -470,7 +470,6 @@ PlayerEvents.tick(e => {
    
 
     // e.server.runCommandSilent(`particle minecraft:end_rod ${windowPos[0]} ${windowPos[1]} ${windowPos[2]} 0 0 0 0 1 force`)
-})
 
 // ServerEvents.customCommand('setMap0', e => {
 //     data.put("map", mapOptions[0]);
