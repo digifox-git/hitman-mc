@@ -5,10 +5,9 @@ function selectE(server, tag) {
     return server.getLevel("minecraft:overworld").getEntities().filter(e => e.tags.contains(tag));
 }
 
-/**
- * blah blah blah blah
- * @param {Internal.MinecraftServer} server 
- */
+BlockEvents.rightClicked("minecraft:pink_wool", e => {
+    e.server.runCommandSilent("easy_npc navigation set home 7a498a18-86f6-4235-9876-c3aa0024f79c 69 -47 27")
+})
 
 /**
  * Event when interacting with entities
