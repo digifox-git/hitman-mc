@@ -457,6 +457,15 @@ PlayerEvents.tick(e => {
             isVaulting = false
         }
     }
+    
+    const xMotion = -Math.sin(yaw) * 0.35
+    const zMotion =  Math.cos(yaw) * 0.35
+
+    e.player.setDeltaMovement(
+        xMotion,
+        e.player.deltaMovement.y,
+        zMotion
+    )
 
     if (isVaulting == true) {
         e.player.setSwimming(true)
