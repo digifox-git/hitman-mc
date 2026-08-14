@@ -456,13 +456,18 @@ ServerEvents.commandRegistry(e => {
 const Pose = Java.loadClass('net.minecraft.world.entity.Pose') // Load java class that lets you set player pose
 PlayerEvents.tick(e => {
 
+    // This code should only work for the hitman
+    if (!e.player.getTags().contains("hitman")) {
+        return
+    }
+
     let windowCoords = {}
     let isVaulting = false
     let data = e.server.data;
 
     data.put("windows", selectE(e.server, "window")) // Get all slimes with "window" tag
     data.put("vents", selectE(e.server, "vent")) // Get all slimes with "vent" tag
-    
+
     // FOR WINDOWS
     for (const window of data.get("windows")) {
         let distance = Math.hypot(
@@ -490,9 +495,6 @@ PlayerEvents.tick(e => {
 
         // Check if near window, crouching, and at vent y level
         // If true, set isVaulting to true and set windowCoords to be used later
-        if (distance < 1.5) {
-            e.server.tell(`${Math.floor(e.player.y)} / ${Math.floor(vent.y)}`)
-        }
 
         if (distance < 1.5 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(vent.y)) {
             windowCoords = {x: vent.x, y: vent.y, z: vent.z}
