@@ -446,10 +446,10 @@ PlayerEvents.tick(e => {
         let distance = Math.hypot(
             e.player.x - window.x,
             e.player.y - window.y,
-            e.player.z - window.z
+            e.player.z - window.z // Unused
         )
 
-        if (distance < 2 && e.player.getPose() == "SWIMMING" || e.player.getPose() == "CROUCHING") {
+        if (distance < 2 && e.player.isShiftKeyDown()) {
             isVaulting = true
             break
         } else {
@@ -458,10 +458,12 @@ PlayerEvents.tick(e => {
     }
 
 
-    if (isVaulting == true && e.player.getPose() != "SWIMMING") {
-        e.player.setForcedPose(Pose.SWIMMING)
+    if (isVaulting == true) {
+        if (e.player.getPose() != Pose.SWIMMING) {
+            e.player.setForcedPose(Pose.SWIMMING)
+        }
         e.player.potionEffects.add('minecraft:speed', 1, 3, false, false)
-    } else if (e.player.getPose() == "SWIMMING") {
+    } else {
         e.player.setForcedPose(null)
     }
     
