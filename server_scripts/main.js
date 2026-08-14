@@ -267,26 +267,6 @@ EntityEvents.spawned("minecraft:villager", e => {
     }
 });
 
-// Window vaulting code
-PlayerEvents.tick(e => {
-    const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
-    let windowPos = [mapOptions[3].window[0].x, mapOptions[3].window[0].y, mapOptions[3].window[0].z]
-
-    let distance = Math.hypot(e.player.x - windowPos[0], e.player.y - windowPos[1], e.player.z - windowPos[2])
-
-    if (distance < 3 && e.player.isCrouching()) {
-        e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
-        e.player.setPose(Pose.SWIMMING);
-    }
-
-    if (distance < 3 && e.player.isCrouching()) {
-        e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
-        e.player.setPose(Pose.SWIMMING);
-    }
-
-    // e.server.runCommandSilent(`particle minecraft:end_rod ${windowPos[0]} ${windowPos[1]} ${windowPos[2]} 0 0 0 0 1 force`)
-});
-
 BlockEvents.placed("kubejs:glow", e => {
     if (e.getHand() == "off_hand") return;
     e.server.runCommandSilent(`placed ${e.block}`)
@@ -455,13 +435,30 @@ ServerEvents.commandRegistry(e => {
     )
 })
 
-ServerEvents.tick(e => {
-    const windows = e.server.entities.filterSelector(
-        `@e[type=minecraft:slime,tag=window]`
-    )
-    windows.forEach(slime => {
-        e.server.runCommandSilent(`say SLIME!!`)
+// Tick event for window vaulting
+PlayerEvents.tick(e => {
+    data.put("windows", selectE(e.server, "window"))
+
+    const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
+
+    data.get("windows").forEach(window => {
+        let distance = Math.hypot(e.player.x - window.x, e.player.y - window.y, e.player.z - window.z)
+
+         if (distance < 3 && e.player.isCrouching()) {
+            e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
+            e.player.setPose(Pose.SWIMMING);
+        }
+
+        if (distance < 3 && e.player.isCrouching()) {
+            e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
+            e.player.setPose(Pose.SWIMMING);
+        }
     })
+    
+
+   
+
+    // e.server.runCommandSilent(`particle minecraft:end_rod ${windowPos[0]} ${windowPos[1]} ${windowPos[2]} 0 0 0 0 1 force`)
 })
 
 // ServerEvents.customCommand('setMap0', e => {
