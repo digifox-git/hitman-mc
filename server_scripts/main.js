@@ -436,13 +436,12 @@ ServerEvents.commandRegistry(e => {
 })
 
 // Tick event for window vaulting
+const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 PlayerEvents.tick(e => {
     let data = e.server.data;
     data.put("windows", selectE(e.server, "window"))
 
     let isVaulting = false
-
-    const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
     for (const window of data.get("windows")) {
         let distance = Math.hypot(
