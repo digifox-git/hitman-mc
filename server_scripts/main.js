@@ -452,7 +452,7 @@ PlayerEvents.tick(e => {
             e.player.z - window.z
         )
 
-        if (distance < 3 && e.player.isCrouching()) {
+        if (distance < 3.5 && e.player.isCrouching()) {
             isVaulting = true
             break
         } else {
@@ -462,7 +462,7 @@ PlayerEvents.tick(e => {
 
     if (isVaulting == true) {
         e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
-        e.player.forcedPose = 'swimming'
+        e.player.setPose(Pose.SWIMMING)
     }
 })
     
