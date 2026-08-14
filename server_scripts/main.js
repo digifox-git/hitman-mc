@@ -471,8 +471,8 @@ PlayerEvents.tick(e => {
     if (isVaulting == true) {
         e.player.setPosition(windowCoords.x, windowCoords.y + 1, windowCoords.z) // Put player on top of window position. Lack of headroom = forced crawl
         e.player.setForcedPose(Pose.SWIMMING) // Force to crawling pose just in case, might be redundant
-        e.server.runCommandSilent(`playsound minecraft:block.iron_trapdoor.close player @a[distance=0..5] ${e.player.x} ${e.player.y} ${e.player.z} 1 1`)
-        e.server.runCommandSilent(`playsound minecraft:block.ancient_debris.fall player @a[distance=0..5] ${e.player.x} ${e.player.y} ${e.player.z} 0.75 1`)
+        e.server.runCommandSilent(`playsound minecraft:block.iron_trapdoor.close master @a[distance=0..5] ${e.player.x} ${e.player.y} ${e.player.z} 1 1`)
+        e.server.runCommandSilent(`playsound minecraft:block.ancient_debris.fall master @a[distance=0..5] ${e.player.x} ${e.player.y} ${e.player.z} 0.75 1`)
     } else {
         e.player.setForcedPose(null)
     }
