@@ -219,10 +219,11 @@ PlayerEvents.respawned(e => {
     if (e.player.tags.contains("guard")) {
         e.server.scheduleInTicks(120, () => {
             e.server.runCommandSilent(`gamemode adventure ${e.player.username}`)
+            tell(e, "THERE SHOULD'VE BEEN SOME INFO")
             tell(e, data.get("map").gSpawn.x);
             tell(e, data.get("map").gSpawn.y);
             tell(e, data.get("map").gSpawn.z);
-            tell(e, "THERE SHOULD'VE BEEN SOME INFO")
+
             e.player.teleportTo(
                 data.get("map").gSpawn.x,
                 data.get("map").gSpawn.y,
