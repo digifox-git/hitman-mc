@@ -456,14 +456,10 @@ ServerEvents.commandRegistry(e => {
 })
 
 ServerEvents.tick(e => {
-    e.server.getAllLevels().forEach(level => {
-        level.getEntities().forEach(entity => {
-            if (entity.tags.contains("window")) {
-                const slime = entity
-                e.level.runCommandSilent(`effect give @e[tag=window] minecraft:invisibility infinite 1 false`);
-            }
-        })
-    })
+    if (e.entity.tags.contains("window")) {
+        const slime = entity
+        e.level.runCommandSilent(`effect give @e[tag=window] minecraft:invisibility infinite 1 false`);
+    }
 })
 
 // ServerEvents.customCommand('setMap0', e => {
