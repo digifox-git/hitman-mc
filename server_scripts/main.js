@@ -464,6 +464,7 @@ PlayerEvents.tick(e => {
     let windowCoords = {}
     let isVaulting = false
     let data = e.server.data;
+    let oxygen = e.player.getAirSupply()
 
     data.put("windows", selectE(e.server, "window")) // Get all slimes with "window" tag
     data.put("vents", selectE(e.server, "vent")) // Get all slimes with "vent" tag
@@ -515,6 +516,7 @@ PlayerEvents.tick(e => {
     // Give speed if in crawl
     if (e.player.getPose() == Pose.SWIMMING) {
         e.player.potionEffects.add('minecraft:speed', 1, 6, false, false)
+        e.player.setAirSupply(Math.max(0, oxygen - 10))
     }
     
 })
