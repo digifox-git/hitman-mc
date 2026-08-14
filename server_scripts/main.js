@@ -11,19 +11,22 @@ BlockEvents.rightClicked("minecraft:coal_block", e => {
 })
 
 BlockEvents.rightClicked("minecraft:pink_wool", e => {
-    // upper bar
+    // staircase
     e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 73 -47 39")
-    e.server.scheduleInTicks(80, () => {
+    e.server.scheduleInTicks(180, () => {
         // lower bar
         e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 66 -50 29")
-        e.server.scheduleInTicks(80, () => {
+        e.server.scheduleInTicks(180, () => {
+            // staircase
             e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 73 -47 39")
-            e.server.scheduleInTicks(80, () => {
+            e.server.scheduleInTicks(180, () => {
+                // higher bar
                 e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 69 -47 27")
-                e.server.scheduleInTicks(160, () => {
+                e.server.scheduleInTicks(260, () => {
                     // monitor
                     e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 67 -46 57")
-                    e.server.scheduleInTicks(160, () => {
+                    e.server.scheduleInTicks(260, () => {
+                        // higher bar
                         e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 69 -47 27")
                     })
                 })
