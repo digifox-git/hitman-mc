@@ -442,14 +442,16 @@ PlayerEvents.tick(e => {
     let data = e.server.data;
     data.put("windows", selectE(e.server, "window"))
 
-    e.server.tell(`${Math.floor(e.player.y)} / ${Math.floor(window.y) + 1}`)
-
     for (const window of data.get("windows")) {
         let distance = Math.hypot(
             e.player.x - window.x,
             e.player.y - window.y,
             e.player.z - window.z // Unused
         )
+
+        if (distance < 2) {
+            e.server.tell(`${Math.floor(e.player.y)} / ${Math.floor(window.y) + 1}`)
+        }
 
         if (distance < 2 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y) + 1) {
             isVaulting = true
