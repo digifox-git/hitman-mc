@@ -215,6 +215,7 @@ EntityEvents.death(e => {
 });
 
 PlayerEvents.respawned(e => {
+    e.server.runCommandSilent(`playsound minecraft:entity.allay.hurt player ${e.player.username}`)
     e.server.runCommandSilent(`gamemode spectator ${e.player.username}`)
     if (e.player.tags.contains("guard")) {
         e.server.scheduleInTicks(120, () => {
