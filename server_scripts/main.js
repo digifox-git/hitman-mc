@@ -452,7 +452,7 @@ PlayerEvents.tick(e => {
             e.player.z - window.z
         )
 
-        if (distance < 3.5 && e.player.isCrouching()) {
+        if (distance < 3 && e.player.isCrouching()) {
             isVaulting = true
             break
         } else {
