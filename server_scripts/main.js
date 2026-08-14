@@ -461,7 +461,9 @@ PlayerEvents.tick(e => {
     let data = e.server.data;
 
     data.put("windows", selectE(e.server, "window")) // Get all slimes with "window" tag
-    data.put("vents", selectE(e.server, "vent")) // Get all slimes with "window" tag
+    data.put("vents", selectE(e.server, "vent")) // Get all slimes with "vent" tag
+
+    e.server.tell(data.get("vents"))
 
     // FOR WINDOWS
     for (const window of data.get("windows")) {
@@ -477,8 +479,6 @@ PlayerEvents.tick(e => {
             windowCoords = {x: window.x, y: window.y, z: window.z}
             isVaulting = true
             break
-        } else {
-            isVaulting = false
         }
     }
 
@@ -500,8 +500,6 @@ PlayerEvents.tick(e => {
             windowCoords = {x: vent.x, y: vent.y, z: vent.z}
             isVaulting = true
             break
-        } else {
-            isVaulting = false
         }
     }
 
