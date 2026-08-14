@@ -462,7 +462,7 @@ PlayerEvents.tick(e => {
 
     if (isVaulting == true) {
         e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
-        e.player.forcePose = 'swimming'
+        e.player.forcedPose = 'swimming'
     }
 })
     
