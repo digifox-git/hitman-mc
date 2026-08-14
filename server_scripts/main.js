@@ -459,8 +459,7 @@ PlayerEvents.tick(e => {
     }
 
     if (e.player.block.up.id == "minecraft:air") {
-        e.server.runCommandSilent(`setblock ${e.player.x} ${e.player.y + 1} ${e.player.z} minecraft:barrier`)
-        
+        e.server.runCommandSilent(`setblock ${Math.round(e.player.x)} ${Math.round(e.player.y + 1)} ${Math.round(e.player.z)} minecraft:barrier`)
     }
 
     e.server.tell(e.player.block.up.id)
