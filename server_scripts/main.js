@@ -458,13 +458,6 @@ PlayerEvents.tick(e => {
         }
     }
 
-    if (e.player.block.up.id == "minecraft:air" && e.player.isCrouching()) {
-        e.server.runCommandSilent(`setblock ${Math.floor(e.player.x)} ${e.player.y + 1} ${Math.floor(e.player.z)} minecraft:barrier`)
-        setTimeout(() => {
-            e.server.runCommandSilent(`setblock ${Math.floor(e.player.x)} ${e.player.y + 1} ${Math.floor(e.player.z)} minecraft:air`)
-        }, 500);
-    }
-
     if (isVaulting == true) {
         e.player.setForcedPose(Pose.SWIMMING)
         e.player.potionEffects.add('minecraft:speed', 1, 3, false, false)
