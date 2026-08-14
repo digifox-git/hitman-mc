@@ -516,7 +516,7 @@ PlayerEvents.tick(e => {
     // Give speed if in crawl
     if (e.player.getPose() == Pose.SWIMMING) {
         e.player.potionEffects.add('minecraft:speed', 1, 6, false, false)
-        e.player.setAirSupply(oxygen - 2)
+        e.player.setAirSupply(oxygen - 5)
     }
     
 })
