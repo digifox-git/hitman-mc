@@ -271,6 +271,7 @@ EntityEvents.spawned("minecraft:villager", e => {
 PlayerEvents.tick(e => {
     const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
     let data = e.server.data
+    data.put(windowPos, mapOptions[3].window[0])
 
     let distance = Math.hypot(e.player.x - data.get(windowPos[0]), e.player.y - data.get(windowPos[1]), e.player.z - data.get(windowPos[2]))
 
