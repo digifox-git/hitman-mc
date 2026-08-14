@@ -175,6 +175,16 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
     console.log(`spawnpoint ${e.player.username} ${data.get("spawnPosX")} ${data.get("spawnPosY")} ${data.get("spawnPosZ")}`)
 })
 
+BlockEvents.rightClicked("minecraft:pink_wool", e => {
+    let kits = JsonIO.read("kubejs/game_data/kits.json");
+    kits["hitman"].inv.forEach(item => {
+        e.server.tell(`give ${e.player.username} ${item.id}${item.nbt} ${item.count}`)
+        e.server.runCommandSilent(`give ${e.player.username} ${item.id}${item.nbt} ${item.count}`)
+
+        // player.give(`${item.count}x ${item.id} ${item.nbt}`);
+    });
+})
+
 /**
  * Handles death events
  */
