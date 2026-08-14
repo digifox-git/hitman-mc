@@ -465,8 +465,6 @@ PlayerEvents.tick(e => {
         }, 500);
     }
 
-    e.server.tell(e.player.block.up.id)
-
     if (isVaulting == true) {
         e.player.setSwimming(true)
         e.player.setPose(Pose.SWIMMING)
