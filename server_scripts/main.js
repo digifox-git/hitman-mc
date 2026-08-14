@@ -6,12 +6,17 @@ function selectE(server, tag) {
 }
 
 BlockEvents.rightClicked("minecraft:coal_block", e => {
-    e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 73 -47 62")
+    e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 66 -50 29")
 })
 
 BlockEvents.rightClicked("minecraft:pink_wool", e => {
     e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 69 -47 27")
 })
+
+BlockEvents.rightClicked("minecraft:blue_wool", e => {
+    e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 67 -46 57")
+})
+
 
 /**
  * Event when interacting with entities
