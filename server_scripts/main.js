@@ -469,15 +469,15 @@ PlayerEvents.tick(e => {
     }
 
     if (isVaulting == true) {
-        e.player.setPosition(windowCoords.x, windowCoords.y + 1, windowCoords.z) // Put player on top of window position
-        e.player.setForcedPose(Pose.SWIMMING) // Force to swimming pose just in case, might be redundant
+        e.player.setPosition(windowCoords.x, windowCoords.y + 1, windowCoords.z) // Put player on top of window position. Lack of headroom = forced crawl
+        e.player.setForcedPose(Pose.SWIMMING) // Force to crawling pose just in case, might be redundant
         e.server.runCommandSilent(`playsound minecraft:block.iron_trapdoor.close player @a[distance=0..${audioBalance.windowVaultAudioRange}] ${e.player.x} ${e.player.y} ${e.player.z} 1 1`)
         e.server.runCommandSilent(`playsound minecraft:block.ancient_debris.fall player @a[distance=0..${audioBalance.windowVaultAudioRange}] ${e.player.x} ${e.player.y} ${e.player.z} 0.75 1`)
     } else {
         e.player.setForcedPose(null)
     }
 
-    // Give speed if in window
+    // Give speed if in crawl
     if (e.player.getPose() == Pose.SWIMMING) {
         e.player.potionEffects.add('minecraft:speed', 1, 6, false, false)
     }
