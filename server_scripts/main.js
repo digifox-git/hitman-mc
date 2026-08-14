@@ -175,16 +175,6 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
     console.log(`spawnpoint ${e.player.username} ${data.get("spawnPosX")} ${data.get("spawnPosY")} ${data.get("spawnPosZ")}`)
 })
 
-BlockEvents.rightClicked("minecraft:pink_wool", e => {
-    let kits = JsonIO.read("kubejs/game_data/kits.json");
-    kits["hitman"].inv.forEach(item => {
-        e.server.tell(`give ${e.player.username} ${item.id}${item.nbt} ${item.count}`)
-        e.server.runCommandSilent(`give ${e.player.username} ${item.id}${item.nbt} ${item.count}`)
-
-        // player.give(`${item.count}x ${item.id} ${item.nbt}`);
-    });
-})
-
 /**
  * Handles death events
  */
@@ -220,12 +210,17 @@ PlayerEvents.respawned(e => {
     e.server.runCommandSilent(`gamemode spectator ${e.player.username}`)
     if (e.player.tags.contains("guard")) {
         e.server.scheduleInTicks(120, () => {
-            e.server.runCommandSilent(`gamemode adventure ${e.player.username}`)
             e.player.teleportTo(
                 data.get("map").gSpawn.x,
                 data.get("map").gSpawn.y,
                 data.get("map").gSpawn.z
             );
+            e.player.displayClientMessage(Component.blue("Back in action!"), true);
+            e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master @a ~ ~ ~ 1 1.2 1`)
+            e.server.runCommandSilent(`playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1`)
+            e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.4 1 0.4 0 50 force`)
+            e.player.setGameMode('adventure')
+            loadKit(e.server, e.player, "guard", true)
         })
     }
 
@@ -316,20 +311,6 @@ PlayerEvents.tick(e => {
         e.server.runCommandSilent(`gamemode spectator ${e.player.username}`)
         e.player.potionEffects.add('minecraft:glowing', 99999, 0, false, false); // "INFINITE isnt defined"
     }
-
-    // Respawn guard when time reaches zero
-    if (e.player.persistentData.respawnTime == 1) {
-        e.player.persistentData.respawnTime = 0; // dont run previous if statment again
-        e.player.teleportTo(map.gSpawn.x, map.gSpawn.y, map.gSpawn.z);
-        e.player.paint({ respawn_time: { visible: false } });
-        e.player.displayClientMessage(Component.blue("Back in action!"), true);
-        e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master @a ~ ~ ~ 1 1.2 1`)
-        e.server.runCommandSilent(`playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1`)
-        e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.4 1 0.4 0 50 force`)
-        e.player.setGameMode('survival')
-        loadKit(e.server, e.player, "guard", true)
-    }
-
 });
 
 /**
