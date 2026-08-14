@@ -219,18 +219,22 @@ PlayerEvents.respawned(e => {
     if (e.player.tags.contains("guard")) {
         e.server.scheduleInTicks(120, () => {
             e.server.runCommandSilent(`gamemode adventure ${e.player.username}`)
+            tell(e, data.get("map").gSpawn.x);
+            tell(e, data.get("map").gSpawn.y);
+            tell(e, data.get("map").gSpawn.z);
             e.player.teleportTo(
                 data.get("map").gSpawn.x,
                 data.get("map").gSpawn.y,
                 data.get("map").gSpawn.z
             );
         })
-
     }
 
 })
 
-
+function tell(e, message) {
+    e.server.tell(message);
+}
 
 EntityEvents.spawned("minecraft:villager", e => {
     if (e.entity.tags.contains("target") && !e.server.data.get("villagerPlaced")) {
