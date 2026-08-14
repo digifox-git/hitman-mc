@@ -443,14 +443,9 @@ PlayerEvents.tick(e => {
 
     let isVaulting = false
 
-    if (isVaulting == true) {
-        e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
-        e.player.setSwimming(true)
-    }
-
     const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 
-    data.get("windows").forEach(window => {
+    for (const window of data.get("windows")) {
         let distance = Math.hypot(
             e.player.x - window.x,
             e.player.y - (window.y + 1),
@@ -459,10 +454,17 @@ PlayerEvents.tick(e => {
 
         if (distance < 3 && e.player.isCrouching()) {
             isVaulting = true
+            break
         } else {
             isVaulting = false
         }
-    })
+    }
+
+    if (isVaulting == true) {
+        e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
+        e.player.setSwimming(true)
+    }
+})
     
 
    
