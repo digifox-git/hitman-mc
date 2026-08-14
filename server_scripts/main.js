@@ -15,7 +15,9 @@ function selectE(server, tag) {
  */
 ItemEvents.entityInteracted("minecraft:interaction", e => {
     let data = e.server.data;
-    if (e.target.type === 'minecraft:slime' && !data.get("targetAlive") && e.player.tags.contains("hitman")) {
+    e.server.tell("INTERACTION")
+    if (e.target.type == 'minecraft:slime' && !data.get("targetAlive") && e.player.tags.contains("hitman")) {
+        e.server.tell("SLIME!!")
         e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
         data.put("hpoints", data.get("hpoints") + 1);
         e.server.runCommandSilent(`title @a title {"text":"Hitman escaped!", "bold":true, "color":"red"}`)
