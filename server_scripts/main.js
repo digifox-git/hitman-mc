@@ -437,7 +437,6 @@ ServerEvents.commandRegistry(e => {
 
 // Tick event for window vaulting
 PlayerEvents.tick(e => {
-    
     let data = e.server.data;
     data.put("windows", selectE(e.server, "window"))
 
@@ -461,8 +460,8 @@ PlayerEvents.tick(e => {
     }
 
     if (isVaulting == true) {
-        e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
         e.player.setPose(Pose.SWIMMING)
+        e.player.potionEffects.add('minecraft:speed', 1, 3, false, false)
     }
 })
     
