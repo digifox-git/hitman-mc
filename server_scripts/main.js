@@ -445,7 +445,7 @@ ServerEvents.commandRegistry(e => {
                 const player = ctx.source.player
 
                 ctx.source.server.runCommandSilent(
-                    `summon slime ${player.x} ${player.y - 1} ${player.z} {Size:0,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,active_effects:[{id:glowing,duration:100,amplifier:1,show_particles:0b,show_icon:0b}],Tags:["wallClimb"]}`
+                    `summon slime ${player.x} ${player.y - 1} ${player.z} {Size:0,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,active_effects:[{id:glowing,duration:100,amplifier:1,show_particles:0b,show_icon:0b}],Tags:["vent"]}`
                 )
                 return 1
             })
@@ -461,6 +461,7 @@ PlayerEvents.tick(e => {
     let data = e.server.data;
 
     data.put("windows", selectE(e.server, "window")) // Get all slimes with "window" tag
+    data.put("vents", selectE(e.server, "vent")) // Get all slimes with "window" tag
 
     // FOR WINDOWS
     for (const window of data.get("windows")) {
@@ -482,17 +483,17 @@ PlayerEvents.tick(e => {
     }
 
     // FOR VENTS
-    for (const window of data.get("windows")) {
+    for (const vent of data.get("vents")) {
         let distance = Math.hypot(
-            e.player.x - window.x,
-            e.player.y - window.y,
-            e.player.z - window.z
+            e.player.x - vent.x,
+            e.player.y - vent.y,
+            e.player.z - vent.z
         ) // Calculate distance from indexed vent
 
         // Check if near window, crouching, and at vent y level
         // If true, set isVaulting to true and set windowCoords to be used later
-        if (distance < 1.5 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y)) {
-            windowCoords = {x: window.x, y: window.y, z: window.z}
+        if (distance < 1.5 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(vent.y)) {
+            windowCoords = {x: vent.x, y: vent.y, z: vent.z}
             isVaulting = true
             break
         } else {
