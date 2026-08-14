@@ -463,7 +463,7 @@ PlayerEvents.tick(e => {
         
     }
 
-    e.server.tell(e.level.getBlock(e.player.x, e.player.y + 1, e.player.z))
+    e.server.tell(e.player.block.up.id)
 
     if (isVaulting == true) {
         e.player.setSwimming(true)
