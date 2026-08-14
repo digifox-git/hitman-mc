@@ -453,7 +453,7 @@ PlayerEvents.tick(e => {
             e.player.potionEffects.add('minecraft:speed', 1, 3, false, false)
             break
         } else {
-            isVaulting = false
+            return
         }
     }
     
