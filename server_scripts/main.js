@@ -5,8 +5,12 @@ function selectE(server, tag) {
     return server.getLevel("minecraft:overworld").getEntities().filter(e => e.tags.contains(tag));
 }
 
+BlockEvents.rightClicked("minecraft:coal_block", e => {
+    e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 73 -47 62")
+})
+
 BlockEvents.rightClicked("minecraft:pink_wool", e => {
-    e.server.runCommandSilent("easy_npc navigation set home 7a498a18-86f6-4235-9876-c3aa0024f79c 69 -47 27")
+    e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 69 -47 27")
 })
 
 /**
