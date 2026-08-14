@@ -458,8 +458,11 @@ PlayerEvents.tick(e => {
         }
     }
 
-    if (e.player.block.up.id == "minecraft:air") {
+    if (e.player.block.up.id == "minecraft:air" && e.player.isCrouching()) {
         e.server.runCommandSilent(`setblock ${Math.round(e.player.x)} ${Math.round(e.player.y + 1)} ${Math.round(e.player.z)} minecraft:barrier`)
+        setTimeout(() => {
+            e.server.runCommandSilent(`setblock ${Math.round(e.player.x)} ${Math.round(e.player.y + 1)} ${Math.round(e.player.z)} minecraft:air`)
+        }, 500);
     }
 
     e.server.tell(e.player.block.up.id)
