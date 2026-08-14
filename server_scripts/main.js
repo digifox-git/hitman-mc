@@ -465,13 +465,14 @@ PlayerEvents.tick(e => {
     }
 
     if (isVaulting == true) {
-        if (e.player.getPose() != Pose.SWIMMING) {
-            e.player.setPosition(windowCoords.x, windowCoords.y + 1, windowCoords.z)
-            e.player.setForcedPose(Pose.SWIMMING)
-        }
-        e.player.potionEffects.add('minecraft:speed', 1, 3, false, false)
+        e.player.setPosition(windowCoords.x, windowCoords.y + 1, windowCoords.z)
+        e.player.setForcedPose(Pose.SWIMMING)
     } else {
         e.player.setForcedPose(null)
+    }
+
+    if (e.player.getPose() = Pose.SWIMMING) {
+        e.player.potionEffects.add('minecraft:speed', 1, 4, false, false)
     }
     
 })
