@@ -456,8 +456,12 @@ ServerEvents.commandRegistry(e => {
 })
 
 ServerEvents.tick(e => {
-    const windows = e.server.overworld().getEntities(`@e[type=minecraft:slime,tag=window]`)
-    console.log(windows)
+    const windows = e.server.entities.filterSelector(
+        `@e[type=minecraft:slime,tag=window]`
+    )
+    windows.forEach(slime => {
+        console.log(slime)
+    })
 })
 
 // ServerEvents.customCommand('setMap0', e => {
