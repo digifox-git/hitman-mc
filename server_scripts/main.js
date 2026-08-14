@@ -438,6 +438,7 @@ ServerEvents.commandRegistry(e => {
 // Tick event for window vaulting
 const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
 PlayerEvents.tick(e => {
+    let isVaulting = false
     let data = e.server.data;
     data.put("windows", selectE(e.server, "window"))
 
@@ -448,13 +449,22 @@ PlayerEvents.tick(e => {
             e.player.z - window.z // Unused
         )
 
-        if (distance < 2) {
-            e.player.setForcedPose(Pose.SWIMMING)
-            e.player.potionEffects.add('minecraft:speed', 1, 3, false, false)
+        if (distance < 2 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y) + 1) {
+            isVaulting = true
             break
         } else {
-            return
+            isVaulting = false
         }
+    }
+
+    if (isVaulting == true) {
+        if (e.player.getPose() != Pose.SWIMMING) {
+            e.player.setPos(window.x, window.y + 1, window.z)
+            e.player.setForcedPose(Pose.SWIMMING)
+        }
+        e.player.potionEffects.add('minecraft:speed', 1, 3, false, false)
+    } else {
+        e.player.setForcedPose(null)
     }
     
 })
