@@ -18,7 +18,7 @@ BlockEvents.rightClicked("minecraft:blue_wool", e => {
 })
 
 BlockEvents.rightClicked("minecraft:red_wool", e => {
-    e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 66 -50 39")
+    e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 66 -50 29")
 })
 
 /**
