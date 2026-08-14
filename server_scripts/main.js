@@ -1,7 +1,5 @@
 priority: 2
 
-let targetAlive
-
 // Utility function to select entities by tag
 function selectE(server, tag) {
     return server.getLevel("minecraft:overworld").getEntities().filter(e => e.tags.contains(tag));
@@ -17,7 +15,7 @@ function selectE(server, tag) {
  */
 ItemEvents.entityInteracted("minecraft:interaction", e => {
     let data = e.server.data;
-    if (e.target.type === 'minecraft:slime' && targetAlive == false && e.player.tags.contains("hitman")) {
+    if (e.target.type === 'minecraft:slime' && !data.get("targetAlive") && e.player.tags.contains("hitman")) {
         e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
         data.put("hpoints", data.get("hpoints") + 1);
         e.server.runCommandSilent(`title @a title {"text":"Hitman escaped!", "bold":true, "color":"red"}`)
@@ -90,7 +88,7 @@ function startRound(server) {
     server.runCommandSilent(`effect clear @a`);
     data.put("isGaming", true);
     server.tell("Starting Round...");
-    targetAlive = true;
+    data.put("targetAlive", true);
     data.get("guards").forEach(guard => guard.teleportTo(map.gSpawn.x, map.gSpawn.y, map.gSpawn.z));
     data.get("hitman").forEach(hitman => hitman.teleportTo(map.hSpawn.x, map.hSpawn.y, map.hSpawn.z));
     server.runCommandSilent(`gamemode survival @a`) // Need to change when we figure out how to place the villager in adventure mode
@@ -182,7 +180,7 @@ EntityEvents.death(e => {
     let data = e.server.data;
     if (e.entity.tags.contains("target") && data.get("isGaming")) {
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
-        targetAlive = false
+        data.put("targetAlive", false);
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Threat neutralized.");
         e.server.runCommandSilent(`playsound minecraft:entity.evoker.death master @a ~ ~ ~ 1 1 1`)
