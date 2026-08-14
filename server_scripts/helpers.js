@@ -108,7 +108,6 @@ function loadKit(server, player, kit, clear_inv) {
     // if (!Array.isArray(kits[kit].inv)) return false;
     // server.tell(`[DEBUG] ${kit} indeed has an inventory array!`);
     kits[kit].inv.forEach(item => {
-        server.tell(`give ${player.username} ${item.id}${item.nbt} ${item.count}`)
         server.runCommandSilent(`give ${player.username} ${item.id}${item.nbt} ${item.count}`)
         // player.give(`${item.count}x ${item.id} ${item.nbt}`);
     });

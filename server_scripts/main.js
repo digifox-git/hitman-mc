@@ -16,12 +16,10 @@ function selectE(server, tag) {
  * Event when interacting with entities
  */
 ItemEvents.entityInteracted("minecraft:interaction", e => {
-    e.server.getLevel("minecraft:overworld").getEntities()
     let data = e.server.data;
     if (e.target.type === 'minecraft:slime' && targetAlive == false && e.player.tags.contains("hitman")) {
         e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
         data.put("hpoints", data.get("hpoints") + 1);
-        hpoints++;
         e.server.runCommandSilent(`title @a title {"text":"Hitman escaped!", "bold":true, "color":"red"}`)
         e.server.runCommandSilent(`playsound minecraft:item.trident.thunder master @a ~ ~ ~ 1 1 1`)
         e.server.runCommandSilent(`playsound minecraft:entity.firework_rocket.blast master @a ~ ~ ~ 1 1 1`)
