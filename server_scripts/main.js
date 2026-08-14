@@ -454,6 +454,7 @@ PlayerEvents.tick(e => {
         }
 
         if (distance < 2 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y)) {
+            e.server.tell("True")
             isVaulting = true
             break
         } else {
