@@ -236,7 +236,7 @@ PlayerEvents.respawned(e => {
 })
 
 function tell(e, message) {
-    e.server.tell(message);
+    e.server.tell(`${message}`);
 }
 
 EntityEvents.spawned("minecraft:villager", e => {
