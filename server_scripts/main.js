@@ -439,6 +439,9 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 //     e.server.runCommandSilent(`kubejs reload server_scripts`)
 // })
 
+ServerEvents.customCommand('placeWindowBelowMe', e => {
+    e.server.runCommandSilent(`/summon slime ${e.player.x} ${e.player.y - 1} ${e.player.z} {Size:0,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,active_effects:[{id:glowing,duration:100,amplifier:1,show_particles:0b,show_icon:0b},{id:invisibility,duration:100000,amplifier:1,show_particles:0b}]}`)
+})
 
 // ServerEvents.customCommand('setMap0', e => {
 //     data.put("map", mapOptions[0]);
