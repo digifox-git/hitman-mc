@@ -1,5 +1,10 @@
 priority: 2
 
+const audioBalance = {
+    windowVaultAudioRange: 12,
+    wallClimbAudioRange: 8
+}
+
 // Utility function to select entities by tag
 function selectE(server, tag) {
     return server.getLevel("minecraft:overworld").getEntities().filter(e => e.tags.contains(tag));
@@ -435,27 +440,26 @@ ServerEvents.commandRegistry(e => {
     )
 })
 
-// Tick event for window vaulting
-const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
+// Tick event for window vaulting/vent entering
+const Pose = Java.loadClass('net.minecraft.world.entity.Pose') // Load java class that lets you set player pose
 PlayerEvents.tick(e => {
+
     let windowCoords = {}
     let isVaulting = false
     let data = e.server.data;
-    data.put("windows", selectE(e.server, "window"))
+
+    data.put("windows", selectE(e.server, "window")) // Get all slimes with "window" tag
 
     for (const window of data.get("windows")) {
         let distance = Math.hypot(
             e.player.x - window.x,
             e.player.y - window.y,
-            e.player.z - window.z // Unused
-        )
+            e.player.z - window.z
+        ) // Calculate distance from indexed window
 
-        if (distance < 2) {
-            // e.server.tell(`${Math.floor(e.player.y)} / ${Math.floor(window.y) + 1}`)
-        }
-
+        // Check if near window, crouching, and above window y level
+        // If true, set isVaulting to true and set windowCoords to be used later
         if (distance < 2 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y) + 1) {
-            e.server.tell("True")
             windowCoords = {x: window.x, y: window.y, z: window.z}
             isVaulting = true
             break
@@ -465,16 +469,17 @@ PlayerEvents.tick(e => {
     }
 
     if (isVaulting == true) {
-        e.player.setPosition(windowCoords.x, windowCoords.y + 1, windowCoords.z)
-        e.player.setForcedPose(Pose.SWIMMING)
-        e.server.runCommandSilent(`playsound minecraft:block.iron_trapdoor.close player @a[distance=0..5] ${e.player.x} ${e.player.y} ${e.player.z} 1 1`)
-        e.server.runCommandSilent(`playsound minecraft:block.ancient_debris.fall player @a[distance=0..5] ${e.player.x} ${e.player.y} ${e.player.z} 0.75 1`)
+        e.player.setPosition(windowCoords.x, windowCoords.y + 1, windowCoords.z) // Put player on top of window position
+        e.player.setForcedPose(Pose.SWIMMING) // Force to swimming pose just in case, might be redundant
+        e.server.runCommandSilent(`playsound minecraft:block.iron_trapdoor.close player @a[distance=0..${audioBalance.windowVaultAudioRange}] ${e.player.x} ${e.player.y} ${e.player.z} 1 1`)
+        e.server.runCommandSilent(`playsound minecraft:block.ancient_debris.fall player @a[distance=0..${audioBalance.windowVaultAudioRange}] ${e.player.x} ${e.player.y} ${e.player.z} 0.75 1`)
     } else {
         e.player.setForcedPose(null)
     }
 
+    // Give speed if in window
     if (e.player.getPose() == Pose.SWIMMING) {
-        e.player.potionEffects.add('minecraft:speed', 1, 4, false, false)
+        e.player.potionEffects.add('minecraft:speed', 1, 6, false, false)
     }
     
 })
