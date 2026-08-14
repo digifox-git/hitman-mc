@@ -471,7 +471,7 @@ PlayerEvents.tick(e => {
         e.player.setForcedPose(null)
     }
 
-    if (e.player.getPose() = Pose.SWIMMING) {
+    if (e.player.getPose() == Pose.SWIMMING) {
         e.player.potionEffects.add('minecraft:speed', 1, 4, false, false)
     }
     
