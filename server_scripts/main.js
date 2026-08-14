@@ -6,7 +6,7 @@ function selectE(server, tag) {
 }
 
 BlockEvents.rightClicked("minecraft:coal_block", e => {
-    e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 66 -55 29")
+    e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 73 -47 39")
 })
 
 BlockEvents.rightClicked("minecraft:pink_wool", e => {
