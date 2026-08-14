@@ -450,7 +450,7 @@ PlayerEvents.tick(e => {
             e.player.z - window.z
         )
 
-        if (distance < 3 && e.player.isCrouching()) {
+        if (distance < 2 && e.player.isCrouching()) {
             isVaulting = true
             break
         } else {
@@ -458,16 +458,9 @@ PlayerEvents.tick(e => {
         }
     }
 
-    const yaw = e.player.yRot * Math.PI / 180
-    
-    const xMotion = -Math.sin(yaw) * 0.35
-    const zMotion =  Math.cos(yaw) * 0.35
-
-    e.player.setDeltaMovement(
-        xMotion,
-        e.player.deltaMovement.y,
-        zMotion
-    )
+    if (e.level.getBlock(e.player.x, e.block.y + 1, e.block.z) == "minecraft:air") {
+        e.server.runCommandSilent(`setblock ${e.player.x} ${e.player.y + 1} ${e.player.z} minecraft:barrier keep`)
+    }
 
     if (isVaulting == true) {
         e.player.setSwimming(true)
