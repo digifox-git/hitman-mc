@@ -458,7 +458,7 @@ PlayerEvents.tick(e => {
         }
     }
 
-    if (e.level.getBlock(e.player.x, e.player.y + 1, e.player.z) == "minecraft:air") {
+    if (e.player.block.up.id == "minecraft:air") {
         e.server.runCommandSilent(`setblock ${e.player.x} ${e.player.y + 1} ${e.player.z} minecraft:barrier keep`)
         setTimeout(() => {
             e.server.runCommandSilent(`setblock ${e.player.x} ${e.player.y + 1} ${e.player.z} minecraft:air`)
