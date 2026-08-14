@@ -437,36 +437,55 @@ ServerEvents.commandRegistry(e => {
 
 // Tick event for window vaulting
 const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
-PlayerEvents.tick(e => {
-    let isVaulting = false
-    let data = e.server.data;
-    data.put("windows", selectE(e.server, "window"))
 
-    for (const window of data.get("windows")) {
-        let distance = Math.hypot(
-            e.player.x - window.x,
-            e.player.y - window.y,
-            e.player.z - window.z // Unused
+PlayerEvents.tick(e => {
+    const player = e.player
+    const windows = selectE(e.server, "window")
+
+    let nearWindow = false
+
+    for (const window of windows) {
+        const distance = Math.hypot(
+            player.x - window.x,
+            player.y - window.y,
+            player.z - window.z
         )
 
-        if (distance < 2 && e.player.isShiftKeyDown()) {
-            isVaulting = true
+        if (distance < 2) {
+            nearWindow = true
             break
-        } else {
+        }
+    }
+
+    const data = player.persistentData
+    let isVaulting = data.getBoolean("isVaulting")
+
+    // START vaulting
+    if (!isVaulting && nearWindow && player.isShiftKeyDown()) {
+        isVaulting = true
+        data.putBoolean("isVaulting", true)
+
+        player.setForcedPose(Pose.SWIMMING)
+    }
+
+    // WHILE vaulting
+    if (isVaulting) {
+        player.potionEffects.add(
+            'minecraft:speed',
+            1,
+            3,
+            false,
+            false
+        )
+
+        // End once we've moved away from the window
+        if (!nearWindow) {
             isVaulting = false
+            data.putBoolean("isVaulting", false)
+
+            player.setForcedPose(null)
         }
     }
-
-
-    if (isVaulting == true) {
-        if (e.player.getPose() != Pose.SWIMMING) {
-            e.player.setForcedPose(Pose.SWIMMING)
-        }
-        e.player.potionEffects.add('minecraft:speed', 1, 3, false, false)
-    } else {
-        e.player.setForcedPose(null)
-    }
-    
 })
     
 
