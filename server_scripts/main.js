@@ -497,7 +497,7 @@ PlayerEvents.tick(e => {
         // Check if near window, crouching, and at vent y level
         // If true, set isVaulting to true and set windowCoords to be used later
 
-        if (distance < 1.5 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(vent.y)) {
+        if (distance < 1.25 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(vent.y)) {
             windowCoords = {x: vent.x, y: vent.y, z: vent.z}
             isVaulting = true
             break
@@ -516,7 +516,7 @@ PlayerEvents.tick(e => {
     // Give speed if in crawl
     if (e.player.getPose() == Pose.SWIMMING) {
         e.player.potionEffects.add('minecraft:speed', 1, 6, false, false)
-        e.player.setAirSupply(Math.max(0, oxygen - 10))
+        e.player.setAirSupply(oxygen - 2)
     }
     
 })
