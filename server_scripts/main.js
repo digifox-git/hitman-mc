@@ -456,14 +456,8 @@ ServerEvents.commandRegistry(e => {
 })
 
 ServerEvents.tick(e => {
-    e.server.getAllLevels().forEach(level => {
-        level.getEntities().forEach(entity => {
-            if (entity.tags.contains("window")) {
-                const slime = entity
-                console.log(slime)
-            }
-        })
-    })
+    const windows = e.server.overworld().getEntities(`@e[type=minecraft:slime,tag=window]`)
+    console.log(slimes)
 })
 
 // ServerEvents.customCommand('setMap0', e => {
