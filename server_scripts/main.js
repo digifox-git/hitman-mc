@@ -465,6 +465,8 @@ PlayerEvents.tick(e => {
         }, 500)
     }
 
+    console.log(e.level.getBlock(e.player.x, e.player.y + 1, e.player.z))
+
     if (isVaulting == true) {
         e.player.setSwimming(true)
         e.player.setPose(Pose.SWIMMING)
