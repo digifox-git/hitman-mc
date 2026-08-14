@@ -437,8 +437,8 @@ ServerEvents.commandRegistry(e => {
 
 // Tick event for window vaulting
 const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
-let isVaulting = false
 PlayerEvents.tick(e => {
+    let isVaulting = false
     let data = e.server.data;
     data.put("windows", selectE(e.server, "window"))
 
