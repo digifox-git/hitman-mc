@@ -222,6 +222,7 @@ PlayerEvents.respawned(e => {
             tell(e, data.get("map").gSpawn.x);
             tell(e, data.get("map").gSpawn.y);
             tell(e, data.get("map").gSpawn.z);
+            tell(e, "THERE SHOULD'VE BEEN SOME INFO")
             e.player.teleportTo(
                 data.get("map").gSpawn.x,
                 data.get("map").gSpawn.y,
