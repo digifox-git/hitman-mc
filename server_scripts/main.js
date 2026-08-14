@@ -448,7 +448,7 @@ ServerEvents.commandRegistry(e => {
                 const player = ctx.source.player
 
                 ctx.source.server.runCommandSilent(
-                    `/summon slime ~ ~1 ~ {Size:0,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,active_effects:[{id:glowing,duration:100,amplifier:1,show_particles:0b,show_icon:0b}],Tags:["window"]}`
+                    `summon slime ${player.x} ${player.y - 1} ${player.z} {Size:0,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,active_effects:[{id:glowing,duration:100,amplifier:1,show_particles:0b,show_icon:0b}],Tags:["window"]}`
                 )
                 return 1
             })
