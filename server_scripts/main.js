@@ -13,7 +13,7 @@ function selectE(server, tag) {
 /**
  * Event when interacting with entities
  */
-ItemEvents.entityInteracted("minecraft:interaction", e => {
+ItemEvents.entityInteracted(e => {
     let data = e.server.data;
     e.server.tell("INTERACTION")
     if (e.target.type == 'minecraft:slime' && !data.get("targetAlive") && e.player.tags.contains("hitman")) {
