@@ -462,9 +462,7 @@ PlayerEvents.tick(e => {
 
     data.put("windows", selectE(e.server, "window")) // Get all slimes with "window" tag
     data.put("vents", selectE(e.server, "vent")) // Get all slimes with "vent" tag
-
-    e.server.tell(data.get("vents"))
-
+    
     // FOR WINDOWS
     for (const window of data.get("windows")) {
         let distance = Math.hypot(
