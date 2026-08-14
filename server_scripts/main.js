@@ -457,7 +457,7 @@ ServerEvents.commandRegistry(e => {
 
 ServerEvents.tick(e => {
     const windows = e.server.overworld().getEntities(`@e[type=minecraft:slime,tag=window]`)
-    console.log(slimes)
+    console.log(windows)
 })
 
 // ServerEvents.customCommand('setMap0', e => {
