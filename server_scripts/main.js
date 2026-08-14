@@ -280,11 +280,6 @@ PlayerEvents.tick(e => {
         e.player.setPose(Pose.SWIMMING);
     }
 
-    if (distance < 3 && e.player) {
-        e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
-        e.player.setPose(Pose.SWIMMING);
-    }
-
     e.server.runCommandSilent(`particle minecraft:end_rod ${windowPos[0]} ${windowPos[1]} ${windowPos[2]} 0.4 1 0.4 0 50 force`)
 });
 
