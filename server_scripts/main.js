@@ -448,12 +448,22 @@ ServerEvents.commandRegistry(e => {
                 const player = ctx.source.player
 
                 ctx.source.server.runCommandSilent(
-                    `/summon slime ~ ~1 ~ {Size:0,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,active_effects:[{id:glowing,duration:100,amplifier:1,show_particles:0b,show_icon:0b},{id:invisibility,duration:100000,amplifier:1,show_particles:0b}]}`
+                    `/summon slime ~ ~1 ~ {Size:0,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,active_effects:[{id:glowing,duration:100,amplifier:1,show_particles:0b,show_icon:0b}],Tags:["window"]}`
                 )
-
                 return 1
             })
     )
+})
+
+ServerEvents.tick(e => {
+    e.server.getAllLevels().forEach(level => {
+        level.getEntities().forEach(entity => {
+            if (entity.tags.contains("window")) {
+                const slime = entity
+                e.level.runCommandSilent(`effect give @e[tag=window] minecraft:invisibility infinite 1 false`);
+            }
+        })
+    })
 })
 
 // ServerEvents.customCommand('setMap0', e => {
