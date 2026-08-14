@@ -451,6 +451,7 @@ PlayerEvents.tick(e => {
 
         if (distance < 2) {
             isVaulting = true
+            e.server.tell("CRAWL!!!")
             break
         } else {
             isVaulting = false
