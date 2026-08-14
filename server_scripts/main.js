@@ -446,7 +446,7 @@ PlayerEvents.tick(e => {
     for (const window of data.get("windows")) {
         let distance = Math.hypot(
             e.player.x - window.x,
-            e.player.y - (window.y + 1),
+            e.player.y - window.y,
             e.player.z - window.z
         )
 
