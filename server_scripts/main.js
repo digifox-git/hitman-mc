@@ -440,7 +440,7 @@ ServerEvents.commandRegistry(e => {
     )
 
     e.register(
-        Commands.literal('placeWallClimbBelowMe')
+        Commands.literal('placeVentBelowMe')
             .executes(ctx => {
                 const player = ctx.source.player
 
@@ -462,6 +462,7 @@ PlayerEvents.tick(e => {
 
     data.put("windows", selectE(e.server, "window")) // Get all slimes with "window" tag
 
+    // FOR WINDOWS
     for (const window of data.get("windows")) {
         let distance = Math.hypot(
             e.player.x - window.x,
@@ -472,6 +473,25 @@ PlayerEvents.tick(e => {
         // Check if near window, crouching, and above window y level
         // If true, set isVaulting to true and set windowCoords to be used later
         if (distance < 1.5 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y) + 1) {
+            windowCoords = {x: window.x, y: window.y, z: window.z}
+            isVaulting = true
+            break
+        } else {
+            isVaulting = false
+        }
+    }
+
+    // FOR VENTS
+    for (const window of data.get("windows")) {
+        let distance = Math.hypot(
+            e.player.x - window.x,
+            e.player.y - window.y,
+            e.player.z - window.z
+        ) // Calculate distance from indexed vent
+
+        // Check if near window, crouching, and at vent y level
+        // If true, set isVaulting to true and set windowCoords to be used later
+        if (distance < 1.5 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y)) {
             windowCoords = {x: window.x, y: window.y, z: window.z}
             isVaulting = true
             break
