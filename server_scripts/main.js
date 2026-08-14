@@ -200,17 +200,12 @@ EntityEvents.death(e => {
         e.server.tell("Threat neutralized.");
         e.server.runCommandSilent(`playsound minecraft:entity.evoker.death master @a ~ ~ ~ 1 1 1`)
         gpoints++
-        e.server.scheduleInTicks(2, () => {
-            e.server.runCommandSilent(`gamemode spectator ${e.entity.username}`)
-        })
         e.server.scheduleInTicks(20, () => {
             endRound(e.server)
         })
-        e.server.tell('0')
         e.server.runCommandSilent(`kill @e[type=minecraft:slime,tag=exit]`)
     } else if (e.entity.tags.contains("guard")) {
-        e.server.runCommandSilent(`title @a actionbar {"text":"Guard down!", "bold":true, "color":"white"}`)
-        e.server.runCommandSilent(`playsound minecraft:entity.allay.hurt master @a ~ ~ ~ 1 0.85 1`)
+
         data.put("killCount", data.get("killCount") + 1);
         /*if (e.source.entity.isPlayer()) {
             global.killCount++
@@ -219,13 +214,17 @@ EntityEvents.death(e => {
     }
 });
 
+PlayerEvents.respawned(e => {
+    e.server.runCommandSilent(`gamemode spectator ${e.entity.username}`)
+})
+
 /**
  * Respawns guards after a delay
  * @param {Player} guard 
  */
 function respawnGuard(guard) {
     guard.persistentData.respawnTime = 120;
-    guard.paint({ respawn_time: { visible: true } });
+    // guard.paint({ respawn_time: { visible: true } });
     //global.guards.forEach(guard => loadKit(guard, "guard", true)); // doesnt this load kits for every guard?
 }
 
