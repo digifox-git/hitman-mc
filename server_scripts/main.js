@@ -480,7 +480,7 @@ PlayerEvents.tick(e => {
         // Check if near window, crouching, and above window y level
         // If true, set isVaulting to true and set windowCoords to be used later
         if (distance < 1.5 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y) + 1) {
-            windowCoords = {x: window.x, y: window.y, z: window.z}
+            windowCoords = {x: window.x, y: window.y + 1, z: window.z}
             isVaulting = true
             break
         }
@@ -497,15 +497,15 @@ PlayerEvents.tick(e => {
         // Check if near window, crouching, and at vent y level
         // If true, set isVaulting to true and set windowCoords to be used later
 
-        if (distance < 1.1 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(vent.y)) {
-            windowCoords = {x: vent.x, y: vent.y, z: vent.z}
+        if (distance < 1.3 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(vent.y) - 1) {
+            windowCoords = {x: vent.x, y: vent.y - 1, z: vent.z}
             isVaulting = true
             break
         }
     }
 
     if (isVaulting == true) {
-        e.player.setPosition(windowCoords.x, windowCoords.y + 1, windowCoords.z) // Put player on top of window position. Lack of headroom = forced crawl
+        e.player.setPosition(windowCoords.x, windowCoords.y, windowCoords.z) // Put player on top of window position. Lack of headroom = forced crawl
         e.player.setForcedPose(Pose.SWIMMING) // Force to crawling pose just in case, might be redundant
         e.server.runCommandSilent(`execute at ${e.player.username} run playsound minecraft:block.iron_trapdoor.close player @a[distance=0..${audioBalance.windowVaultAudioRange}] ~ ~ ~ 1 0.8`)
         e.server.runCommandSilent(`execute at ${e.player.username} run playsound minecraft:block.ancient_debris.fall player @a[distance=0..${audioBalance.windowVaultAudioRange}] ~ ~ ~ 0.8 0.8`)
