@@ -183,13 +183,11 @@ EntityEvents.death(e => {
     let data = e.server.data;
     if (e.entity.tags.contains("target") && data.get("isGaming")) {
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
-        e.server.runCommandSilent(`playsound minecraft:entity.wither.spawn master @a ~ ~ ~ 1 1 1`)
-        e.server.runCommandSilent(`title @a actionbar {"text":"Target down!", "bold":true, "color":"red"}`)
         targetAlive = false
     } else if (e.entity.tags.contains("hitman")) {
         e.server.tell("Threat neutralized.");
         e.server.runCommandSilent(`playsound minecraft:entity.evoker.death master @a ~ ~ ~ 1 1 1`)
-        gpoints++
+        data.put("gpoints", data.get("gpoints") + 1);
         e.server.scheduleInTicks(20, () => {
             endRound(e.server)
         })
@@ -216,8 +214,8 @@ PlayerEvents.respawned(e => {
                 data.get("map").gSpawn.z
             );
             e.player.displayClientMessage(Component.blue("Back in action!"), true);
-            e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master @a ~ ~ ~ 1 1.2 1`)
-            e.server.runCommandSilent(`playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1 1`)
+            e.server.runCommandSilent(`playsound minecraft:entity.allay.ambient_without_item master ${e.player.username} ~ ~ ~ 1 1.2 1`)
+            e.server.runCommandSilent(`playsound minecraft:entity.enderman.teleport master ${e.player.username} ~ ~ ~ 1 1 1`)
             e.server.runCommandSilent(`particle minecraft:end_rod ${e.player.x} ${e.player.y} ${e.player.z} 0.4 1 0.4 0 50 force`)
             e.player.setGameMode('adventure')
             loadKit(e.server, e.player, "guard", true)
