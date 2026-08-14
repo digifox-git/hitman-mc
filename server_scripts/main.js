@@ -438,6 +438,18 @@ ServerEvents.commandRegistry(e => {
                 return 1
             })
     )
+
+    e.register(
+        Commands.literal('placeWallClimbBelowMe')
+            .executes(ctx => {
+                const player = ctx.source.player
+
+                ctx.source.server.runCommandSilent(
+                    `summon slime ${player.x} ${player.y - 1} ${player.z} {Size:0,Invulnerable:1b,NoAI:1b,NoGravity:1b,PersistenceRequired:1b,Silent:1b,active_effects:[{id:glowing,duration:100,amplifier:1,show_particles:0b,show_icon:0b}],Tags:["wallClimb"]}`
+                )
+                return 1
+            })
+    )
 })
 
 // Tick event for window vaulting/vent entering
@@ -482,6 +494,36 @@ PlayerEvents.tick(e => {
         e.player.potionEffects.add('minecraft:speed', 1, 6, false, false)
     }
     
+})
+
+PlayerEvents.tick(e => {
+    let wallClimbCoords = {}
+    let isClimbing = false
+    let data = e.server.data;
+
+    data.put("windows", selectE(e.server, "window")) // Get all slimes with "window" tag
+
+    for (const window of data.get("windows")) {
+        let distance = Math.hypot(
+            e.player.x - window.x,
+            e.player.y - window.y,
+            e.player.z - window.z
+        ) // Calculate distance from indexed window
+
+        // Check if near window, crouching, and above window y level
+        // If true, set isVaulting to true and set windowCoords to be used later
+        if (distance < 1.5 && Math.floor(e.player.y) == Math.floor(window.y) + 1) {
+            wallClimbCoords = {x: window.x, y: window.y, z: window.z}
+            isClimbing = true
+            break
+        } else {
+            isClimbing = false
+        }
+    }
+
+    if (isClimbing == true) {
+        e.player.potionEffects.add('minecraft:jump', 0.5, 0, false, false); // "INFINITE isnt defined"
+    }
 })
     
 
