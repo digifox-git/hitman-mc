@@ -457,6 +457,8 @@ PlayerEvents.tick(e => {
             isVaulting = false
         }
     }
+
+    const yaw = e.player.yRot * Math.PI / 180
     
     const xMotion = -Math.sin(yaw) * 0.35
     const zMotion =  Math.cos(yaw) * 0.35
