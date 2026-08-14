@@ -271,20 +271,21 @@ EntityEvents.spawned("minecraft:villager", e => {
 PlayerEvents.tick(e => {
     const Pose = Java.loadClass('net.minecraft.world.entity.Pose')
     let data = e.server.data
-    let windowPos = []
-    data.put(windowPos, [mapOptions[3].window[0].x, mapOptions[3].window[0].y, mapOptions[3].window[0].z])
+    let windowPos = [mapOptions[3].window[0].x, mapOptions[3].window[0].y, mapOptions[3].window[0].z]
 
-    let distance = Math.hypot(e.player.x - data.get(windowPos[0]), e.player.y - data.get(windowPos[1]), e.player.z - data.get(windowPos[2]))
-
-    if (distance < 3 && e.player.isCrouching()) {
-        e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
-        e.player.setPose(Pose.SWIMMING);
-    }
+    let distance = Math.hypot(e.player.x - windowPos[0], e.player.y - windowPos[1], e.player.z - windowPos[2])
 
     if (distance < 3 && e.player.isCrouching()) {
         e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
         e.player.setPose(Pose.SWIMMING);
     }
+
+    if (distance < 3 && e.player) {
+        e.player.potionEffects.add('minecraft:speed', 1, 2, false, false)
+        e.player.setPose(Pose.SWIMMING);
+    }
+
+    e.server.runCommandSilent(`particle minecraft:end_rod ${windowPos[0]} ${windowPos[1]} ${windowPos[2]} 0.4 1 0.4 0 50 force`)
 });
 
 BlockEvents.placed("kubejs:glow", e => {
