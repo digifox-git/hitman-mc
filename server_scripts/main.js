@@ -205,7 +205,7 @@ EntityEvents.death(e => {
         })
         e.server.runCommandSilent(`kill @e[type=minecraft:slime,tag=exit]`)
     } else if (e.entity.tags.contains("guard")) {
-
+        e.server.tell("[DEBUG] A guard died!")
         data.put("killCount", data.get("killCount") + 1);
         /*if (e.source.entity.isPlayer()) {
             global.killCount++
