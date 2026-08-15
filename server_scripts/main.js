@@ -427,7 +427,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 // })
 
 ServerEvents.commandRegistry(e => {
-    const { commands: Commands } = e
+    const { commands: Commands, arguments: Arguments } = e
 
     e.register(
         Commands.literal('placeWindowBelowMe')
@@ -454,10 +454,19 @@ ServerEvents.commandRegistry(e => {
     )
 
     e.register(
-        Commands.literal('gitpush')
-            .executes(ctx => {
-                git_push(e)
-            })
+        Commands.literal('setmap')
+            .then(
+                Commands.arguments('id', Arguments.INTEGER.create(e))
+                .executes(ctx => {
+                    const id = Arguments.INTEGER.getResult(ctx, 'amount')
+
+                    data.put("map", mapOptions[id]);
+                    e.server.runCommandSilent(`title @a actionbar "Map Selected: ${mapOptions[id]}"`)
+                    e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
+
+                    return 1
+                })
+            )
     )
 })
 
