@@ -475,12 +475,11 @@ PlayerEvents.tick(e => {
             e.player.y - window.y,
             e.player.z - window.z
         ) // Calculate distance from indexed window
-        
-        e.server.runCommandSilent(`title ${e.player.username} actionbar "${Math.floor(e.player.y)} / ${Math.floor(window.y)}"`)
 
         // Check if near window, crouching, and above window y level
         // If true, set isVaulting to true and set windowCoords to be used later
         if (distance < 1.6 && e.player.isCrouching() && Math.floor(e.player.y) >= Math.floor(window.y)) {
+            e.server.runCommandSilent(`title ${e.player.username} actionbar "${Math.floor(e.player.y)} / ${Math.floor(window.y)}"`)
             windowCoords = {x: window.x, y: window.y + 1, z: window.z}
             isVaulting = true
             break
