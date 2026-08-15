@@ -455,7 +455,7 @@ const Pose = Java.loadClass('net.minecraft.world.entity.Pose') // Load java clas
 PlayerEvents.tick(e => {
 
     // This code should only work for the hitman
-    if (!e.player.getTags().contains("hitman") || e.player.isSwimming()) {
+    if (!e.player.getTags().contains("hitman")) {
         return
     }
 
@@ -475,13 +475,13 @@ PlayerEvents.tick(e => {
             e.player.z - window.z
         ) // Calculate distance from indexed window
 
-        if (distance < 1.6) {
-            e.server.runCommandSilent(`title ${e.player.username} actionbar "${Math.floor(e.player.y)} / ${Math.floor(window.y)}"`)
-        }
+        // if (distance < 1.6) {
+        //     e.server.runCommandSilent(`title ${e.player.username} actionbar "${e.player.y} / ${Math.floor(window.y)}"`)
+        // }
 
         // Check if near window, crouching, and above window y level
         // If true, set isVaulting to true and set windowCoords to be used later
-        if (distance < 1.6 && e.player.isCrouching() && Math.floor(e.player.y) >= Math.floor(window.y)) {
+        if (distance < 1.6 && e.player.isCrouching() && e.player.y > Math.floor(window.y) + 1) {
 
             windowCoords = { x: window.x, y: window.y + 1, z: window.z }
             isVaulting = true
