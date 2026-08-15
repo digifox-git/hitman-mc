@@ -23,10 +23,10 @@ const theWoods = {
   },
   window: [
     {
-      
+
     }
   ],
-  difficulty: 15 
+  difficulty: 15
 } // !WARNING! - Map it unused (poorly designed/confusing layout)
 
 const freeformTraining = {
@@ -64,10 +64,15 @@ const freeformTraining = {
   ],
   window: [
     {
-      
+
     }
   ],
-  difficulty: 15 
+  npcs: [
+    NPC(102, -55, 58, "mechanic"),
+    NPC(74, -46, 27, "mechanic"),
+    NPC(66, -51, 40, "mechanic")
+  ],
+  difficulty: 15
 }
 const control = {
   spawnSelection: false,
@@ -94,7 +99,7 @@ const control = {
   ],
   window: [
     {
-      
+
     }
   ],
   difficulty: 15
