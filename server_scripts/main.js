@@ -456,7 +456,7 @@ const Pose = Java.loadClass('net.minecraft.world.entity.Pose') // Load java clas
 PlayerEvents.tick(e => {
 
     // This code should only work for the hitman
-    if (!e.player.getTags().contains("hitman")) {
+    if (!e.player.getTags().contains("hitman") || e.player.isSwimming()) {
         return
     }
 
