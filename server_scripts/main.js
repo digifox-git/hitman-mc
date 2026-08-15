@@ -482,7 +482,7 @@ PlayerEvents.tick(e => {
 
         // Check if near window, crouching, and above window y level
         // If true, set isVaulting to true and set windowCoords to be used later
-        if (distance < 1.6 && e.player.isCrouching() && Math.floor(e.player.y) > Math.floor(window.y) + 0.9) {
+        if (distance < 1.6 && e.player.isCrouching() && e.player.y > Math.floor(window.y) + 0.9) {
             
             windowCoords = {x: window.x, y: window.y + 1, z: window.z}
             isVaulting = true
