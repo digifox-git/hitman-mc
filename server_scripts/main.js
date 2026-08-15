@@ -461,7 +461,8 @@ ServerEvents.commandRegistry(e => {
     )
 })
 
-async function git_push(e) { // DELETE FUNCTION ON RELEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// DELETE FUNCTION ON RELEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+async function git_push(e) {
     let request = await fetch(`https://gitman.digifox.space/updategit`, { 
         method: "GET",
         "headers": {
