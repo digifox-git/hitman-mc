@@ -456,7 +456,7 @@ ServerEvents.commandRegistry(e => {
     e.register(
         Commands.literal('setmap')
             .then(
-                Commands.arguments('id', Arguments.INTEGER.create(e))
+                Commands.argument('id', Arguments.INTEGER.create(e))
                 .executes(ctx => {
                     const id = Arguments.INTEGER.getResult(ctx, 'amount')
 
