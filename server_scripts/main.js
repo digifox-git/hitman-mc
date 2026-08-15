@@ -118,6 +118,7 @@ function startRound(server) {
     data.put("killCount", 0);
     server.runCommandSilent(`easy_npc despawn @e`)
     map.npcs.forEach(npc => {
+        server.tell(`Loading NPC at ${npc.x} ${npc.y} ${npc.z}`)
         server.runCommandSilent(`easy_npc preset import world easy_npc:preset/humanoid/${npc.id}.npc.nbt ${npc.x} ${npc.y} ${npc.z}`)
     })
     server.runCommandSilent(`effect clear @a`);
