@@ -1,5 +1,15 @@
 priority: 1; // needs to be loaded before main.js 
 
+function newNPC(x, y, z, id) {
+  let npc = {
+    x: x,
+    y: y,
+    z: z,
+    id: id
+  }
+  return npc;
+}
+
 const theWoods = {
   spawnSelection: false,
   hSpawn: {
