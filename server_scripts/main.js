@@ -461,8 +461,8 @@ ServerEvents.commandRegistry(e => {
                     const data = ctx.source.server.data
                     const id = Arguments.INTEGER.getResult(ctx, 'id')
 
-                    data.put("map", mapOptions[id]);
-                    ctx.source.server.runCommandSilent(`title @a actionbar "Map Selected: ${mapOptions[id]}"`)
+                    data.put("map", mapOptions[id].name);
+                    ctx.source.server.runCommandSilent(`title @a actionbar "Map Selected: ${mapOptions[id].name}"`)
                     ctx.source.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
 
                     return 1
