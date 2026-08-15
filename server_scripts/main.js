@@ -156,7 +156,7 @@ function endGame(server) {
     } else {
         server.tell("Guards Win!");
     }
-    server.runCommandSilent(`tp @a 10000 -42 0`)
+    server.runCommandSilent(`tp @a 953 -36 1027.0`)
     server.runCommandSilent(`clear @a`)
     server.runCommandSilent(`effect clear @a`)
     server.runCommandSilent(`time set day`)
@@ -371,7 +371,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         e.server.runCommandSilent(`tp @p -8 -59 4`)
     }
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:cartography_table') {
-        e.server.runCommandSilent(`tp @p 10000 -42 0`)
+        e.server.runCommandSilent(`execute as ${e.player.username} run tp @s 953 -36 1027.0`)
     }
 
     // Map Selection
