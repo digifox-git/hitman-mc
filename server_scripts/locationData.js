@@ -68,9 +68,9 @@ const freeformTraining = {
     }
   ],
   npcs: [
-    NPC(102, -55, 58, "mechanic"),
-    NPC(74, -46, 27, "mechanic"),
-    NPC(66, -51, 40, "mechanic")
+    newNPC(102, -55, 58, "mechanic"),
+    newNPC(74, -46, 27, "mechanic"),
+    newNPC(66, -51, 40, "mechanic")
   ],
   difficulty: 15
 }
