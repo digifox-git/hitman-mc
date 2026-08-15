@@ -376,20 +376,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 
     // Map Selection
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:white_glazed_terracotta') {
-        e.server.runCommandSilent('title @a actionbar "Map Selected: ICA Training Facility"')
-        e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
-        data.put("map", mapOptions[0]);
-    }
-
-    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:light_gray_glazed_terracotta') {
-        e.server.runCommandSilent('title @a actionbar "Map Selected: Tethys Outpost"')
-        e.server.runCommandSilent('playsound minecraft:block.note_block.chime master @a ~ ~ ~ 1 1 1');
-        data.put("map", mapOptions[1]);
-    }
-    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:gray_glazed_terracotta') {
-        e.server.runCommandSilent('title @a actionbar "Map Selected: FBC Research Sector"')
-        e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
-        data.put("map", mapOptions[2]);
+        e.server.runCommandSilent(`openguiscreen map_selection ${e.player.username}`)
     }
 
     // Difficulty Selection
