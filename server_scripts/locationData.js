@@ -80,7 +80,28 @@ const freeformTraining = {
   npcs: [
     newNPC(102, -55, 58, "mechanic"),
     newNPC(74, -46, 27, "mechanic"),
-    newNPC(66, -51, 40, "mechanic")
+    newNPC(66, -51, 40, "mechanic"),
+    newNPC(82, -55, 33, "civilian"),
+    newNPC(63, -51, 48, "civilian"),
+    newNPC(64, -51, 48, "civilian"),
+    newNPC(67, -51, 44, "civilian"),
+    newNPC(61, -51, 33, "civilian"),
+    newNPC(61, -51, 34, "civilian"),
+    newNPC(68, -51, 28, "civilian"),
+    newNPC(68, -51, 29, "civilian"),
+    newNPC(65, -51, 27, "civilian"),
+    newNPC(65, -51, 28, "civilian"),
+    newNPC(57, -51, 29, "civilian"),
+    newNPC(70, -51, 28, "civilian"),
+    newNPC(70, -51, 27, "civilian"),
+    newNPC(73, -51, 20, "civilian"),
+    newNPC(74, -51, 20, "civilian"),
+    newNPC(75, -51, 21, "civilian"),
+    newNPC(75, -51, 22, "civilian"),
+    newNPC(65, -51, 16, "civilian"),
+    newNPC(67, -51, 16, "civilian"),
+    newNPC(63, -51, 76, "civilian"),
+    newNPC(62, -51, 76, "civilian")
   ],
   difficulty: 15
 }
