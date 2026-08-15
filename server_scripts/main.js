@@ -477,7 +477,7 @@ PlayerEvents.tick(e => {
         ) // Calculate distance from indexed window
         
         if (distance < 1.6) {
-            e.server.runCommandSilent(`title ${e.player.username} actionbar "${Math.floor(e.player.y)} / ${Math.floor(window.y)}"`)
+            e.server.runCommandSilent(`title ${e.player.username} actionbar "${e.player.y} / ${Math.floor(window.y)}"`)
         }
 
         // Check if near window, crouching, and above window y level
