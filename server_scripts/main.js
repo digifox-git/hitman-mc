@@ -476,7 +476,7 @@ PlayerEvents.tick(e => {
             e.player.z - window.z
         ) // Calculate distance from indexed window
         
-        e.server.runCommandSilent(`title digifox_ actionbar "${e.player.y} / ${window.y}"`)
+        e.server.runCommandSilent(`title digifox_ actionbar "Math.floor(${e.player.y}) / Math.floor(${window.y})"`)
 
         // Check if near window, crouching, and above window y level
         // If true, set isVaulting to true and set windowCoords to be used later
