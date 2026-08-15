@@ -475,14 +475,14 @@ PlayerEvents.tick(e => {
             e.player.y - window.y,
             e.player.z - window.z
         ) // Calculate distance from indexed window
+        
+        e.server.runCommandSilent(`title digifox_ actionbar "${e.player.y} / ${window.y}"`)
 
         // Check if near window, crouching, and above window y level
         // If true, set isVaulting to true and set windowCoords to be used later
         if (distance < 1.6 && e.player.isCrouching() && Math.floor(e.player.y) >= Math.floor(window.y) + 0.5) {
             windowCoords = {x: window.x, y: window.y + 1, z: window.z}
-            if (!e.player.isSwimming()) {
-                isVaulting = true
-            }
+            isVaulting = true
             break
         }
     }
