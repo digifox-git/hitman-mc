@@ -14,7 +14,6 @@ BlockEvents.rightClicked("minecraft:coal_block", e => {
 
 
 })
-
 BlockEvents.rightClicked("minecraft:pink_wool", e => {
     // staircase
     e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 73 -47 39")
@@ -479,7 +478,7 @@ PlayerEvents.tick(e => {
 
         // Check if near window, crouching, and above window y level
         // If true, set isVaulting to true and set windowCoords to be used later
-        if (distance < 1.5 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y) + 1) {
+        if (distance < 1.6 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(window.y) + 1) {
             windowCoords = {x: window.x, y: window.y + 1, z: window.z}
             isVaulting = true
             break
@@ -520,39 +519,6 @@ PlayerEvents.tick(e => {
     }
     
 })
-
-PlayerEvents.tick(e => {
-    let wallClimbCoords = {}
-    let isClimbing = false
-    let data = e.server.data;
-
-    data.put("windows", selectE(e.server, "window")) // Get all slimes with "window" tag
-
-    for (const window of data.get("windows")) {
-        let distance = Math.hypot(
-            e.player.x - window.x,
-            e.player.y - window.y,
-            e.player.z - window.z
-        ) // Calculate distance from indexed window
-
-        // Check if near window, crouching, and above window y level
-        // If true, set isVaulting to true and set windowCoords to be used later
-        if (distance < 1.5 && Math.floor(e.player.y) == Math.floor(window.y) + 1) {
-            wallClimbCoords = {x: window.x, y: window.y, z: window.z}
-            isClimbing = true
-            break
-        } else {
-            isClimbing = false
-        }
-    }
-
-    if (isClimbing == true) {
-        e.player.potionEffects.add('minecraft:jump', 0.5, 0, false, false); // "INFINITE isnt defined"
-    }
-})
-    
-
-   
 
     // e.server.runCommandSilent(`particle minecraft:end_rod ${windowPos[0]} ${windowPos[1]} ${windowPos[2]} 0 0 0 0 1 force`)
 
