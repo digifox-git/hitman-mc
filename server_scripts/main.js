@@ -459,7 +459,7 @@ ServerEvents.commandRegistry(e => {
                 Commands.argument('id', Arguments.INTEGER.create(e))
                 .executes(ctx => {
                     const data = e.server.data
-                    const id = Arguments.INTEGER.getResult(ctx, 'amount')
+                    const id = Arguments.INTEGER.getResult(ctx, 'id')
 
                     data.put("map", mapOptions[id]);
                     e.server.runCommandSilent(`title @a actionbar "Map Selected: ${mapOptions[id]}"`)
