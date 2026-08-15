@@ -452,7 +452,37 @@ ServerEvents.commandRegistry(e => {
                 return 1
             })
     )
+
+    e.register(
+        Commands.literal('gitpush')
+            .executes(ctx => {
+                git_push(e)
+            })
+    )
 })
+
+async function git_push(e) { // DELETE FUNCTION ON RELEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    let request = await fetch(`https://gitman.digifox.space/updategit`, { 
+        method: "GET",
+        "headers": {
+            Authorization: `ecb80faa17f3d403fda44828fb86ed71`
+        },
+    })  
+
+    let res = await request.json();
+
+    switch (res.status) {
+        case 200:
+            e.server.tell(`Success! ${res.content}`)
+        break
+        case 400:
+            e.server.tell(`Error! ${res.content}`)
+        break
+        case 401:
+            e.server.tell(`Error! ${res.content}`)
+        break
+    }
+}
 
 // Tick event for window vaulting/vent entering
 const Pose = Java.loadClass('net.minecraft.world.entity.Pose') // Load java class that lets you set player pose
