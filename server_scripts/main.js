@@ -214,6 +214,8 @@ BlockEvents.rightClicked('minecraft:purple_concrete_powder', e => {
 EntityEvents.death(e => {
     let data = e.server.data;
     if (e.entity.tags.contains("target") && data.get("isGaming")) {
+        e.server.runCommandSilent(`playsound minecraft:entity.wither.spawn master @a ~ ~ ~ 1 1 1`)
+        e.server.runCommandSilent(`title @a actionbar {"text":"Target down!", "bold":true, "color":"red"}`)
         e.server.runCommandSilent(`effect give @e[tag=exit] minecraft:glowing infinite 0 true`);
         data.put("targetAlive", false);
     } else if (e.entity.tags.contains("hitman")) {
