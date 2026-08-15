@@ -41,18 +41,13 @@ BlockEvents.rightClicked("minecraft:pink_wool", e => {
 })
 
 
-
-BlockEvents.rightClicked("minecraft:red_wool", e => {
-
-})
-
 /**
  * Event when interacting with entities
  */
 ItemEvents.entityInteracted(e => {
     let data = e.server.data;
     if (e.target.type == 'minecraft:slime' && !data.get("targetAlive") && e.player.tags.contains("hitman")) {
-        e.level.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
+        e.server.runCommandSilent(`effect clear @e[tag=exit] minecraft:glowing`);
         data.put("hpoints", data.get("hpoints") + 1);
         e.server.runCommandSilent(`title @a title {"text":"Hitman escaped!", "bold":true, "color":"red"}`)
         e.server.runCommandSilent(`playsound minecraft:item.trident.thunder master @a ~ ~ ~ 1 1 1`)
@@ -121,6 +116,10 @@ function startRound(server) {
     let data = server.data;
     let map = data.get("map");
     data.put("killCount", 0);
+    server.runCommandSilent(`easy_npc despawn @e`)
+    map.npcs.forEach(npc => {
+        server.runCommandSilent(`easy_npc preset import world easy_npc:preset/humanoid/${npc.id}.npc.nbt ${npc.x} ${npc.y} ${npc.z}`)
+    })
     server.runCommandSilent(`effect clear @a`);
     data.put("isGaming", true);
     server.tell("Starting Round...");
@@ -475,16 +474,16 @@ PlayerEvents.tick(e => {
             e.player.y - window.y,
             e.player.z - window.z
         ) // Calculate distance from indexed window
-        
-        // if (distance < 1.6) {
-        //     e.server.runCommandSilent(`title ${e.player.username} actionbar "${e.player.y} / ${Math.floor(window.y)}"`)
-        // }
+
+        if (distance < 1.6) {
+            e.server.runCommandSilent(`title ${e.player.username} actionbar "${e.player.y} / ${Math.floor(window.y)}"`)
+        }
 
         // Check if near window, crouching, and above window y level
         // If true, set isVaulting to true and set windowCoords to be used later
         if (distance < 1.6 && e.player.isCrouching() && e.player.y > Math.floor(window.y) + 1) {
-            
-            windowCoords = {x: window.x, y: window.y + 1, z: window.z}
+
+            windowCoords = { x: window.x, y: window.y + 1, z: window.z }
             isVaulting = true
             break
         }
@@ -502,7 +501,7 @@ PlayerEvents.tick(e => {
         // If true, set isVaulting to true and set windowCoords to be used later
 
         if (distance < 2 && e.player.isCrouching() && Math.floor(e.player.y) == Math.floor(vent.y) - 1) {
-            windowCoords = {x: vent.x, y: vent.y + 1, z: vent.z}
+            windowCoords = { x: vent.x, y: vent.y + 1, z: vent.z }
             isVaulting = true
             break
         }
@@ -522,10 +521,10 @@ PlayerEvents.tick(e => {
         e.player.potionEffects.add('minecraft:speed', 1, 6, false, false)
         e.player.setAirSupply(oxygen - 5)
     }
-    
+
 })
 
-    // e.server.runCommandSilent(`particle minecraft:end_rod ${windowPos[0]} ${windowPos[1]} ${windowPos[2]} 0 0 0 0 1 force`)
+// e.server.runCommandSilent(`particle minecraft:end_rod ${windowPos[0]} ${windowPos[1]} ${windowPos[2]} 0 0 0 0 1 force`)
 
 // ServerEvents.customCommand('setMap0', e => {
 //     data.put("map", mapOptions[0]);
