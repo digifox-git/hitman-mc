@@ -480,7 +480,9 @@ PlayerEvents.tick(e => {
         // If true, set isVaulting to true and set windowCoords to be used later
         if (distance < 1.6 && e.player.isCrouching() && Math.floor(e.player.y) >= Math.floor(window.y) + 0.5) {
             windowCoords = {x: window.x, y: window.y + 1, z: window.z}
-            isVaulting = true
+            if (!e.player.isSwimming()) {
+                isVaulting = true
+            }
             break
         }
     }
