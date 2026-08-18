@@ -75,7 +75,7 @@ ItemEvents.entityInteracted('minecraft:prismarine_crystals', e => {
     const nbt = entity.saveWithoutId()
 
     if (entity.type = "easy_npc:humanoid") {
-        player.tell("Yup")
+        e.server.runCommandSilent("say Yup")
     }
 })
 
