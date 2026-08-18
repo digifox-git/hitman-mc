@@ -71,7 +71,7 @@ ItemEvents.entityInteracted('minecraft:prismarine_crystals', e => {
     const entity = e.target
     if (entity.type == "easy_npc:humanoid") {
         let nbt = entity.getNbt()
-        e.player.tell(nbt)
+        e.player.tell(nbt.SkinData.Name)
     }
 })
 
