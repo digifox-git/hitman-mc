@@ -457,16 +457,16 @@ ServerEvents.commandRegistry(e => {
         Commands.literal('setmap')
             .then(
                 Commands.argument('id', Arguments.INTEGER.create(e))
-                .executes(ctx => {
-                    const data = ctx.source.server.data
-                    const id = Arguments.INTEGER.getResult(ctx, 'id')
+                    .executes(ctx => {
+                        const data = ctx.source.server.data
+                        const id = Arguments.INTEGER.getResult(ctx, 'id')
 
-                    data.put("map", mapOptions[id].name);
-                    ctx.source.server.runCommandSilent(`title @a actionbar "Map Selected: ${mapOptions[id].name}"`)
-                    ctx.source.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
+                        data.put("map", mapOptions[id].name);
+                        ctx.source.server.runCommandSilent(`title @a actionbar "Map Selected: ${mapOptions[id].name}"`)
+                        ctx.source.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
 
-                    return 1
-                })
+                        return 1
+                    })
             )
     )
 })
@@ -544,6 +544,15 @@ PlayerEvents.tick(e => {
         e.player.setAirSupply(oxygen - 5)
     }
 
+})
+
+EntityEvents.afterHurt(e => {
+    if (e.getSource().getType() == "arrow") {
+        e.entity.addTag("ragdoll")
+        e.server.tell("[DEBUG] KILL THIS MAN!")
+        e.server.runCommandSilent(`ragdoll @a[tag=ragdoll] 100 0 ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
+        e.entity.removeTag("ragdoll")
+    }
 })
 
 // e.server.runCommandSilent(`particle minecraft:end_rod ${windowPos[0]} ${windowPos[1]} ${windowPos[2]} 0 0 0 0 1 force`)
