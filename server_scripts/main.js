@@ -156,7 +156,7 @@ function endGame(server) {
     } else {
         server.tell("Guards Win!");
     }
-    server.runCommandSilent(`tp @a 10000 -42 0`)
+    server.runCommandSilent(`tp @a 953 -36 1027.0`)
     server.runCommandSilent(`clear @a`)
     server.runCommandSilent(`effect clear @a`)
     server.runCommandSilent(`time set day`)
@@ -371,25 +371,12 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
         e.server.runCommandSilent(`tp @p -8 -59 4`)
     }
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:cartography_table') {
-        e.server.runCommandSilent(`tp @p 10000 -42 0`)
+        e.server.runCommandSilent(`execute as ${e.player.username} run tp @s 953 -36 1027.0`)
     }
 
     // Map Selection
     if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:white_glazed_terracotta') {
-        e.server.runCommandSilent('title @a actionbar "Map Selected: ICA Training Facility"')
-        e.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
-        data.put("map", mapOptions[0]);
-    }
-
-    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:light_gray_glazed_terracotta') {
-        e.server.runCommandSilent('title @a actionbar "Map Selected: Tethys Outpost"')
-        e.server.runCommandSilent('playsound minecraft:block.note_block.chime master @a ~ ~ ~ 1 1 1');
-        data.put("map", mapOptions[1]);
-    }
-    if (e.level.getBlock(e.block.x, e.block.y - 2, e.block.z) == 'minecraft:gray_glazed_terracotta') {
-        e.server.runCommandSilent('title @a actionbar "Map Selected: FBC Research Sector"')
-        e.server.runCommandSilent('playsound minecraft:block.note_block.harp master @a ~ ~ ~ 1 1 1');
-        data.put("map", mapOptions[2]);
+        e.server.runCommandSilent(`openguiscreen map_selection ${e.player.username}`)
     }
 
     // Difficulty Selection
@@ -427,7 +414,7 @@ BlockEvents.rightClicked("kubejs:monitor", e => {
 // })
 
 ServerEvents.commandRegistry(e => {
-    const { commands: Commands } = e
+    const { commands: Commands, arguments: Arguments } = e
 
     e.register(
         Commands.literal('placeWindowBelowMe')
@@ -452,7 +439,25 @@ ServerEvents.commandRegistry(e => {
                 return 1
             })
     )
+
+    e.register(
+        Commands.literal('setmap')
+            .then(
+                Commands.argument('id', Arguments.INTEGER.create(e))
+                .executes(ctx => {
+                    const data = ctx.source.server.data
+                    const id = Arguments.INTEGER.getResult(ctx, 'id')
+
+                    data.put("map", mapOptions[id].name);
+                    ctx.source.server.runCommandSilent(`title @a actionbar "Map Selected: ${mapOptions[id].name}"`)
+                    ctx.source.server.runCommandSilent('playsound minecraft:block.note_block.bit master @a ~ ~ ~ 1 1 1');
+
+                    return 1
+                })
+            )
+    )
 })
+
 
 // Tick event for window vaulting/vent entering
 const Pose = Java.loadClass('net.minecraft.world.entity.Pose') // Load java class that lets you set player pose

@@ -11,6 +11,7 @@ function newNPC(x, y, z, id) {
 }
 
 const theWoods = {
+  name: "Tethys Outpost",
   spawnSelection: false,
   hSpawn: {
     x: -176,
@@ -40,6 +41,7 @@ const theWoods = {
 } // !WARNING! - Map it unused (poorly designed/confusing layout)
 
 const freeformTraining = {
+  name: "ICU Training Facility",
   spawnSelection: false,
   hSpawn: {
     x: 101,
@@ -128,6 +130,7 @@ const freeformTraining = {
   difficulty: 15
 }
 const control = {
+  name: "Federal Bureau of Control",
   spawnSelection: false,
   hSpawn: {
     x: -115,
@@ -159,6 +162,7 @@ const control = {
 }
 
 const warehouse = {
+  name: "Warehouse",
   spawnSelection: false,
   hSpawn: {
     x: -62,
@@ -190,6 +194,7 @@ const warehouse = {
 }
 
 const cubaTraining = {
+  name: "Cuba Training",
   spawnSelection: false,
   hSpawn: {
     x: 0,
@@ -228,6 +233,6 @@ const cubaTraining = {
 }
 
 
-const mapOptions = [freeformTraining, theWoods, control, cubaTraining]
+const mapOptions = [freeformTraining, theWoods, control, cubaTraining, warehouse]
 
 // You *should* be able to put a number in for time, but no clue if it works.
