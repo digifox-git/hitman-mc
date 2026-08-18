@@ -69,7 +69,7 @@ ItemEvents.entityInteracted(e => {
 
 ItemEvents.entityInteracted('minecraft:prismarine_crystals', e => {
     const player = e.player
-    const entity = e.entity
+    const entity = e.target
     const item = e.item
 
     const nbt = entity.saveWithoutId()
