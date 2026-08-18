@@ -70,8 +70,8 @@ ItemEvents.entityInteracted(e => {
 ItemEvents.entityInteracted('minecraft:prismarine_crystals', e => {
     const entity = e.target
     if (entity.type == "easy_npc:humanoid") {
-        let nbt = entity.saveWithoutId()
-        e.server.runCommandSilent("say Yup")
+        let nbt = entity.getNbt()
+        e.player.tell(nbt)
     }
 })
 
