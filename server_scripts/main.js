@@ -546,7 +546,7 @@ EntityEvents.beforeHurt(e => {
     let damage = e.getSource().getType();
     e.server.tell(damage);
     if (damage == "trident" || damage == "fall") {
-        e.server.tell(e.entity);
+        e.server.tell(e.entity.getName());
         if (e.entity.getName() == "civilian") {
             e.server.runCommandSilent(`sable_player_ragdoll dummy profile vicen_Ho ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
             e.server.runCommandSilent(`easynpc despawn ${e.entity.UUID}`)
