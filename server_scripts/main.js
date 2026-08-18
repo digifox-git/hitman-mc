@@ -67,7 +67,7 @@ ItemEvents.entityInteracted(e => {
     }
 });
 
-ItemEvents.entityInteracted('minecraft:stick', e => {
+ItemEvents.entityInteracted('minecraft:amethyst_shard', e => {
     const player = e.player
     const entity = e.entity
     const item = e.item
