@@ -14,6 +14,7 @@ BlockEvents.rightClicked("minecraft:coal_block", e => {
 
 
 })
+
 BlockEvents.rightClicked("minecraft:pink_wool", e => {
     // staircase
     e.server.runCommandSilent("easy_npc navigation set home 6b793098-9695-421a-a1ac-1021de9f7c41 73 -47 39")
@@ -65,6 +66,18 @@ ItemEvents.entityInteracted(e => {
         data.put("points", currPoints + data.get("points"));
     }
 });
+
+ItemEvents.entityInteracted('minecraft:prismarine_crystals', e => {
+    const player = e.player
+    const entity = e.entity
+    const item = e.item
+
+    const nbt = entity.saveWithoutId()
+
+    if (entity.type == "easy_npc:humanoid") {
+        e.server.runCommandSilent("say Yup")
+    }
+})
 
 /**
  * Starts the game initialization
