@@ -68,7 +68,10 @@ ItemEvents.entityInteracted(e => {
 });
 
 ItemEvents.entityInteracted('minecraft:prismarine_crystals', e => {
-    e.server.runCommandSilent("say Yup")
+    const entity = e.target
+    if (entity.type == "easy_npc:humanoid") {
+        e.server.runCommandSilent("say Yup")
+    }
 })
 
 /**
