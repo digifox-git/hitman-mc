@@ -547,6 +547,7 @@ PlayerEvents.tick(e => {
 })
 
 EntityEvents.afterHurt(e => {
+    e.server.tell(e.getSource().getType());
     if (e.getSource().getType() == "arrow") {
         e.entity.addTag("ragdoll")
         e.server.tell("[DEBUG] KILL THIS MAN!")
