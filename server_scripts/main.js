@@ -543,14 +543,19 @@ PlayerEvents.tick(e => {
 })
 
 EntityEvents.beforeHurt(e => {
-
-    e.server.tell(e.getSource().getType());
-    if (e.getSource().getType() == "trident") {
-        e.setDamage(0);
-        e.entity.addTag("ragdoll")
-        e.server.tell("[DEBUG] KILL THIS MAN!")
-        e.server.runCommandSilent(`ragdoll @a[tag=ragdoll] 100 0 ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
-        e.entity.removeTag("ragdoll")
+    let damage = e.getSource().getType();
+    e.server.tell(damage);
+    if (damage == "trident" || damage == "fall") {
+        e.server.tell(e.entity.getName());
+        if (e.entity.getName() == "civilian") {
+            e.server.runCommandSilent(`sable_player_ragdoll dummy profile vicen_Ho ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
+            e.server.runCommandSilent(`easynpc despawn ${e.entity.UUID}`)
+        } else {
+            e.setDamage(0);
+            e.entity.addTag("ragdoll")
+            e.server.runCommandSilent(`ragdoll @a[tag=ragdoll] 100 0 ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
+            e.entity.removeTag("ragdoll")
+        }
     }
 })
 
