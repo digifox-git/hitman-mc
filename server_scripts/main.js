@@ -71,7 +71,10 @@ ItemEvents.entityInteracted('minecraft:prismarine_crystals', e => {
     const entity = e.target
     if (entity.type == "easy_npc:humanoid") {
         let nbt = entity.getNbt()
-        e.player.tell(nbt.SkinData.Name)
+        let skin = nbt.SkinData.Name
+        e.server.runCommandSilent(`skinshifter set ${e.player.username} ${skin}`)
+        e.server.runCommandSilent(`playsound minecraft:entity.breeze.jump master @a[distance=0..16] ~ ~ ~ 0.75 1`)
+        e.server.runCommandSilent(`playsound minecraft:item.armor.equip_leather master @a[distance=0..512] ~ ~ ~ 1 1`)
     }
 })
 
