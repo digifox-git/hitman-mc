@@ -542,13 +542,16 @@ PlayerEvents.tick(e => {
 
 })
 
+const SKINS = {
+    civilian: "vicen_Ho"
+}
+
 EntityEvents.beforeHurt(e => {
     let damage = e.getSource().getType();
     e.server.tell(damage);
     if (damage == "trident" || damage == "fall") {
-        e.server.tell(e.entity.getName());
-        if (e.entity.getName() == "civilian") {
-            e.server.runCommandSilent(`sable_player_ragdoll dummy profile vicen_Ho ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
+        if (e.entity.getType() == "easy_npc:humanoid") {
+            e.server.runCommandSilent(`sable_player_ragdoll dummy profile ${SKINS[e.entity.getName()]} ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
             e.server.runCommandSilent(`easynpc despawn ${e.entity.UUID}`)
         } else {
             e.setDamage(0);
