@@ -549,16 +549,14 @@ const SKINS = {
 EntityEvents.beforeHurt(e => {
     let damage = e.getSource().getType();
     e.server.tell(damage);
-    if (damage == "trident" || damage == "fall") {
-        if (e.entity.getType() == "easy_npc:humanoid") {
-            e.server.runCommandSilent(`sable_player_ragdoll dummy profile ${SKINS[e.entity.getName()]} ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
-            e.server.runCommandSilent(`easynpc despawn ${e.entity.UUID}`)
-        } else {
-            e.setDamage(0);
-            e.entity.addTag("ragdoll")
-            e.server.runCommandSilent(`ragdoll @a[tag=ragdoll] 100 0 ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
-            e.entity.removeTag("ragdoll")
-        }
+    if (e.entity.getType() == "easy_npc:humanoid") {
+        e.server.runCommandSilent(`sable_player_ragdoll dummy profile ${SKINS[e.entity.getName()]} ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
+        e.server.runCommandSilent(`easynpc despawn ${e.entity.UUID}`)
+    } else if (e.entity.getType() == "player" && (damage == "trident" || damage == "fall")) {
+        e.setDamage(0);
+        e.entity.addTag("ragdoll")
+        e.server.runCommandSilent(`ragdoll @a[tag=ragdoll] 100 0 ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
+        e.entity.removeTag("ragdoll")
     }
 })
 
