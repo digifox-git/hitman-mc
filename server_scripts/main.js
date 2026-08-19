@@ -549,6 +549,7 @@ const SKINS = {
 EntityEvents.beforeHurt(e => {
     let damage = e.getSource().getType();
     e.server.tell(damage);
+    e.server.tell(e.entity.getType());
     if (e.entity.getType() == "easy_npc:humanoid") {
         e.server.runCommandSilent(`sable_player_ragdoll dummy profile ${SKINS[e.entity.getName()]} ${e.entity.x} ${e.entity.y} ${e.entity.z}`)
         e.server.runCommandSilent(`easynpc despawn ${e.entity.UUID}`)
