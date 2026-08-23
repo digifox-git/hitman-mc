@@ -550,8 +550,7 @@ const SKINS = {
 EntityEvents.beforeHurt(e => {
     let damage = e.getSource().getType();
     if (e.entity.getType() == "easy_npc:humanoid") {
-        e.server.tell(e.entity.getYHeadRot());
-        e.server.runCommandSilent(`sable_player_ragdoll dummy profile ${SKINS[e.entity.getName()]} ${e.entity.x} ${e.entity.y} ${e.entity.z} 1`)
+        e.server.runCommandSilent(`sable_player_ragdoll dummy profile ${SKINS[e.entity.getName()]} ${e.entity.x} ${e.entity.y} ${e.entity.z} ${e.entity.getYHeadRot()}`)
         e.entity.addTag("despawn")
         e.server.runCommandSilent(`easy_npc despawn @e[tag=despawn]`)
     } else if (e.entity.getType() == "player" && (damage == "trident" || damage == "fall")) {
