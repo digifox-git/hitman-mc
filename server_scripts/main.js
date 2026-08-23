@@ -552,8 +552,8 @@ EntityEvents.beforeHurt(e => {
     if (e.entity.getType() == "easy_npc:humanoid") {
         e.server.tell("THIS IS AN NPC!");
         e.server.runCommandSilent(`sable_player_ragdoll dummy profile ${SKINS[e.entity.getName()]} ${e.entity.x} ${e.entity.y} ${e.entity.z} 1`)
-        e.server.tell(e.entity.UUID);
-        e.server.runCommandSilent(`easynpc despawn ${e.entity.UUID}`)
+        e.entity.addTag("despawn")
+        e.server.runCommandSilent(`easynpc despawn @e[tag=despawn]`)
     } else if (e.entity.getType() == "player" && (damage == "trident" || damage == "fall")) {
         e.setDamage(0);
         e.entity.addTag("ragdoll")
